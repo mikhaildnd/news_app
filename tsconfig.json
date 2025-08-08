@@ -1,31 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    // Подсвечивает все места, где не указан тип
-    // Однако, это не означает, что теперь вовсе нельзя использовать any
-    // Это ознчает лишь, что в подобных ситуациях разрааботчик должен явно писать any
     "noImplicitAny": true,
     "module": "ESNext",
-    // В какую спецификацию компилируется код
     "target": "es5",
     "jsx": "react",
-    // Компилятор будет обрабатывать не только ts файлы, но и js файлы
     "allowJs": true,
     "moduleResolution": "node",
-    // Для абсолютного импорта
-    "baseUrl": ".",
-    // esModuleInterop позволяет работать с пакетами, которые используют CommonJS
-    // как с обычными пакетами с помощью импорта, вместо commonjs require
     "esModuleInterop": true,
-    //https://webpack.js.org/configuration/configuration-languages/#typescript
-    // Если какая либо библотека не имеет default import
-    // лоадеры вроде ts-loader или babel-loader автоматически создают их
-    // вместо такого импорта import * as React from 'react';
-    /// можно писать такой import React from 'react';
     "allowSyntheticDefaultImports": true
-    //https://webpack.js.org/configuration/configuration-languages/#typescript
   },
-  // ts-node does not support any module syntax other than commonjs
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
