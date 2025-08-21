@@ -27,4 +27,4 @@ dist-ssr
 /build
 
 *storybook.log
-storybook-static
+/storybook-static
