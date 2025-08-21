@@ -33,7 +33,7 @@ jobs:
         run: npm run test:ui:ci
       - name: upload loki difference
         if: always() # чтобы артефакт сохранялся даже при ошибках тестов
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: loki-difference
           path: .loki/difference
