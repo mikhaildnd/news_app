@@ -3,12 +3,12 @@ module.exports = {
     diffingEngine: 'pixelmatch',
     configurations: {
         'chrome.laptop': {
-            target: 'chrome.app',
+            target: 'chrome.docker',
             width: 1366,
             height: 768,
         },
         'chrome.iphone7': {
-            target: 'chrome.app',
+            target: 'chrome.docker',
             preset: 'iPhone 7',
         },
     },
