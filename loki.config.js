@@ -13,7 +13,10 @@ module.exports = {
         },
     },
     async beforeScreenshot(page) {
-        // Ждём пока все шрифты будут загружены
-        await page.evaluate(() => document.fonts.ready);
+        // Ждём пока все шрифты прогрузятся
+        await page.evaluate(() => document.fonts.ready.then(() => true));
+
+        // Дополнительно ждём хотя бы 300мс на отрисовку
+        await page.waitForTimeout(300);
     },
 };
