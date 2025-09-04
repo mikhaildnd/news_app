@@ -1,5 +1,6 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
+import { userReducer } from 'entities/User';
 import { StateSchema } from './StateSchema';
 
 export function createReduxStore(initialState?: StateSchema) {
@@ -8,10 +9,13 @@ export function createReduxStore(initialState?: StateSchema) {
     // В продакшн-сборке — будет "production", DevTools отключатся.
     const isDev = process.env.NODE_ENV === 'development';
 
+    const rootReducers: ReducersMapObject<StateSchema> = {
+        counter: counterReducer,
+        user: userReducer,
+    };
+
     return configureStore<StateSchema>({
-        reducer: {
-            counter: counterReducer,
-        },
+        reducer: rootReducers,
         devTools: isDev,
         // devTools: __IS_DEV__,
         preloadedState: initialState,
