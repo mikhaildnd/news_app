@@ -1,8 +1,10 @@
 name: linting, testing, building
 
 on:
+  push:
+    branches: [ main, develop ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ main, develop ]
 
 # 🔹 Общие параметры для всех job
 x-job-defaults: &job-defaults
