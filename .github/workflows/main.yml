@@ -4,79 +4,94 @@ on:
   pull_request:
     branches: [ master, develop ]
 
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 22.x ]
+# 🔹 Общие параметры для всех job
+x-job-defaults: &job-defaults
+  runs-on: ubuntu-latest
+  strategy:
+    matrix:
+      node-version: [22.x]   # 👈 меняешь версию Node.js только здесь
 
+jobs:
+  # -------------------- LINT --------------------
+  lint:
+    <<: *job-defaults
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
 
-      - run: npm ci
-      - run: npm run lint:ts
-      - run: npm run lint:scss
+      # Устанавливаем Node.js и зависимости
+      - uses: ./.github/actions/setup-node
 
+      # Проверка TypeScript
+      - name: Lint TypeScript
+        run: npm run lint:ts
+
+      # Проверка SCSS
+      - name: Lint SCSS
+        run: npm run lint:scss
+
+  # -------------------- BUILD --------------------
   build:
-    runs-on: ubuntu-latest
+    <<: *job-defaults
     needs: lint
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-          cache: npm
 
-      - run: npm ci
-      - run: npm run build:prod
+      # Устанавливаем Node.js и зависимости
+      - uses: ./.github/actions/setup-node
 
+      # Собираем production-бандл
+      - name: Build production project
+        run: npm run build:prod
+
+  # -------------------- UNIT TESTS --------------------
   test:
-    runs-on: ubuntu-latest
+    <<: *job-defaults
     needs: build
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-          cache: npm
 
-      - run: npm ci
-      - run: npm run test:unit
+      # Устанавливаем Node.js и зависимости
+      - uses: ./.github/actions/setup-node
 
+      # Запускаем юнит-тесты
+      - name: Run unit tests
+        run: npm run test:unit
+
+  # -------------------- SCREENSHOT TESTS --------------------
   screenshot-tests:
-    runs-on: ubuntu-latest
+    <<: *job-defaults
     needs: build
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22.x
-          cache: npm
 
-      - run: npm ci
+      # Устанавливаем Node.js и зависимости
+      - uses: ./.github/actions/setup-node
 
-      # 🔹 кешируем Storybook билд
+      # Кэшируем сборку Storybook (чтобы не билдить каждый раз)
       - name: Cache Storybook build
+        id: storybook-cache
         uses: actions/cache@v4
         with:
           path: storybook-static
-          key: ${{ runner.os }}-storybook-${{ hashFiles('package-lock.json', '**/*.stories.@(js|jsx|ts|tsx|mdx)') }}
+          key: >-
+            ${{ runner.os }}-${{ matrix.node-version }}-storybook-
+            ${{ hashFiles('package-lock.json', '**/*.stories.@(js|jsx|ts|tsx|mdx)') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-storybook-
 
-      # 🔹 билдим Storybook, только если кеша нет
-      - run: npm run storybook:build
-        if: steps.cache.outputs.cache-hit != 'true'
+      # Если кэш не найден → билдим Storybook
+      - name: Build Storybook
+        if: steps.storybook-cache.outputs.cache-hit != 'true'
+        run: npm run storybook:build
 
-      # запускаем скриншотные тесты
-      - run: npm run test:ui:ci
+      # Запускаем визуальные (скриншотные) тесты
+      - name: Run screenshot tests
+        run: npm run test:ui:ci
 
+      # Если тесты упали → сохраняем различия
       - name: Upload Loki difference
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: loki-difference
+          name: loki-difference-${{ matrix.node-version }}
           path: .loki/difference

@@ -1,5 +1,13 @@
-name: setup-node
-author: dundu
-description: setup-node
+name: "Setup Node.js and install deps"
+description: "Sets up Node.js with caching and installs dependencies"
+
 runs:
-  using:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: npm
+
+    - run: npm ci
+      shell: bash
