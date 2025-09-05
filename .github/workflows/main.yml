@@ -1,43 +1,81 @@
 name: linting, testing, building
+
 on:
-  push:
-    branches: [ master, develop ]
   pull_request:
     branches: [ master, develop ]
+
 jobs:
-  pipeline:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 22.11.0 ]
+        node-version: [ 22.x ]
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Starting Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install modules
-        run: npm install
-      - name: build production project
-        run: npm run build:prod
-        if: always()
-      - name: linting typescript
-        run: npm run lint:ts
-        if: always()
-      - name: linting scss
-        run: npm run lint:scss
-      - name: unit testing
-        if: always()
-        run: npm run test:unit
-      - name: build storybook
-        run: npm run storybook:build
-        if: always()
-      - name: screenshot testing
-        run: npm run test:ui:ci
-        if: always()
-      - name: upload loki difference
-        if: always() # чтобы артефакт сохранялся даже при ошибках тестов
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint:ts
+      - run: npm run lint:scss
+
+  build:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build:prod
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - run: npm ci
+      - run: npm run test:unit
+
+  screenshot-tests:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+
+      - run: npm ci
+
+      # 🔹 кешируем Storybook билд
+      - name: Cache Storybook build
+        uses: actions/cache@v4
+        with:
+          path: storybook-static
+          key: ${{ runner.os }}-storybook-${{ hashFiles('package-lock.json', '**/*.stories.@(js|jsx|ts|tsx|mdx)') }}
+
+      # 🔹 билдим Storybook, только если кеша нет
+      - run: npm run storybook:build
+        if: steps.cache.outputs.cache-hit != 'true'
+
+      # запускаем скриншотные тесты
+      - run: npm run test:ui:ci
+
+      - name: Upload Loki difference
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: loki-difference
