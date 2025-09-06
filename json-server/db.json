@@ -25,5 +25,14 @@
       "password": "123"
     }
   ],
-  "profile": { "name": "typicode" }
+  "profile": {
+    "firstname": "Mikhail",
+    "lastname": "Dundukov",
+    "age": "33",
+    "currency": "KZT",
+    "country": "Kazakhstan",
+    "city": "Almaty",
+    "username": "admin",
+    "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
+  }
 }
