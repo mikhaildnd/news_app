@@ -18,15 +18,6 @@
     margin-left: 20px;
 }
 
-.link {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: 100%;
-    opacity: 1;
-    transition: max-width 0.3s ease, opacity 0.4s ease;
-}
-
 .collapsedBtn {
     position: absolute;
     right: -32px;
@@ -42,16 +33,6 @@
     gap: 10px;
 }
 
-.item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.icon {
-    fill: var(--inverted-primary-color);
-}
-
 .collapsed {
     width: var(--sidebar-width-collapsed);
 
@@ -62,11 +43,5 @@
 
     .lang {
         margin-left: 0;
-    }
-
-    .link {
-        opacity: 0;
-        max-width: 0;
-        pointer-events: none;
     }
 }

@@ -1,0 +1,28 @@
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.link {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 100%;
+    opacity: 1;
+    transition: max-width 0.3s ease, opacity 0.4s ease;
+}
+
+.icon {
+    fill: var(--inverted-primary-color);
+}
+
+.collapsed {
+    width: var(--sidebar-width-collapsed);
+
+    .link {
+        opacity: 0;
+        max-width: 0;
+        pointer-events: none;
+    }
+}
