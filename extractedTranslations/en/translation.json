@@ -1,4 +1,5 @@
 {
+  "Profile Page": "Profile Page",
   "decrement": "decrement",
   "increment": "increment",
   "throw error": "throw error",
@@ -12,6 +13,7 @@
   "О сайте": "About",
   "Обновить страницу": "Reload page",
   "Произошла непредвиденная ошибка": "An unexpected error has occurred",
+  "Профиль": "Profile",
   "Страница не найдена": "Page not found",
   "Форма авторизации": "Authorization form",
   "Язык": "English"
