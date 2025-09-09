@@ -6,6 +6,10 @@
     "target": "es5",
     "jsx": "react-jsx",
     "allowJs": true,
+    //!!! нет смысла исп. тайпскрипт без стрикта
+    // пример: ts не будет ругаться на такую запись без стрикта - state.profile.data.firstname
+    // state?.profile?.data?.firstname - правильная запись, тначе можно словить undefined и приложение упадет
+    "strict": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
