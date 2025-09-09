@@ -59,6 +59,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
         'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
         'no-param-reassign': 'off', // Для того, чтобы линтер не ругался на изменения стейта в Redux
+        'no-undef': 'off',
     },
     globals: {
         __IS_DEV__: true,

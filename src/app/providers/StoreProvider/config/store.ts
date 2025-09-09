@@ -1,4 +1,6 @@
-import { configureStore, ReducersMapObject } from '@reduxjs/toolkit';
+import {
+    CombinedState, configureStore, Reducer, ReducersMapObject,
+} from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
 import { $api } from 'shared/api/api';
@@ -19,9 +21,9 @@ export function createReduxStore(
     };
 
     const reducerManager = createReducerManager(rootReducers);
-
     const store = configureStore({
-        reducer: reducerManager.reduce, // теперь сюда вместо RootReducers монтируем reducerManager
+        // нужно будет избавиться от as и правильно типизировать
+        reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>, // теперь сюда вместо RootReducers монтируем reducerManager
         devTools: __IS_DEV__,
         preloadedState: initialState,
         middleware: (getDefaultMiddleware) => getDefaultMiddleware({
