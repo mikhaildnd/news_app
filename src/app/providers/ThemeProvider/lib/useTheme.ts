@@ -11,16 +11,17 @@ export function useTheme(): UseThemeResult {
 
     const toggleTheme = () => {
         const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
-        setTheme(newTheme);
+        setTheme?.(newTheme);
         localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
     };
 
-    useEffect(() => {
-        document.body.className = theme;
-    }, [theme]);
+    // useEffect(() => {
+    //     // мб вынести навешивание класса куда-то в другое место?
+    //     document.body.className = theme || Theme.LIGHT;
+    // }, [theme]);
 
     return {
-        theme,
+        theme: theme || Theme.LIGHT,
         toggleTheme,
     };
 }
