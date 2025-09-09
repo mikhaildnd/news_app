@@ -54,7 +54,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
             </Button>
             {isAuthModal && (
                 <LoginModal
-                    element={document.querySelector('.app')}
+                    // element={document.querySelector('.app')}
                     isOpen={isAuthModal}
                     onClose={onCloseModal}
                 />
