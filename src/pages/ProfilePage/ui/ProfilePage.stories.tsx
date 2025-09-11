@@ -21,13 +21,13 @@ export const Normal = Template.bind({});
 Normal.args = {};
 Normal.decorators = [StoreDecorator({
     profile: {
-        data: {
+        form: {
             username: 'admin',
-            age: 22,
+            firstname: 'Mikhail',
+            lastname: 'Dundukov',
+            age: 33,
             country: Country.Kazakhstan,
-            lastname: 'kekw',
-            firstname: 'asd',
-            city: 'asf',
+            city: 'Almaty',
             currency: Currency.KZT,
         },
     },
@@ -37,14 +37,14 @@ export const Dark = Template.bind({});
 Dark.args = {};
 Dark.decorators = [ThemeDecorator(Theme.DARK), StoreDecorator({
     profile: {
-        data: {
+        form: {
             username: 'admin',
-            age: 22,
-            country: Country.Russia,
-            lastname: 'kekw',
-            firstname: 'asd',
-            city: 'asf',
-            currency: Currency.USD,
+            firstname: 'Mikhail',
+            lastname: 'Dundukov',
+            age: 33,
+            country: Country.Kazakhstan,
+            city: 'Almaty',
+            currency: Currency.KZT,
         },
     },
 })];
