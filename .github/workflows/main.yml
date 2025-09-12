@@ -4,9 +4,8 @@ on:
   pull_request:
     branches: [ main, develop ]
 
-# 🔹 Глобальные настройки для всех jobs
 env:
-  HUSKY: 0   # отключаем husky внутри CI
+  HUSKY: 0 # отключаем husky внутри CI
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -86,7 +85,6 @@ jobs:
         if: steps.storybook-cache.outputs.cache-hit != 'true'
         run: npm run storybook:build
 
-      # 🔹 запускаем локальный сервер для Storybook
       - name: Serve storybook static
         run: |
           npx http-server ./storybook-static -p 6006 >/tmp/storybook.log 2>&1 &
@@ -95,15 +93,16 @@ jobs:
       - name: Run screenshot tests
         run: npm run test:ui:ci
 
-      # 🔹 если тесты упали — дампим DOM, скрины и загружаем артефакты
-      - name: Dump failing story DOM & screenshot (debug)
+      # Если тесты упали — собираем все debug-артефакты
+      - name: Collect debug artifacts
         if: failure()
         run: |
           mkdir -p artifacts
-          npm ci
-          npm install puppeteer --no-save
-          # здесь пример для одной сторис; при необходимости можно запустить для всех
-          node ./scripts/dump-story-dom.js "http://localhost:6006/iframe.html?id=entities-profilecard--primary&viewMode=story" ./artifacts/profilecard
+          # ставим только puppeteer, без всего проекта
+          npm install puppeteer --no-save --ignore-scripts
+          # Скрипт можно доработать, чтобы он сам проходил по списку упавших сторисов.
+          # Пока дампим главную страницу Storybook, чтобы видеть статику
+          node ./scripts/dump-story-dom.js "http://localhost:6006" ./artifacts/storybook-root
 
       - name: Upload Loki + debug artifacts
         if: failure()

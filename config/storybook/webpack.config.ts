@@ -14,13 +14,7 @@ export default ({ config }: { config: webpack.Configuration }) => {
     config!.resolve!.modules!.push(paths.src);
     config!.resolve!.extensions!.push('.ts', '.tsx');
 
-    // фикс: всегда используем относительные пути для ассетов
-    config!.output = {
-        ...config!.output,
-        publicPath: '', // вместо '/static/' → относительные урлы
-    };
-
-    // убираем svg из дефолтных правил
+    // убираем обработку svg из дефолтных правил
     config!.module!.rules = (config!.module!.rules as RuleSetRule[]).map((rule) => {
         if (/svg/.test(rule.test as string)) {
             return { ...rule, exclude: /\.svg$/i };
@@ -28,7 +22,7 @@ export default ({ config }: { config: webpack.Configuration }) => {
         return rule;
     });
 
-    // наш loader для svg
+    // свой loader для svg
     config!.module!.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],
@@ -36,6 +30,15 @@ export default ({ config }: { config: webpack.Configuration }) => {
 
     // css loader
     config!.module!.rules.push(buildCssLoader(true));
+
+    // фикс для картинок (без hash для Storybook)
+    config!.module!.rules.push({
+        test: /\.(png|jpe?g|gif)$/i,
+        type: 'asset/resource',
+        generator: {
+            filename: 'static/media/[name][ext]', // без [hash]
+        },
+    });
 
     config!.plugins!.push(
         new DefinePlugin({

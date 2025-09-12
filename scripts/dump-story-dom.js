@@ -1,71 +1,69 @@
+/* eslint-disable no-console */
 const fs = require('fs');
 const path = require('path');
 const puppeteer = require('puppeteer');
 
-async function dumpStory(storyUrl, outDir) {
-    const browser = await puppeteer.launch({
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
+async function dumpStory(page, url, outDir, name) {
+    await page.goto(url, { waitUntil: 'networkidle0' });
+
+    // ждём шрифты
+    await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(300);
+
+    // сохраняем HTML
+    const html = await page.content();
+    fs.writeFileSync(path.join(outDir, `${name}.html`), html);
+
+    // сохраняем PNG
+    await page.screenshot({ path: path.join(outDir, `${name}.png`) });
+
+    console.log(`✅ Saved dump for ${name}`);
+}
+
+async function main() {
+    const baseUrl = process.argv[2] || 'http://localhost:6006';
+    const outDir = process.argv[3] || './artifacts';
+
+    if (!fs.existsSync(outDir)) {
+        fs.mkdirSync(outDir, { recursive: true });
+    }
+
+    // смотрим какие сторисы упали — в difference хранятся PNG
+    const diffDir = path.resolve('.loki/difference');
+    if (!fs.existsSync(diffDir)) {
+        console.log('⚠️ No .loki/difference directory found, nothing to dump');
+        process.exit(0);
+    }
+
+    const failedStories = fs.readdirSync(diffDir)
+        .filter((f) => f.endsWith('.png'))
+        .map((f) => path.basename(f, '.png')); // убираем расширение
+
+    if (failedStories.length === 0) {
+        console.log('✅ No failed stories detected');
+        process.exit(0);
+    }
+
+    console.log(`📸 Found failed stories: ${failedStories.join(', ')}`);
+
+    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     const page = await browser.newPage();
 
-    console.log(`🔎 Открываю сторибук: ${storyUrl}`);
-    await page.goto(storyUrl, { waitUntil: 'networkidle0' });
+    for (const id of failedStories) {
+        const url = `${baseUrl}/iframe.html?id=${id}&viewMode=story`;
+        const safeName = id.replace(/[^a-z0-9-_]/gi, '_');
 
-    // HTML
-    const html = await page.content();
-    fs.mkdirSync(outDir, { recursive: true });
-    fs.writeFileSync(path.join(outDir, 'story.html'), html, 'utf8');
+        try {
+            await dumpStory(page, url, outDir, safeName);
+        } catch (e) {
+            console.error(`❌ Failed to dump ${id}`, e);
+        }
+    }
 
-    // PNG
-    const screenshotPath = path.join(outDir, 'story.png');
-    await page.screenshot({ path: screenshotPath, fullPage: true });
-
-    // Все <img>
-    const images = await page.$$eval('img', (imgs) => imgs.map((i) => i.src));
-    fs.writeFileSync(
-        path.join(outDir, 'images.json'),
-        JSON.stringify(images, null, 2),
-        'utf8',
-    );
-
-    // index.html для удобного просмотра
-    const indexHtml = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Story debug</title>
-  <style>
-    body { font-family: sans-serif; display: flex; gap: 20px; }
-    iframe { width: 50%; height: 90vh; border: 1px solid #ccc; }
-    .preview { width: 50%; }
-    img { max-width: 100%; border: 1px solid #ccc; }
-  </style>
-</head>
-<body>
-  <div class="preview">
-    <h2>Screenshot</h2>
-    <img src="story.png" alt="screenshot"/>
-  </div>
-  <div>
-    <h2>DOM</h2>
-    <iframe src="story.html"></iframe>
-  </div>
-</body>
-</html>`;
-    fs.writeFileSync(path.join(outDir, 'index.html'), indexHtml, 'utf8');
-
-    console.log(`✅ Сохранил дамп в ${outDir}`);
     await browser.close();
 }
 
-const [url, outDir] = process.argv.slice(2);
-if (!url || !outDir) {
-    console.error('Usage: node dump-story-dom.js <url> <outDir>');
-    process.exit(1);
-}
-
-dumpStory(url, outDir).catch((err) => {
-    console.error(err);
+main().catch((err) => {
+    console.error('❌ Unexpected error in dump-story-dom.js', err);
     process.exit(1);
 });
