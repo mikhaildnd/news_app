@@ -9,7 +9,10 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         use: {
             loader: 'babel-loader',
             options: {
-                presets: ['@babel/preset-env'],
+                presets: [
+                    '@babel/preset-env',
+                    ['@babel/preset-react', { runtime: 'automatic' }],
+                ],
                 plugins: [
                     [
                         'i18next-extract',
@@ -18,7 +21,8 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
                             keyAsDefaultValue: true,
                         },
                     ],
-                ],
+                    isDev && require.resolve('react-refresh/babel'),
+                ].filter(Boolean),
             },
         },
     };
