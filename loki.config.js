@@ -1,6 +1,10 @@
 module.exports = {
     chromeSelector: '.wrapper > *, #root > *, .story-decorator > *',
     diffingEngine: 'pixelmatch',
+
+    // указываем, что Loki должен тестировать уже собранный Storybook
+    baseUrl: 'http://localhost:6006',
+
     configurations: {
         'chrome.laptop': {
             target: 'chrome.docker',
@@ -12,6 +16,7 @@ module.exports = {
             preset: 'iPhone 7',
         },
     },
+
     async beforeScreenshot(page) {
         // Ждём пока все шрифты прогрузятся
         await page.evaluate(() => document.fonts.ready.then(() => true));

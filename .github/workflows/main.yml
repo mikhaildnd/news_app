@@ -4,9 +4,8 @@ on:
   pull_request:
     branches: [ main, develop ]
 
-# 🔹 Глобальные настройки для всех jobs
 env:
-  HUSKY: 0   # отключаем husky внутри CI
+  HUSKY: 0 # отключаем husky внутри CI
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -86,12 +85,33 @@ jobs:
         if: steps.storybook-cache.outputs.cache-hit != 'true'
         run: npm run storybook:build
 
+      - name: Serve storybook static
+        run: |
+          npx http-server ./storybook-static -p 6006 >/tmp/storybook.log 2>&1 &
+          npx wait-on http://localhost:6006
+
       - name: Run screenshot tests
         run: npm run test:ui:ci
 
-      - name: Upload Loki difference
+      # Если тесты упали — собираем все debug-артефакты
+      - name: Collect debug artifacts
+        if: failure()
+        run: |
+          mkdir -p artifacts
+          # ставим только puppeteer, без всего проекта
+          npm install puppeteer --no-save --ignore-scripts
+          # Скрипт можно доработать, чтобы он сам проходил по списку упавших сторисов.
+          # Пока дампим главную страницу Storybook, чтобы видеть статику
+          node ./scripts/dump-story-dom.js "http://localhost:6006" ./artifacts/storybook-root
+
+      - name: Upload Loki + debug artifacts
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: loki-difference-${{ matrix.node-version }}
-          path: .loki/difference
+          name: loki-debug-${{ matrix.node-version }}
+          path: |
+            .loki/difference
+            .loki/current
+            .loki/reference
+            artifacts/**
+            /tmp/storybook.log
