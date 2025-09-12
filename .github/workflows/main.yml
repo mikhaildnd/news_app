@@ -102,6 +102,7 @@ jobs:
           mkdir -p artifacts
           npm ci
           npm install puppeteer --no-save
+          # здесь пример для одной сторис; при необходимости можно запустить для всех
           node ./scripts/dump-story-dom.js "http://localhost:6006/iframe.html?id=entities-profilecard--primary&viewMode=story" ./artifacts/profilecard
 
       - name: Upload Loki + debug artifacts
@@ -113,7 +114,5 @@ jobs:
             .loki/difference
             .loki/current
             .loki/reference
-            artifacts/profilecard.html
-            artifacts/profilecard.png
-            artifacts/profilecard.images.json
+            artifacts/**
             /tmp/storybook.log
