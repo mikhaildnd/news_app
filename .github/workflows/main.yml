@@ -86,12 +86,34 @@ jobs:
         if: steps.storybook-cache.outputs.cache-hit != 'true'
         run: npm run storybook:build
 
+      # 🔹 запускаем локальный сервер для Storybook
+      - name: Serve storybook static
+        run: |
+          npx http-server ./storybook-static -p 6006 >/tmp/storybook.log 2>&1 &
+          npx wait-on http://localhost:6006
+
       - name: Run screenshot tests
         run: npm run test:ui:ci
 
-      - name: Upload Loki difference
+      # 🔹 если тесты упали — дампим DOM, скрины и загружаем артефакты
+      - name: Dump failing story DOM & screenshot (debug)
+        if: failure()
+        run: |
+          mkdir -p artifacts
+          npm ci
+          npm install puppeteer --no-save
+          node ./scripts/dump-story-dom.js "http://localhost:6006/iframe.html?id=entities-profilecard--primary&viewMode=story" ./artifacts/profilecard
+
+      - name: Upload Loki + debug artifacts
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: loki-difference-${{ matrix.node-version }}
-          path: .loki/difference
+          name: loki-debug-${{ matrix.node-version }}
+          path: |
+            .loki/difference
+            .loki/current
+            .loki/reference
+            artifacts/profilecard.html
+            artifacts/profilecard.png
+            artifacts/profilecard.images.json
+            /tmp/storybook.log
