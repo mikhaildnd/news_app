@@ -7,7 +7,7 @@ import { LoginSchema } from 'features/AuthByUsername';
 import { ProfileSchema } from 'entities/Profile';
 import { ArticleDetailsSchema } from 'entities/Article';
 import { AxiosInstance } from 'axios';
-import { To } from 'history';
+import { To } from 'react-router-dom';
 import { NavigateOptions } from 'react-router';
 import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
 
