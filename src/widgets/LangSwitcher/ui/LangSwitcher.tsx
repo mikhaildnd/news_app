@@ -8,7 +8,8 @@ interface LangSwitcherProps {
     short?: boolean;
 }
 
-export const LangSwitcher = memo(({ className, short }: LangSwitcherProps) => {
+export const LangSwitcher = memo(function LangSwitcher(props: LangSwitcherProps) {
+    const { className, short } = props;
     const { t, i18n } = useTranslation();
 
     const toggle = async () => {
@@ -16,11 +17,7 @@ export const LangSwitcher = memo(({ className, short }: LangSwitcherProps) => {
     };
 
     return (
-        <Button
-            className={classNames('', {}, [className])}
-            theme={ButtonTheme.CLEAR}
-            onClick={toggle}
-        >
+        <Button className={classNames('', {}, [className])} theme={ButtonTheme.CLEAR} onClick={toggle}>
             {t(short ? 'Короткий язык' : 'Язык')}
         </Button>
     );

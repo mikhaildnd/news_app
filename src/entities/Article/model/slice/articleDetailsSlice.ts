@@ -19,10 +19,7 @@ export const articleDetailsSlice = createSlice({
                 state.error = undefined; // обнуляем ошибку, если есть
                 state.isLoading = true;
             })
-            .addCase(fetchArticleById.fulfilled, (
-                state,
-                action: PayloadAction<Article>,
-            ) => {
+            .addCase(fetchArticleById.fulfilled, (state, action: PayloadAction<Article>) => {
                 state.isLoading = false;
                 state.data = action.payload;
             })

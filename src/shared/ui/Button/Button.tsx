@@ -1,7 +1,5 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
-import {
-    ButtonHTMLAttributes, memo, ReactNode,
-} from 'react';
+import { ButtonHTMLAttributes, memo, ReactNode } from 'react';
 import cls from './Button.module.scss';
 
 export enum ButtonTheme {
@@ -19,7 +17,7 @@ export enum ButtonSize {
     XL = 'size_xl',
 }
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     theme?: ButtonTheme;
     square?: boolean;
@@ -29,7 +27,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
 }
 
 // В комп. с children лучше не исп. memo, но в кнопке, как правило, children - это строка. Как исключение можно оберн. в memo
-export const Button = memo((props: ButtonProps) => {
+export const Button = memo(function Button(props: ButtonProps) {
     const {
         className,
         children,
@@ -48,12 +46,7 @@ export const Button = memo((props: ButtonProps) => {
     };
 
     return (
-        <button
-            type="button"
-            className={classNames(cls.Button, mods, [className])}
-            disabled={disabled}
-            {...otherProps}
-        >
+        <button type="button" className={classNames(cls.Button, mods, [className])} disabled={disabled} {...otherProps}>
             {children}
         </button>
     );

@@ -9,13 +9,8 @@ interface SkeletonProps {
     border?: string;
 }
 
-export const Skeleton = memo((props: SkeletonProps) => {
-    const {
-        className,
-        height,
-        width,
-        border,
-    } = props;
+export const Skeleton = memo(function Skeleton(props: SkeletonProps) {
+    const { className, height, width, border } = props;
 
     const styles: CSSProperties = {
         height,
@@ -23,12 +18,5 @@ export const Skeleton = memo((props: SkeletonProps) => {
         borderRadius: border,
     };
 
-    return (
-        <div
-            className={classNames(cls.Skeleton, {}, [className])}
-            style={styles}
-        >
-
-        </div>
-    );
+    return <div className={classNames(cls.Skeleton, {}, [className])} style={styles}></div>;
 });

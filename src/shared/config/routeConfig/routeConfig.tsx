@@ -8,7 +8,7 @@ import { ArticleDetailsPage } from 'pages/ArticleDetailsPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
-}
+};
 
 export enum AppRoutes {
     MAIN = 'main',

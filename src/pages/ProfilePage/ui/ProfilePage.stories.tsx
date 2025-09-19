@@ -1,5 +1,4 @@
-import React from 'react';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Theme } from 'app/providers/ThemeProvider';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
@@ -7,44 +6,49 @@ import { Currency } from 'entities/Currency/model/types/currency';
 import { Country } from 'entities/Country/model/types/country';
 import ProfilePage from './ProfilePage';
 
-export default {
+const meta: Meta<typeof ProfilePage> = {
     title: 'pages/ProfilePage',
     component: ProfilePage,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as ComponentMeta<typeof ProfilePage>;
+};
+export default meta;
 
-const Template: ComponentStory<typeof ProfilePage> = (args) => <ProfilePage {...args} />;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
-Normal.decorators = [StoreDecorator({
-    profile: {
-        form: {
-            username: 'admin',
-            firstname: 'Mikhail',
-            lastname: 'Dundukov',
-            age: 33,
-            country: Country.Kazakhstan,
-            city: 'Almaty',
-            currency: Currency.KZT,
-        },
-    },
-})];
+export const Normal: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            profile: {
+                form: {
+                    username: 'admin',
+                    firstname: 'Mikhail',
+                    lastname: 'Dundukov',
+                    age: 33,
+                    country: Country.Kazakhstan,
+                    city: 'Almaty',
+                    currency: Currency.KZT,
+                },
+            },
+        }),
+    ],
+};
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [ThemeDecorator(Theme.DARK), StoreDecorator({
-    profile: {
-        form: {
-            username: 'admin',
-            firstname: 'Mikhail',
-            lastname: 'Dundukov',
-            age: 33,
-            country: Country.Kazakhstan,
-            city: 'Almaty',
-            currency: Currency.KZT,
-        },
-    },
-})];
+export const Dark: Story = {
+    args: {},
+    decorators: [
+        ThemeDecorator(Theme.DARK),
+        StoreDecorator({
+            profile: {
+                form: {
+                    username: 'admin',
+                    firstname: 'Mikhail',
+                    lastname: 'Dundukov',
+                    age: 33,
+                    country: Country.Kazakhstan,
+                    city: 'Almaty',
+                    currency: Currency.KZT,
+                },
+            },
+        }),
+    ],
+};

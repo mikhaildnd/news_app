@@ -34,32 +34,19 @@ export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
         <div className={classNames(cls.ProfilePageHeader, {}, [className])}>
             <Text title={t('Профиль')} />
             {readonly ? (
-                <Button
-                    onClick={onEdit}
-                    className={cls.editBtn}
-                    theme={ButtonTheme.OUTLINE}
-                >
+                <Button onClick={onEdit} className={cls.editBtn} theme={ButtonTheme.OUTLINE}>
                     {t('Редактировать')}
                 </Button>
-            )
-                : (
-                    <>
-                        <Button
-                            onClick={onCancelEdit}
-                            className={cls.editBtn}
-                            theme={ButtonTheme.OUTLINE}
-                        >
-                            {t('Отменить')}
-                        </Button>
-                        <Button
-                            onClick={onSave}
-                            className={cls.saveBtn}
-                            theme={ButtonTheme.OUTLINE_RED}
-                        >
-                            {t('Сохранить')}
-                        </Button>
-                    </>
-                )}
+            ) : (
+                <>
+                    <Button onClick={onCancelEdit} className={cls.editBtn} theme={ButtonTheme.OUTLINE}>
+                        {t('Отменить')}
+                    </Button>
+                    <Button onClick={onSave} className={cls.saveBtn} theme={ButtonTheme.OUTLINE_RED}>
+                        {t('Сохранить')}
+                    </Button>
+                </>
+            )}
         </div>
     );
 };

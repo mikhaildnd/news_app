@@ -8,18 +8,10 @@ interface LoginByUsernameProps {
     password: string;
 }
 // 1й - возвращаемый тип, 2й - аргумент
-export const loginByUsername = createAsyncThunk<
-    User,
-    LoginByUsernameProps,
-    ThunkConfig<string>
->(
+export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, ThunkConfig<string>>(
     'login/loginByUsername',
     async (authData, thunkApi) => {
-        const {
-            extra,
-            dispatch,
-            rejectWithValue,
-        } = thunkApi;
+        const { extra, dispatch, rejectWithValue } = thunkApi;
 
         try {
             const response = await extra.api.post<User>('/login', authData);

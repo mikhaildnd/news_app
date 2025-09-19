@@ -5,8 +5,8 @@ import { StateSchemaKey } from 'app/providers/StoreProvider/config/StateSchema';
 import { Reducer } from '@reduxjs/toolkit';
 
 export type ReducersList = {
-    [name in StateSchemaKey]? : Reducer;
-}
+    [name in StateSchemaKey]?: Reducer;
+};
 
 interface DynamicModuleLoaderProps {
     reducers: ReducersList;
@@ -14,11 +14,7 @@ interface DynamicModuleLoaderProps {
 }
 
 export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
-    const {
-        children,
-        reducers,
-        removeAfterUnmount,
-    } = props;
+    const { children, reducers, removeAfterUnmount } = props;
     const store = useStore() as ReduxStoreWithManager;
     const dispatch = useDispatch();
 
@@ -42,8 +38,6 @@ export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
 
     return (
         // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>
-            {children}
-        </>
+        <>{children}</>
     );
 };

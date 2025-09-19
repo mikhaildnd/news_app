@@ -12,7 +12,8 @@ interface SidebarItemProps {
     collapsed: boolean;
 }
 
-export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
+export const SidebarItem = memo(function SidebarItem(props: SidebarItemProps) {
+    const { item, collapsed } = props;
     const { t } = useTranslation();
     const isAuth = useSelector(getUserAuthData);
 
@@ -27,9 +28,7 @@ export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
             to={item.path}
         >
             <item.Icon className={cls.icon} />
-            <span className={cls.link}>
-                {t(item.text)}
-            </span>
+            <span className={cls.link}>{t(item.text)}</span>
         </AppLink>
     );
 });

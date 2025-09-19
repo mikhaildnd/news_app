@@ -12,7 +12,7 @@ interface CommentCardProps {
     isLoading?: boolean;
 }
 
-export const CommentCard = memo((props: CommentCardProps) => {
+export const CommentCard = memo(function CommentCard(props: CommentCardProps) {
     const { className, comment, isLoading } = props;
 
     if (isLoading) {

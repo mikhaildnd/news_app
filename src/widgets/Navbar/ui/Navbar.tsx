@@ -11,7 +11,7 @@ interface NavbarProps {
     className?: string;
 }
 
-export const Navbar = memo(({ className }: NavbarProps) => {
+export const Navbar = memo(function Navbar({ className }: NavbarProps) {
     const { t } = useTranslation();
     const [isAuthModal, setIsAuthModal] = useState(false);
     const authData = useSelector(getUserAuthData);
@@ -32,11 +32,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     if (authData) {
         return (
             <div className={classNames(cls.Navbar, {}, [className])}>
-                <Button
-                    className={cls.links}
-                    theme={ButtonTheme.CLEAR_INVERTED}
-                    onClick={onLogout}
-                >
+                <Button className={cls.links} theme={ButtonTheme.CLEAR_INVERTED} onClick={onLogout}>
                     {t('Выйти')}
                 </Button>
             </div>
@@ -45,11 +41,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
 
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>
-            <Button
-                className={cls.links}
-                theme={ButtonTheme.CLEAR_INVERTED}
-                onClick={onShowModal}
-            >
+            <Button className={cls.links} theme={ButtonTheme.CLEAR_INVERTED} onClick={onShowModal}>
                 {t('Войти')}
             </Button>
             {isAuthModal && (

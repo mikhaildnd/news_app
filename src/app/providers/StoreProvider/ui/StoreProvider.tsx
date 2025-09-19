@@ -8,15 +8,11 @@ import { StateSchema } from '../config/StateSchema';
 interface StoreProviderProps {
     children?: ReactNode;
     initialState?: DeepPartial<StateSchema>;
-    asyncReducers?: DeepPartial<ReducersMapObject<StateSchema>>
+    asyncReducers?: DeepPartial<ReducersMapObject<StateSchema>>;
 }
 
 export const StoreProvider = (props: StoreProviderProps) => {
-    const {
-        children,
-        initialState,
-        asyncReducers,
-    } = props;
+    const { children, initialState, asyncReducers } = props;
 
     // Функция для перемещения по роутам при каких-либо действиях
     const navigate = useNavigate();
@@ -27,9 +23,5 @@ export const StoreProvider = (props: StoreProviderProps) => {
         navigate,
     );
 
-    return (
-        <Provider store={store}>
-            {children}
-        </Provider>
-    );
+    return <Provider store={store}>{children}</Provider>;
 };

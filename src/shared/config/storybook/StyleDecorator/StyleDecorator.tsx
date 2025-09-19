@@ -1,4 +1,8 @@
 import 'app/styles/index.scss';
-import { Story } from '@storybook/react';
+import { StoryFn, StoryContext } from '@storybook/react';
 
-export const StyleDecorator = (story: () => Story) => story();
+// export const StyleDecorator = (story: () => Story) => story();
+
+export const StyleDecorator = (Story: StoryFn, context: StoryContext) => {
+    return <>{Story(context.args, context)}</>;
+};

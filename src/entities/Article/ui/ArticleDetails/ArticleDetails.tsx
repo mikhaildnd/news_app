@@ -33,11 +33,8 @@ const reducers: ReducersList = {
     articleDetails: articleDetailsReducer,
 };
 
-export const ArticleDetails = memo((props: ArticleDetailsProps) => {
-    const {
-        className,
-        id,
-    } = props;
+export const ArticleDetails = memo(function ArticleDetails(props: ArticleDetailsProps) {
+    const { className, id } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getArticleDetailsIsLoading);
@@ -47,32 +44,14 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
 
     const renderBlock = useCallback((block: ArticleBlock) => {
         switch (block.type) {
-        case ArticleBlockType.CODE:
-            return (
-                <ArticleCodeBlockComponent
-                    key={block.id}
-                    className={cls.block}
-                    block={block}
-                />
-            );
-        case ArticleBlockType.IMAGE:
-            return (
-                <ArticleImageBlockComponent
-                    key={block.id}
-                    className={cls.block}
-                    block={block}
-                />
-            );
-        case ArticleBlockType.TEXT:
-            return (
-                <ArticleTextBlockComponent
-                    key={block.id}
-                    className={cls.block}
-                    block={block}
-                />
-            );
-        default:
-            return null;
+            case ArticleBlockType.CODE:
+                return <ArticleCodeBlockComponent key={block.id} className={cls.block} block={block} />;
+            case ArticleBlockType.IMAGE:
+                return <ArticleImageBlockComponent key={block.id} className={cls.block} block={block} />;
+            case ArticleBlockType.TEXT:
+                return <ArticleTextBlockComponent key={block.id} className={cls.block} block={block} />;
+            default:
+                return null;
         }
     }, []);
 
@@ -99,40 +78,20 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
             </>
         );
     } else if (error) {
-        content = (
-            <Text
-                align={TextAlign.CENTER}
-                title={t('Произошла ошибка при загрузке статьи')}
-            />
-        );
+        content = <Text align={TextAlign.CENTER} title={t('Произошла ошибка при загрузке статьи')} />;
     } else {
         content = (
             <>
                 <div className={cls.avatarWrapper}>
-                    <Avatar
-                        className={cls.avatar}
-                        size={200}
-                        src={article?.img}
-                    />
+                    <Avatar className={cls.avatar} size={200} src={article?.img} />
                 </div>
-                <Text
-                    className={cls.title}
-                    title={article?.title}
-                    text={article?.subtitle}
-                    size={TextSize.L}
-                />
+                <Text className={cls.title} title={article?.title} text={article?.subtitle} size={TextSize.L} />
                 <div className={cls.articleInfo}>
-                    <Icon
-                        Svg={EyeIcon}
-                        className={cls.icon}
-                    />
+                    <Icon Svg={EyeIcon} className={cls.icon} />
                     <Text text={String(article?.views)} />
                 </div>
                 <div className={cls.articleInfo}>
-                    <Icon
-                        Svg={CalendarIcon}
-                        className={cls.icon}
-                    />
+                    <Icon Svg={CalendarIcon} className={cls.icon} />
                     <Text text={article?.createdAt} />
                 </div>
                 {article?.blocks.map(renderBlock)}
@@ -141,13 +100,8 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     }
 
     return (
-        <DynamicModuleLoader
-            reducers={reducers}
-            removeAfterUnmount
-        >
-            <div className={classNames(cls.ArticleDetails, {}, [className])}>
-                {content}
-            </div>
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+            <div className={classNames(cls.ArticleDetails, {}, [className])}>{content}</div>
         </DynamicModuleLoader>
     );
 });

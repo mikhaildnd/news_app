@@ -1,16 +1,14 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { CommentCard } from './CommentCard';
 
-export default {
+const meta: Meta<typeof CommentCard> = {
     title: 'shared/CommentCard',
     component: CommentCard,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as ComponentMeta<typeof CommentCard>;
+};
+export default meta;
 
-const Template: ComponentStory<typeof CommentCard> = (args) => <CommentCard {...args} />;
+type Story = StoryObj<typeof meta>;
 
-export const Normal = Template.bind({});
-Normal.args = {};
+export const Normal: Story = {
+    args: {},
+};
