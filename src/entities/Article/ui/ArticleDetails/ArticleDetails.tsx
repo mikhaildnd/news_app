@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+// import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg';
 import { Icon } from 'shared/ui/Icon/Icon';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import cls from './ArticleDetails.module.scss';
-import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
+// import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArticleById';
 import {
     getArticleDetailsData,
@@ -29,9 +29,9 @@ interface ArticleDetailsProps {
     id: string;
 }
 
-const reducers: ReducersList = {
-    articleDetails: articleDetailsReducer,
-};
+// const reducers: ReducersList = {
+//     articleDetails: articleDetailsReducer,
+// };
 
 export const ArticleDetails = memo(function ArticleDetails(props: ArticleDetailsProps) {
     const { className, id } = props;
@@ -56,7 +56,7 @@ export const ArticleDetails = memo(function ArticleDetails(props: ArticleDetails
     }, []);
 
     useInitialEffect(() => {
-        dispatch(fetchArticleById(id));
+        void dispatch(fetchArticleById(id));
     });
 
     // useEffect(() => {
@@ -99,9 +99,5 @@ export const ArticleDetails = memo(function ArticleDetails(props: ArticleDetails
         );
     }
 
-    return (
-        <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
-            <div className={classNames(cls.ArticleDetails, {}, [className])}>{content}</div>
-        </DynamicModuleLoader>
-    );
+    return <div className={classNames(cls.ArticleDetails, {}, [className])}>{content}</div>;
 });

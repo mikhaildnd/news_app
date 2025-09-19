@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/providers/StoreProvider';
+import { RootState } from 'app/providers/StoreProvider/config/store';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { getProfileForm } from './getProfileForm';
@@ -16,16 +16,16 @@ describe('getProfileForm.test', () => {
             avatar: 'avatar.png',
         };
 
-        const state: DeepPartial<StateSchema> = {
+        const state: RootStateDeepPartial = {
             profile: {
                 form: data,
             },
         };
-        expect(getProfileForm(state as StateSchema)).toEqual(data);
+        expect(getProfileForm(state as RootState)).toEqual(data);
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<StateSchema> = {};
-        expect(getProfileForm(state as StateSchema)).toEqual(undefined);
+        const state: RootStateDeepPartial = {};
+        expect(getProfileForm(state as RootState)).toEqual(undefined);
     });
 });

@@ -21,13 +21,15 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        });
+        } as RootStateDeepPartial);
 
-        thunk.api.put.mockReturnValue(Promise.resolve({ data }));
+        const spy = jest.spyOn(thunk.api, 'put').mockResolvedValue({ data });
+        // thunk.api.put.mockReturnValue(Promise.resolve({ data }));
 
         const result = await thunk.callThunk();
 
-        expect(thunk.api.put).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
+        // expect(thunk.api.put).toHaveBeenCalled();
         expect(result.meta.requestStatus).toBe('fulfilled');
         expect(result.payload).toEqual(data);
     });
@@ -37,7 +39,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        });
+        } as RootStateDeepPartial);
 
         thunk.api.put.mockReturnValue(Promise.resolve({ status: 403 }));
 
@@ -52,7 +54,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: { ...data, lastname: '' },
             },
-        });
+        } as RootStateDeepPartial);
 
         const result = await thunk.callThunk();
 

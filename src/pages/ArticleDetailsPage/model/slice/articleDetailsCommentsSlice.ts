@@ -1,22 +1,28 @@
-import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, EntityId, PayloadAction, WithSlice } from '@reduxjs/toolkit';
 
 import { Comment } from 'entities/Comment';
-import { StateSchema } from 'app/providers/StoreProvider';
+// import { StateSchema } from 'app/providers/StoreProvider';
 import { fetchArticleById } from 'entities/Article/model/services/fetchArticleById/fetchArticleById';
 import { Article } from 'entities/Article';
 import { fetchCommentsByArticleId } from 'pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { ArticleDetailsCommentsSchema } from '../types/ArticleDetailsCommentsSchema';
+import { rootReducer } from 'app/providers/StoreProvider';
+import { loginSlice } from 'features/AuthByUsername/model/slice/loginSlice';
 
-const commentsAdapter = createEntityAdapter<Comment>({
-    selectId: (comment) => comment.id,
-});
+// createEntityAdapter<T>() сам по себе уже умеет выводить selectId (оно по умолчанию ищет id).
+// А если хочешь передать кастомный selectId, нужно явно указать generic для ключа EntityId
+const commentsAdapter = createEntityAdapter<Comment>();
 
-export const getArticleComments = commentsAdapter.getSelectors<StateSchema>(
-    (state) => state.articleDetailsComments || commentsAdapter.getInitialState(),
-);
+// const commentsAdapter = createEntityAdapter<Comment, EntityId>({
+//     selectId: (comment: Comment) => comment.id,
+// });
+
+// export const getArticleComments = commentsAdapter.getSelectors<StateSchema>(
+//     (state) => state.articleDetailsComments || commentsAdapter.getInitialState(),
+// );
 
 const articleDetailsCommentsSlice = createSlice({
-    name: 'articleDetailsCommentsSlice',
+    name: 'articleDetailsComments',
     initialState: commentsAdapter.getInitialState<ArticleDetailsCommentsSchema>({
         isLoading: false,
         error: undefined,
@@ -41,5 +47,16 @@ const articleDetailsCommentsSlice = createSlice({
             });
     },
 });
+
+declare module 'app/providers/StoreProvider/config/store' {
+    interface LazyLoadedSlices extends WithSlice<typeof articleDetailsCommentsSlice> {}
+}
+
+export const injectedArticleDetailsCommentsSlice = articleDetailsCommentsSlice.injectInto(rootReducer);
+
+export const articleDetailsCommentsSelectors = commentsAdapter.getSelectors(
+    (state: ReturnType<typeof rootReducer>) =>
+        injectedArticleDetailsCommentsSlice.selectSlice(state) ?? commentsAdapter.getInitialState(),
+);
 
 export const { reducer: articleDetailsCommentsReducer } = articleDetailsCommentsSlice;

@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, WithSlice } from '@reduxjs/toolkit';
 import { Profile, ProfileSchema } from '../types/profile';
 import { fetchProfileData } from '../services/fetchProfileData/fetchProfileData';
 import { updateProfileData } from '../services/updateProfileData/updateProfileData';
+import { rootReducer } from 'app/providers/StoreProvider';
+import { loginSlice } from 'features/AuthByUsername/model/slice/loginSlice';
 
 const initialState: ProfileSchema = {
     readonly: true,
@@ -67,5 +69,13 @@ export const profileSlice = createSlice({
     },
 });
 
-export const { actions: profileActions } = profileSlice;
+declare module 'app/providers/StoreProvider/config/store' {
+    interface LazyLoadedSlices extends WithSlice<typeof profileSlice> {}
+}
+
+export const injectedProfileSlice = profileSlice.injectInto(rootReducer);
+
+export const { setReadonly, cancelEdit, updateProfile } = profileSlice.actions;
+
+// export const { actions: profileActions } = profileSlice;
 export const { reducer: profileReducer } = profileSlice;

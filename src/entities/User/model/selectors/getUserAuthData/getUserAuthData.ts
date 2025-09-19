@@ -1,3 +1,5 @@
-import { StateSchema } from 'app/providers/StoreProvider';
+// import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getUserAuthData = (state: StateSchema) => state.user.authData;
+import { RootState } from 'app/providers/StoreProvider/config/store';
+
+export const getUserAuthData = (state: RootState) => state.user.authData;

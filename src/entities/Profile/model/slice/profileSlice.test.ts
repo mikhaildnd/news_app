@@ -2,7 +2,7 @@ import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { updateProfileData } from 'entities/Profile';
 import { ProfileSchema, ValidateProfileError } from '../types/profile';
-import { profileReducer, profileActions } from './profileSlice';
+import { profileReducer, setReadonly, cancelEdit, updateProfile } from './profileSlice';
 
 const data = {
     username: 'admin',
@@ -18,12 +18,12 @@ const data = {
 describe('profileSlice.test', () => {
     test('test set readonly', () => {
         const state: DeepPartial<ProfileSchema> = { readonly: false };
-        expect(profileReducer(state as ProfileSchema, profileActions.setReadonly(true))).toEqual({ readonly: true });
+        expect(profileReducer(state as ProfileSchema, setReadonly(true))).toEqual({ readonly: true });
     });
 
     test('test cancel edit', () => {
         const state: DeepPartial<ProfileSchema> = { data, form: { username: '' } };
-        expect(profileReducer(state as ProfileSchema, profileActions.cancelEdit())).toEqual({
+        expect(profileReducer(state as ProfileSchema, cancelEdit())).toEqual({
             readonly: true,
             validateErrors: undefined,
             data,
@@ -36,7 +36,7 @@ describe('profileSlice.test', () => {
         expect(
             profileReducer(
                 state as ProfileSchema,
-                profileActions.updateProfile({
+                updateProfile({
                     username: 'admin',
                 }),
             ),
@@ -50,7 +50,8 @@ describe('profileSlice.test', () => {
             isLoading: false,
             validateErrors: [ValidateProfileError.SERVER_ERROR],
         };
-        expect(profileReducer(state as ProfileSchema, updateProfileData.pending)).toEqual({
+        // изучить { type: updateProfileData.pending.type }
+        expect(profileReducer(state as ProfileSchema, { type: updateProfileData.pending.type })).toEqual({
             isLoading: true,
             validateErrors: undefined,
         });

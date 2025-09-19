@@ -17,7 +17,8 @@ const config: Config.InitialOptions = {
     clearMocks: true,
 
     // The test environment that will be used for testing
-    testEnvironment: 'jsdom',
+    testEnvironment: 'jest-environment-jsdom',
+    // testEnvironment: 'jsdom', // уже не работает
 
     // An array of regexp pattern strings used to skip coverage collection
     coveragePathIgnorePatterns: ['\\\\node_modules\\\\'],

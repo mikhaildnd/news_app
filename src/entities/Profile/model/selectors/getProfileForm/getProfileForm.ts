@@ -1,3 +1,5 @@
-import { StateSchema } from 'app/providers/StoreProvider';
+// import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getProfileForm = (state: StateSchema) => state?.profile?.form;
+import { RootState } from 'app/providers/StoreProvider/config/store';
+
+export const getProfileForm = (state: RootState) => state?.profile?.form;

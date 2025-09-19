@@ -17,18 +17,28 @@ const data = {
 describe('fetchProfileData.test', () => {
     test('success', async () => {
         const thunk = new TestAsyncThunk(fetchProfileData);
-        thunk.api.get.mockReturnValue(Promise.resolve({ data }));
+
+        const spy = jest.spyOn(thunk.api, 'get').mockResolvedValue({ data });
+        // thunk.api.get.mockResolvedValue({ data });
         const result = await thunk.callThunk();
 
-        expect(thunk.api.get).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
+        // expect(thunk.api.get).toHaveBeenCalled();
+
         expect(result.meta.requestStatus).toBe('fulfilled');
         expect(result.payload).toEqual(data);
+
+        spy.mockRestore();
     });
 
     test('error', async () => {
         const thunk = new TestAsyncThunk(fetchProfileData);
-        thunk.api.get.mockReturnValue(Promise.resolve({ status: 403 }));
+
+        const spy = jest.spyOn(thunk.api, 'get').mockResolvedValue({ status: 403 });
+        // thunk.api.get.mockResolvedValue({ status: 403 });
         const result = await thunk.callThunk();
         expect(result.meta.requestStatus).toBe('rejected');
+
+        spy.mockRestore();
     });
 });

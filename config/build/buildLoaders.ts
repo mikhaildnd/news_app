@@ -8,7 +8,7 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     const babelLoader = buildBabelLoader(options);
 
     const fileLoader = {
-        test: /\.(png|jpe?g|gif|woff2|woff)$/i,
+        test: /\.(png|jpe?g|gif|woff2|woff|ttf)$/i,
         use: [
             {
                 loader: 'file-loader',
@@ -29,11 +29,5 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         exclude: /node_modules/,
     };
 
-    return [
-        fileLoader,
-        svgLoader,
-        babelLoader,
-        typescriptLoader,
-        cssLoader,
-    ];
+    return [fileLoader, svgLoader, babelLoader, typescriptLoader, cssLoader];
 }

@@ -1,4 +1,4 @@
-import { StateSchema } from 'app/providers/StoreProvider';
+import { RootState } from 'app/providers/StoreProvider/config/store';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import avatar from 'shared/assets/tests/storybook.png';
@@ -19,16 +19,16 @@ describe('getProfileData.test', () => {
             avatar,
         };
 
-        const state: DeepPartial<StateSchema> = {
+        const state: RootStateDeepPartial = {
             profile: {
                 data,
             },
         };
-        expect(getProfileData(state as StateSchema)).toEqual(data);
+        expect(getProfileData(state as RootState)).toEqual(data);
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<StateSchema> = {};
-        expect(getProfileData(state as StateSchema)).toEqual(undefined);
+        const state: RootStateDeepPartial = {};
+        expect(getProfileData(state as RootState)).toEqual(undefined);
     });
 });
