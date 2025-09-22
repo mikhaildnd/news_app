@@ -19,7 +19,7 @@ describe('getProfileData.test', () => {
             avatar,
         };
 
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 data,
             },
@@ -28,7 +28,7 @@ describe('getProfileData.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getProfileData(state as RootState)).toEqual(undefined);
     });
 });

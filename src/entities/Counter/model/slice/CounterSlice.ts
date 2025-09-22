@@ -30,6 +30,6 @@ export const { increment, decrement } = counterSlice.actions;
 
 // 👉 экспортируем селекторы (если нужны)
 export const { selectCounter } = counterSlice.selectors;
+export const counterReducer = counterSlice.reducer;
 
-// export const { actions: counterActions } = counterSlice;
-export const { reducer: counterReducer } = counterSlice;
+// export const { actions: counterActions, reducer: counterReducer } = counterSlice;

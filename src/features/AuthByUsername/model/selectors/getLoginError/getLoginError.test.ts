@@ -3,8 +3,8 @@ import { getLoginError } from './getLoginError';
 
 describe('getLoginError.test', () => {
     test('should return error', () => {
-        const state: RootStateDeepPartial = {
-            loginForm: {
+        const state: DeepPartial<RootState> = {
+            login: {
                 error: 'error',
             },
         };
@@ -12,7 +12,7 @@ describe('getLoginError.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getLoginError(state as RootState)).toEqual(undefined);
     });
 });

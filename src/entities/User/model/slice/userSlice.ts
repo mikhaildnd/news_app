@@ -30,7 +30,7 @@ export const userSlice = createSlice({
 });
 
 export const { setAuthData, initAuthData, logout } = userSlice.actions;
-export const userReducer = userSlice.reducer;
+// export const userReducer = userSlice.reducer;
 
 // declare module 'app/providers/StoreProvider/config/store' {
 //     export interface LazyLoadedSlices extends WithSlice<typeof userSlice> {}
@@ -38,4 +38,4 @@ export const userReducer = userSlice.reducer;
 // export const injectedUserSlice = userSlice.injectInto(rootReducer);
 
 // export const { actions: userActions } = userSlice;
-// export const { reducer: userReducer } = userSlice;
+export const { reducer: userReducer } = userSlice;

@@ -4,11 +4,12 @@ import { $api } from 'shared/api/api';
 // import { To } from 'react-router-dom';
 // import { NavigateOptions } from 'react-router';
 import { NavigateFunction } from 'react-router-dom';
+import { counterSlice } from 'entities/Counter/model/slice/CounterSlice';
 
 export interface LazyLoadedSlices {}
 
 // базовый rootReducer со статическими слайсами
-export const rootReducer = combineSlices(userSlice)
+export const rootReducer = combineSlices(userSlice, counterSlice)
     // указываем, что могут быть подключаемые ленивые слайсы
     .withLazyLoadedSlices<LazyLoadedSlices>();
 

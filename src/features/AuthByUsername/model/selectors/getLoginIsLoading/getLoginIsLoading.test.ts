@@ -3,8 +3,8 @@ import { RootState } from 'app/providers/StoreProvider/config/store';
 
 describe('getLoginIsLoading.test', () => {
     test('should return true', () => {
-        const state: RootStateDeepPartial = {
-            loginForm: {
+        const state: DeepPartial<RootState> = {
+            login: {
                 isLoading: true,
             },
         };
@@ -12,7 +12,7 @@ describe('getLoginIsLoading.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getLoginIsLoading(state as RootState)).toEqual(false);
     });
 });

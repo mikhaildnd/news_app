@@ -3,7 +3,7 @@ import { getProfileError } from './getProfileError';
 
 describe('getProfileError.test', () => {
     test('should return error', () => {
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 error: 'error',
             },
@@ -12,7 +12,7 @@ describe('getProfileError.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getProfileError(state as RootState)).toEqual(undefined);
     });
 });

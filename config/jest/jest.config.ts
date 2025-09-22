@@ -35,6 +35,11 @@ const config: Config.InitialOptions = {
     // The root directory that Jest should scan for tests and modules within
     rootDir: '../../',
 
+    // The paths to modules that run some code to configure or set up the testing environment before each test
+    // TextEncoder, TextDecoder из коробки не тянутся в новых версиях jest
+    setupFiles: ['<rootDir>/config/jest/jest.polyfills.ts'],
+
+    // A list of paths to modules that run some code to configure or set up the testing framework before each test
     setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.ts'],
 
     moduleNameMapper: {
@@ -136,12 +141,6 @@ const config: Config.InitialOptions = {
 
     // Allows you to use a custom runner instead of Jest's default test runner
     // runner: "jest-runner",
-
-    // The paths to modules that run some code to configure or set up the testing environment before each test
-    // setupFiles: [],
-
-    // A list of paths to modules that run some code to configure or set up the testing framework before each test
-    // setupFilesAfterEnv: [],
 
     // The number of seconds after which a test is considered as slow and reported as such in the results.
     // slowTestThreshold: 5,

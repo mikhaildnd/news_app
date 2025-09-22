@@ -3,7 +3,7 @@ import { getProfileReadonly } from './getProfileReadonly';
 
 describe('getProfileReadonly.test', () => {
     test('should work with filled state', () => {
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 readonly: true,
             },
@@ -12,7 +12,7 @@ describe('getProfileReadonly.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getProfileReadonly(state as RootState)).toEqual(undefined);
     });
 });

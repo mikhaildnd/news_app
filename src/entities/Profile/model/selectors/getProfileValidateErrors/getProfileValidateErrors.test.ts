@@ -4,7 +4,7 @@ import { RootState } from 'app/providers/StoreProvider/config/store';
 
 describe('getProfileValidateErrors.test', () => {
     test('should return error', () => {
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 validateErrors: [ValidateProfileError.SERVER_ERROR, ValidateProfileError.INCORRECT_AGE],
             },
@@ -16,7 +16,7 @@ describe('getProfileValidateErrors.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getProfileValidateErrors(state as RootState)).toEqual(undefined);
     });
 });

@@ -3,7 +3,7 @@ import { getProfileIsLoading } from './getProfileIsLoading';
 
 describe('getProfileIsLoading.test', () => {
     test('should work with filled state', () => {
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 isLoading: true,
             },
@@ -12,7 +12,7 @@ describe('getProfileIsLoading.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getProfileIsLoading(state as RootState)).toEqual(undefined);
     });
 });

@@ -4,8 +4,8 @@ import { RootState } from 'app/providers/StoreProvider/config/store';
 describe('getLoginUsername.test', () => {
     test('should return value', () => {
         // RootStateDeepPartial?
-        const state: RootStateDeepPartial = {
-            loginForm: {
+        const state: DeepPartial<RootState> = {
+            login: {
                 username: 'Admin',
             },
         };
@@ -13,7 +13,7 @@ describe('getLoginUsername.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {}; // RootStateDeepPartial?
+        const state: DeepPartial<RootState> = {}; // RootStateDeepPartial?
         expect(getLoginUsername(state as RootState)).toEqual('');
     });
 });

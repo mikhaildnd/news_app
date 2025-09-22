@@ -16,7 +16,7 @@ describe('getProfileForm.test', () => {
             avatar: 'avatar.png',
         };
 
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             profile: {
                 form: data,
             },
@@ -25,7 +25,7 @@ describe('getProfileForm.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getProfileForm(state as RootState)).toEqual(undefined);
     });
 });

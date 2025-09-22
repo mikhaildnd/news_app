@@ -3,8 +3,8 @@ import { RootState } from 'app/providers/StoreProvider/config/store';
 
 describe('getLoginPassword.test', () => {
     test('should return value', () => {
-        const state: RootStateDeepPartial = {
-            loginForm: {
+        const state: DeepPartial<RootState> = {
+            login: {
                 password: 'password',
             },
         };
@@ -12,9 +12,7 @@ describe('getLoginPassword.test', () => {
     });
 
     test('should work with empty state', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getLoginPassword(state as RootState)).toEqual('');
     });
 });
-
-//RootStateDeepPartial

@@ -7,7 +7,7 @@ describe('getProfileData.test', () => {
             id: '1',
             title: 'subtitle',
         };
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             articleDetails: {
                 data,
             },
@@ -16,12 +16,12 @@ describe('getProfileData.test', () => {
     });
 
     test('should work with empty state data', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getArticleDetailsData(state as RootState)).toEqual(undefined);
     });
 
     test('should return isLoading', () => {
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             articleDetails: {
                 isLoading: true,
             },
@@ -30,12 +30,12 @@ describe('getProfileData.test', () => {
     });
 
     test('should work with empty state isLoading', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getArticleDetailsIsLoading(state as RootState)).toEqual(false);
     });
 
     test('should return error', () => {
-        const state: RootStateDeepPartial = {
+        const state: DeepPartial<RootState> = {
             articleDetails: {
                 error: 'error',
             },
@@ -44,7 +44,7 @@ describe('getProfileData.test', () => {
     });
 
     test('should work with empty state error', () => {
-        const state: RootStateDeepPartial = {};
+        const state: DeepPartial<RootState> = {};
         expect(getArticleDetailsError(state as RootState)).toEqual(undefined);
     });
 });
