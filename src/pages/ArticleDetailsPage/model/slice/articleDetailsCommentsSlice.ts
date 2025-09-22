@@ -48,15 +48,13 @@ const articleDetailsCommentsSlice = createSlice({
     },
 });
 
-declare module 'app/providers/StoreProvider/config/store' {
-    interface LazyLoadedSlices extends WithSlice<typeof articleDetailsCommentsSlice> {}
-}
-
 export const injectedArticleDetailsCommentsSlice = articleDetailsCommentsSlice.injectInto(rootReducer);
-
 export const articleDetailsCommentsSelectors = commentsAdapter.getSelectors(
     (state: ReturnType<typeof rootReducer>) =>
         injectedArticleDetailsCommentsSlice.selectSlice(state) ?? commentsAdapter.getInitialState(),
 );
+export const articleDetailsCommentsReducer = articleDetailsCommentsSlice.reducer;
 
-export const { reducer: articleDetailsCommentsReducer } = articleDetailsCommentsSlice;
+declare module 'app/providers/StoreProvider/config/store' {
+    interface LazyLoadedSlices extends WithSlice<typeof articleDetailsCommentsSlice> {}
+}

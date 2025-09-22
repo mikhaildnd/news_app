@@ -9,7 +9,7 @@ const meta: Meta<typeof ThemeSwitcher> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ThemeSwitcher>;
+type Story = StoryObj<typeof meta>;
 
 export const Normal: Story = {
     args: {},

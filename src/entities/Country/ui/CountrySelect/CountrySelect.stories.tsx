@@ -23,7 +23,13 @@ export const Default: Story = {
     },
     decorators: [
         StoreDecorator({
-            user: { authData: {} },
+            user: {
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
+            },
         }),
     ],
 };
@@ -35,7 +41,13 @@ export const Readonly: Story = {
     },
     decorators: [
         StoreDecorator({
-            user: { authData: {} },
+            user: {
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
+            },
         }),
     ],
 };
@@ -48,7 +60,13 @@ export const DarkTheme: Story = {
     decorators: [
         ThemeDecorator(Theme.DARK),
         StoreDecorator({
-            user: { authData: {} },
+            user: {
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
+            },
         }),
     ],
 };

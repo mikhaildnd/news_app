@@ -27,7 +27,11 @@ export const AuthNavbar: Story = {
     decorators: [
         StoreDecorator({
             user: {
-                authData: {},
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
             },
         }),
     ],

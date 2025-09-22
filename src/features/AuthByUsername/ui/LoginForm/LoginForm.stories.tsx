@@ -14,9 +14,10 @@ export const Primary: Story = {
     args: {},
     decorators: [
         StoreDecorator({
-            loginForm: {
+            login: {
                 username: 'admin',
                 password: '123',
+                isLoading: false,
             },
         }),
     ],
@@ -26,10 +27,11 @@ export const WithError: Story = {
     args: {},
     decorators: [
         StoreDecorator({
-            loginForm: {
+            login: {
                 username: 'admin',
                 password: '123',
                 error: 'error',
+                isLoading: false,
             },
         }),
     ],
@@ -39,8 +41,10 @@ export const Loading: Story = {
     args: {},
     decorators: [
         StoreDecorator({
-            loginForm: {
+            login: {
                 isLoading: true,
+                username: '',
+                password: '',
             },
         }),
     ],

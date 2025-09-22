@@ -59,12 +59,6 @@ export const ArticleDetails = memo(function ArticleDetails(props: ArticleDetails
         void dispatch(fetchArticleById(id));
     });
 
-    // useEffect(() => {
-    //     if (__PROJECT__ !== 'storybook') {
-    //         dispatch(fetchArticleById(id));
-    //     }
-    // }, [dispatch, id]);
-
     let content;
 
     if (isLoading) {

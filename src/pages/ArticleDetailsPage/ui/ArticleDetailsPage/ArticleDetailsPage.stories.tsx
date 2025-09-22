@@ -54,15 +54,8 @@ export const Normal: Story = {
         StoreDecorator({
             articleDetails: {
                 data: article,
+                isLoading: false,
             },
         }),
     ],
 };
-Normal.args = {};
-Normal.decorators = [
-    StoreDecorator({
-        articleDetails: {
-            data: article,
-        },
-    }),
-];

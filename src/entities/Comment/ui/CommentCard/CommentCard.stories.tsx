@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { CommentCard } from './CommentCard';
 
 const meta: Meta<typeof CommentCard> = {
-    title: 'shared/CommentCard',
+    title: 'entities/CommentCard',
     component: CommentCard,
 };
 export default meta;
@@ -10,5 +10,12 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Normal: Story = {
-    args: {},
+    args: {
+        comment: {
+            id: '1',
+            text: 'Тестовый комментарий',
+            user: { id: '1', username: 'Test user' },
+        },
+        isLoading: false,
+    },
 };

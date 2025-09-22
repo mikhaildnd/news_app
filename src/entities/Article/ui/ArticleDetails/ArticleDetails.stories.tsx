@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 import { ArticleDetails } from './ArticleDetails';
 import { Article, ArticleBlockType, ArticleType } from '../../model/types/article';
+import { injectArticleDetailsSlice } from 'entities/Article/model/slice/articleDetailsSlice';
 
 const article: Article = {
     id: '1',
@@ -47,12 +48,16 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+// инжект lazy-слайса
+injectArticleDetailsSlice;
+
 export const Normal: Story = {
     args: {},
     decorators: [
         StoreDecorator({
             articleDetails: {
                 data: article,
+                isLoading: false,
             },
         }),
     ],
@@ -75,6 +80,7 @@ export const Error = {
         StoreDecorator({
             articleDetails: {
                 error: 'error',
+                isLoading: false,
             },
         }),
     ],

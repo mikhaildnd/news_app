@@ -37,4 +37,5 @@ export function createReduxStore(
 }
 
 export type RootState = ReturnType<typeof rootReducer>;
+// export type AppStore = ReturnType<typeof createReduxStore>; // для StoreDecorator
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];

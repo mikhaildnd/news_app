@@ -16,7 +16,13 @@ export const Light: Story = {
     args: {},
     decorators: [
         StoreDecorator({
-            user: { authData: {} },
+            user: {
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
+            },
         }),
     ],
 };
@@ -26,7 +32,13 @@ export const Dark: Story = {
     decorators: [
         ThemeDecorator(Theme.DARK),
         StoreDecorator({
-            user: { authData: {} },
+            user: {
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
+            },
         }),
     ],
 };
@@ -35,7 +47,9 @@ export const NoAuth: Story = {
     args: {},
     decorators: [
         StoreDecorator({
-            user: {},
+            user: {
+                _isMounted: true,
+            },
         }),
     ],
 };
