@@ -16,6 +16,7 @@ import {
 import cls from './ArticleDetailsPage.module.scss';
 import { getArticleCommentsIsLoading } from '../../model/selectors/comments';
 import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
+import { injectArticleDetailsSlice } from 'entities/Article/model/slice/articleDetailsSlice';
 
 interface ArticleDetailsPageProps {
     className?: string;

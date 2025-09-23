@@ -35,10 +35,10 @@ export const articleDetailsSlice = createSlice({
     },
 });
 
-export const articleDetailsReducer = articleDetailsSlice.reducer;
-export const articleDetailsActions = articleDetailsSlice.actions;
 export const injectArticleDetailsSlice =
     articleDetailsSlice.injectInto(rootReducer);
+export const articleDetailsReducer = articleDetailsSlice.reducer;
+export const articleDetailsActions = articleDetailsSlice.actions;
 
 declare module 'app/providers/StoreProvider/config/store' {
     interface LazyLoadedSlices extends WithSlice<typeof articleDetailsSlice> {}
