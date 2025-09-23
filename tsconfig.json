@@ -1,12 +1,17 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "noImplicitAny": true,
+    "strict": true, // Включает все строгие проверки
+    "noImplicitAny": true, // Не разрешает неявный any
+    "strictNullChecks": true, // Отдельно проверка на null/undefined
+    "strictFunctionTypes": true, // Проверяет совместимость типов функций при присваивании или передаче
+    "strictBindCallApply": true, // Проверяет корректность типов при вызове bind, call, apply.
+    "noImplicitThis": true, // Не разрешает использовать this без типа.
+    "alwaysStrict": true, // Включает строгий режим JavaScript ('use strict') для всех файлов.
     "module": "ESNext",
     "target": "es2021",
     "jsx": "react-jsx",
     "allowJs": true,
-    "strict": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
@@ -14,9 +19,9 @@
         "./src/*"
       ]
     },
-    "esModuleInterop": true,
+    "esModuleInterop": true, // Позволяет безопасно импортировать CommonJS модули через import.
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true // ускоряет сборку и линтинг
+    "skipLibCheck": true // Пропускает проверку типов в сторонних библиотеках (node_modules).
   },
   "ts-node": {
     "compilerOptions": {

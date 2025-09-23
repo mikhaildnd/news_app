@@ -25,7 +25,10 @@ export interface LoginFormProps {
 //     loginForm: loginReducer,
 // };
 
-const LoginForm = memo(function LoginForm({ className, onSuccess }: LoginFormProps) {
+const LoginForm = memo(function LoginForm({
+    className,
+    onSuccess,
+}: LoginFormProps) {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
@@ -58,7 +61,12 @@ const LoginForm = memo(function LoginForm({ className, onSuccess }: LoginFormPro
     return (
         <div className={classNames(cls.LoginForm, {}, [className])}>
             <Text title={t('Форма авторизации')} />
-            {error && <Text text={t('Неверный логин или пароль')} theme={TextTheme.ERROR} />}
+            {error && (
+                <Text
+                    text={t('Неверный логин или пароль')}
+                    theme={TextTheme.ERROR}
+                />
+            )}
             <Input
                 autofocus
                 type="text"
@@ -74,7 +82,12 @@ const LoginForm = memo(function LoginForm({ className, onSuccess }: LoginFormPro
                 onChange={onChangePassword}
                 value={password}
             />
-            <Button className={cls.loginBtn} theme={ButtonTheme.OUTLINE} onClick={onLoginClick} disabled={isLoading}>
+            <Button
+                className={cls.loginBtn}
+                theme={ButtonTheme.OUTLINE}
+                onClick={() => void onLoginClick()}
+                disabled={isLoading}
+            >
                 {t('Войти')}
             </Button>
         </div>

@@ -40,9 +40,14 @@ describe('loginByUsername.test', () => {
 
         const thunk = new TestAsyncThunk(loginByUsername);
         // создаём spy вместо прямого присвоения jest.fn()
-        const postSpy = jest.spyOn(thunk.api, 'post').mockResolvedValue({ data: userValue });
+        const postSpy = jest
+            .spyOn(thunk.api, 'post')
+            .mockResolvedValue({ data: userValue });
         // thunk.api.post.mockReturnValue(Promise.resolve({ data: userValue }));
-        const result = await thunk.callThunk({ username: '123', password: '123' });
+        const result = await thunk.callThunk({
+            username: '123',
+            password: '123',
+        });
 
         expect(thunk.dispatch).toHaveBeenCalledWith(setAuthData(userValue));
         expect(thunk.dispatch).toHaveBeenCalledTimes(3);
@@ -56,9 +61,14 @@ describe('loginByUsername.test', () => {
 
     test('error login', async () => {
         const thunk = new TestAsyncThunk(loginByUsername);
-        const postSpy = jest.spyOn(thunk.api, 'post').mockResolvedValue({ status: 403 });
+        const postSpy = jest
+            .spyOn(thunk.api, 'post')
+            .mockResolvedValue({ status: 403 });
         // thunk.api.post.mockReturnValue(Promise.resolve({ status: 403 }));
-        const result = await thunk.callThunk({ username: '123', password: '123' });
+        const result = await thunk.callThunk({
+            username: '123',
+            password: '123',
+        });
 
         expect(thunk.dispatch).toHaveBeenCalledTimes(2);
         expect(postSpy).toHaveBeenCalled();

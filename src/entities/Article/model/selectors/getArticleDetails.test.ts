@@ -1,5 +1,9 @@
 import { RootState } from 'app/providers/StoreProvider/config/store';
-import { getArticleDetailsData, getArticleDetailsIsLoading, getArticleDetailsError } from './getArticleDetails';
+import {
+    getArticleDetailsData,
+    getArticleDetailsIsLoading,
+    getArticleDetailsError,
+} from './getArticleDetails';
 
 describe('getProfileData.test', () => {
     test('should return data', () => {

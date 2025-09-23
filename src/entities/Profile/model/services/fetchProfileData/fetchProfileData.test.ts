@@ -34,7 +34,9 @@ describe('fetchProfileData.test', () => {
     test('error', async () => {
         const thunk = new TestAsyncThunk(fetchProfileData);
 
-        const spy = jest.spyOn(thunk.api, 'get').mockResolvedValue({ status: 403 });
+        const spy = jest
+            .spyOn(thunk.api, 'get')
+            .mockResolvedValue({ status: 403 });
         // thunk.api.get.mockResolvedValue({ status: 403 });
         const result = await thunk.callThunk();
         expect(result.meta.requestStatus).toBe('rejected');

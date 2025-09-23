@@ -1,16 +1,26 @@
 // import { StateSchema } from 'app/providers/StoreProvider';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import axios, { AxiosStatic } from 'axios';
-import { AppDispatch, RootState } from 'app/providers/StoreProvider/config/store';
-import { To } from 'react-router-dom';
-import { NavigateOptions } from 'react-router';
+import {
+    AppDispatch,
+    RootState,
+} from 'app/providers/StoreProvider/config/store';
+import { NavigateOptions, To } from 'react-router-dom';
 import { ThunkExtraArg } from 'app/providers/StoreProvider/config/StateSchema'; //fix?
 
 type ActionCreatorType<Return, Arg, RejectedValue> = Arg extends void
-    ? () => AsyncThunkAction<Return, void, { rejectValue: RejectedValue; state: RootState; extra: ThunkExtraArg }>
+    ? () => AsyncThunkAction<
+          Return,
+          void,
+          { rejectValue: RejectedValue; state: RootState; extra: ThunkExtraArg }
+      >
     : (
           arg: Arg,
-      ) => AsyncThunkAction<Return, Arg, { rejectValue: RejectedValue; state: RootState; extra: ThunkExtraArg }>;
+      ) => AsyncThunkAction<
+          Return,
+          Arg,
+          { rejectValue: RejectedValue; state: RootState; extra: ThunkExtraArg }
+      >;
 
 // type ActionCreatorType<Return, Arg, RejectedValue> = (
 //     arg: Arg,
@@ -31,7 +41,10 @@ export class TestAsyncThunk<Return, Arg, RejectedValue> {
 
     navigate: jest.MockedFn<(to: To, options?: NavigateOptions) => void>;
 
-    constructor(actionCreator: ActionCreatorType<Return, Arg, RejectedValue>, state?: Partial<RootState>) {
+    constructor(
+        actionCreator: ActionCreatorType<Return, Arg, RejectedValue>,
+        state?: Partial<RootState>,
+    ) {
         this.actionCreator = actionCreator;
         this.dispatch = jest.fn() as unknown as AppDispatch;
         this.getState = jest.fn(() => state as RootState);

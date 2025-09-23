@@ -1,9 +1,9 @@
-import webpack, { RuleSetRule, DefinePlugin } from 'webpack';
+import { RuleSetRule, DefinePlugin, type Configuration } from 'webpack';
 import path from 'path';
 import { buildCssLoader } from '../build/loaders/buildCssLoader';
 import { BuildPaths } from '../build/types/config';
 
-export default ({ config }: { config: webpack.Configuration }) => {
+export default ({ config }: { config: Configuration }) => {
     const paths: BuildPaths = {
         build: '',
         html: '',
@@ -12,28 +12,30 @@ export default ({ config }: { config: webpack.Configuration }) => {
     };
 
     // config!.resolve!.modules!.push(paths.src);
-    config!.resolve!.modules = [paths.src, 'node_modules'];
-    config!.resolve!.extensions!.push('.ts', '.tsx');
+    config.resolve!.modules = [paths.src, 'node_modules'];
+    config.resolve!.extensions!.push('.ts', '.tsx');
 
     // убираем обработку svg из дефолтных правил
-    config!.module!.rules = (config!.module!.rules as RuleSetRule[]).map((rule) => {
-        if (/svg/.test(rule.test as string)) {
-            return { ...rule, exclude: /\.svg$/i };
-        }
-        return rule;
-    });
+    config.module!.rules = (config.module!.rules as RuleSetRule[]).map(
+        (rule) => {
+            if (/svg/.test(rule.test as string)) {
+                return { ...rule, exclude: /\.svg$/i };
+            }
+            return rule;
+        },
+    );
 
     // свой loader для svg
-    config!.module!.rules.push({
+    config.module!.rules.push({
         test: /\.svg$/,
         use: ['@svgr/webpack'],
     });
 
     // css loader
-    config!.module!.rules.push(buildCssLoader(true));
+    config.module!.rules.push(buildCssLoader(true));
 
     // фикс для картинок (без hash для Storybook)
-    config!.module!.rules.push({
+    config.module!.rules.push({
         test: /\.(png|jpe?g|gif)$/i,
         type: 'asset/resource',
         generator: {
@@ -41,7 +43,7 @@ export default ({ config }: { config: webpack.Configuration }) => {
         },
     });
 
-    config!.plugins!.push(
+    config.plugins!.push(
         new DefinePlugin({
             __IS_DEV__: true,
             __API__: JSON.stringify(''),

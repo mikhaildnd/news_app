@@ -9,26 +9,30 @@ interface LoginByUsernameProps {
     password: string;
 }
 // 1й - возвращаемый тип, 2й - аргумент
-export const loginByUsername = createAsyncThunk<User, LoginByUsernameProps, ThunkConfig<string>>(
-    'login/loginByUsername',
-    async (authData, thunkApi) => {
-        const { extra, dispatch, rejectWithValue } = thunkApi;
+export const loginByUsername = createAsyncThunk<
+    User,
+    LoginByUsernameProps,
+    ThunkConfig<string>
+>('login/loginByUsername', async (authData, thunkApi) => {
+    const { extra, dispatch, rejectWithValue } = thunkApi;
 
-        try {
-            const response = await extra.api.post<User>('/login', authData);
+    try {
+        const response = await extra.api.post<User>('/login', authData);
 
-            if (!response.data) {
-                throw new Error();
-            }
-
-            // имитация авторизации
-            localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data));
-            dispatch(setAuthData(response.data));
-
-            return response.data;
-        } catch (e) {
-            console.log(e);
-            return rejectWithValue('error');
+        if (!response.data) {
+            throw new Error();
         }
-    },
-);
+
+        // имитация авторизации
+        localStorage.setItem(
+            USER_LOCALSTORAGE_KEY,
+            JSON.stringify(response.data),
+        );
+        dispatch(setAuthData(response.data));
+
+        return response.data;
+    } catch (e) {
+        console.log(e);
+        return rejectWithValue('error');
+    }
+});

@@ -15,7 +15,13 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['react', '@typescript-eslint', 'i18next', 'react-hooks', 'import'],
+    plugins: [
+        'react',
+        '@typescript-eslint',
+        'i18next',
+        'react-hooks',
+        'import',
+    ],
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended', // TS базовые правила
@@ -40,14 +46,22 @@ module.exports = {
         'react/react-in-jsx-scope': 'off', // не нужен с React 17+
         'react/require-default-props': 'off',
         'react/function-component-definition': 'off',
-        'react/jsx-props-no-spreading': 'warn',
+        'react/jsx-props-no-spreading': 'off',
         'react/self-closing-comp': ['error', { component: true, html: false }],
 
         // ----- TypeScript -----
-        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+        '@typescript-eslint/no-unused-vars': [
+            'warn',
+            { argsIgnorePattern: '^_' },
+        ],
         '@typescript-eslint/no-shadow': 'error',
         'no-shadow': 'off',
         'no-undef': 'off',
+
+        '@typescript-eslint/no-unsafe-argument': 'error',
+        '@typescript-eslint/no-unsafe-member-access': 'error',
+        '@typescript-eslint/no-unsafe-call': 'error',
+        '@typescript-eslint/no-explicit-any': 'error',
 
         // ----- Импорты -----
         'import/no-unresolved': 'error', // теперь работает с алиасами
@@ -69,7 +83,14 @@ module.exports = {
         ],
 
         // ----- Длина строк -----
-        'max-len': ['error', { code: 120, ignoreComments: true }],
+        'max-len': [
+            'error',
+            {
+                code: 120,
+                ignoreComments: true,
+                ignorePattern: '^import\\s.+\\sfrom\\s.+;$',
+            },
+        ],
 
         // ----- Hooks -----
         'react-hooks/rules-of-hooks': 'error',
@@ -93,20 +114,48 @@ module.exports = {
                 'max-len': 'off',
             },
         },
-        // --- конфиги, скрипты, dev-серверы и другие TS-файлы вне src ---
-        // {
-        //     files: ['config/**/*.ts', 'scripts/**/*.ts', 'json-server/**/*.ts', 'webpack.config.ts', 'build/**/*.ts'],
-        //     parserOptions: {
-        //         project: null, // отключаем type-aware линтинг
-        //     },
-        //     rules: {
-        //         '@typescript-eslint/await-thenable': 'off',
-        //         '@typescript-eslint/no-floating-promises': 'off',
-        //         '@typescript-eslint/no-unsafe-assignment': 'off',
-        //         '@typescript-eslint/no-unsafe-member-access': 'off',
-        //         '@typescript-eslint/no-unsafe-call': 'off',
-        //     },
-        // },
+        // --- TS-конфиги, скрипты, dev-серверы ---
+        {
+            files: [
+                'config/**/*.ts',
+                'config/**/*.tsx',
+                'scripts/**/*.ts',
+                'json-server/**/*.ts',
+                'webpack.config.ts',
+                'build/**/*.ts',
+            ],
+            parserOptions: {
+                // project: null, // отключаем type-aware линтинг
+                project: './tsconfig.node.json',
+                tsconfigRootDir: __dirname,
+            },
+            env: {
+                node: true,
+            },
+            //     rules: {
+            //         '@typescript-eslint/await-thenable': 'off',
+            //         '@typescript-eslint/no-floating-promises': 'off',
+            //         '@typescript-eslint/no-unsafe-assignment': 'off',
+            //         '@typescript-eslint/no-unsafe-member-access': 'off',
+            //         '@typescript-eslint/no-unsafe-call': 'off',
+            //     },
+        },
+        // --- JS-конфиги ---
+        {
+            files: [
+                'config/**/*.js',
+                'scripts/**/*.js',
+                'json-server/**/*.js',
+                'webpack.config.js',
+                'build/**/*.js',
+            ],
+            parserOptions: {
+                project: null, // без type-aware линтинга
+            },
+            env: {
+                node: true,
+            },
+        },
     ],
     settings: {
         react: {

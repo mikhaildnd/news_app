@@ -5,7 +5,9 @@ export function ThemeDecorator(theme: Theme) {
     function decorator(Story: StoryFn, context: StoryContext) {
         return (
             <ThemeProvider initialTheme={theme}>
-                <div className={`app ${theme}`}>{Story(context.args, context)}</div>
+                <div className={`app ${theme}`}>
+                    {Story(context.args, context)}
+                </div>
             </ThemeProvider>
         );
     }

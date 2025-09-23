@@ -45,7 +45,10 @@ const config: Config.InitialOptions = {
     moduleNameMapper: {
         '\\.s?css$': 'identity-obj-proxy',
         '\\.svg': path.resolve(__dirname, 'jestEmptyComponent.tsx'),
-        '\\.(jpg|jpeg|png|gif)$': path.resolve(__dirname, '__mocks__/fileMock.ts'),
+        '\\.(jpg|jpeg|png|gif)$': path.resolve(
+            __dirname,
+            '__mocks__/fileMock.ts',
+        ),
     },
 
     // The glob patterns Jest uses to detect test files

@@ -28,7 +28,14 @@ interface TextProps {
 }
 
 export const Text = memo(function Text(props: TextProps) {
-    const { className, title, text, theme = TextTheme.PRIMARY, align = TextAlign.LEFT, size = TextSize.M } = props;
+    const {
+        className,
+        title,
+        text,
+        theme = TextTheme.PRIMARY,
+        align = TextAlign.LEFT,
+        size = TextSize.M,
+    } = props;
 
     const additional = [className, cls[theme], cls[align], cls[size]];
 

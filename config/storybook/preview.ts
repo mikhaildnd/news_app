@@ -18,6 +18,7 @@ const preview: Preview = {
     decorators: [
         RouterDecorator,
         StyleDecorator,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         ThemeDecorator(Theme.LIGHT), // функция-декоратор вызывается здесь
     ],
 };

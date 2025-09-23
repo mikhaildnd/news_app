@@ -1,9 +1,9 @@
-import webpack from 'webpack';
+import { RuleSetRule } from 'webpack';
 import { BuildOptions } from './types/config';
 import { buildCssLoader } from './loaders/buildCssLoader';
 import { buildBabelLoader } from './loaders/buildBabelLoader';
 
-export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
+export function buildLoaders(options: BuildOptions): RuleSetRule[] {
     const { isDev } = options;
     const babelLoader = buildBabelLoader(options);
 

@@ -39,7 +39,13 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     });
 
     if (!id) {
-        return <div className={classNames(cls.ArticleDetailsPage, {}, [className])}>{t('Статья не найдена')}</div>;
+        return (
+            <div
+                className={classNames(cls.ArticleDetailsPage, {}, [className])}
+            >
+                {t('Статья не найдена')}
+            </div>
+        );
     }
 
     return (

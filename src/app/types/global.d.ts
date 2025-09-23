@@ -37,5 +37,7 @@ type DeepPartial<T> = T extends object
     : T;
 
 type RootStateDeepPartial = {
-    [K in keyof RootState]?: RootState[K] extends object ? RootStateDeepPartial<RootState[K]> : RootState[K];
+    [K in keyof RootState]?: RootState[K] extends object
+        ? RootStateDeepPartial<RootState[K]>
+        : RootState[K];
 };

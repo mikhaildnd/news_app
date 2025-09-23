@@ -6,8 +6,7 @@
 // import { ProfileSchema } from 'entities/Profile';
 // import { ArticleDetailsSchema } from 'entities/Article';
 import { AxiosInstance } from 'axios';
-import { To } from 'react-router-dom';
-import { NavigateOptions } from 'react-router';
+import { NavigateOptions, To } from 'react-router-dom';
 import { RootState } from 'app/providers/StoreProvider/config/store';
 // import { ArticleDetailsCommentsSchema } from 'pages/ArticleDetailsPage';
 

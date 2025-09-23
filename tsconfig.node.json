@@ -1,0 +1,21 @@
+// для конфигов
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": [
+    "config/**/*.ts",
+    "config/**/*.tsx",
+    "scripts/**/*.ts",
+    "json-server/**/*.ts",
+    "webpack.config.ts",
+    "build/**/*.ts"
+  ]
+}

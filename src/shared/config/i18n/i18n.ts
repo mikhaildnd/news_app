@@ -3,7 +3,8 @@ import { initReactI18next } from 'react-i18next';
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-i18n.use(Backend)
+void i18n
+    .use(Backend)
     .use(LanguageDetector)
     .use(initReactI18next)
 
@@ -18,6 +19,9 @@ i18n.use(Backend)
         backend: {
             loadPath: '/locales/{{lng}}/{{ns}}.json',
         },
+    })
+    .catch((err) => {
+        console.error('i18next initialization failed:', err);
     });
 
 export default i18n;

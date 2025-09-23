@@ -15,31 +15,35 @@ const data = {
 };
 
 describe('validateProfileData.test', () => {
-    test('success', async () => {
+    test('success', () => {
         const result = validateProfileData(data);
 
         expect(result).toEqual([]);
     });
 
-    test('without firstname and lastname', async () => {
-        const result = validateProfileData({ ...data, firstname: '', lastname: '' });
+    test('without firstname and lastname', () => {
+        const result = validateProfileData({
+            ...data,
+            firstname: '',
+            lastname: '',
+        });
 
         expect(result).toEqual([ValidateProfileError.INCORRECT_USER_DATA]);
     });
 
-    test('incorrect age', async () => {
+    test('incorrect age', () => {
         const result = validateProfileData({ ...data, age: undefined });
 
         expect(result).toEqual([ValidateProfileError.INCORRECT_AGE]);
     });
 
-    test('incorrect country', async () => {
+    test('incorrect country', () => {
         const result = validateProfileData({ ...data, country: undefined });
 
         expect(result).toEqual([ValidateProfileError.INCORRECT_COUNTRY]);
     });
 
-    test('incorrect all', async () => {
+    test('incorrect all', () => {
         const result = validateProfileData({});
 
         expect(result).toEqual([

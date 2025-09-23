@@ -18,5 +18,10 @@ export const Skeleton = memo(function Skeleton(props: SkeletonProps) {
         borderRadius: border,
     };
 
-    return <div className={classNames(cls.Skeleton, {}, [className])} style={styles}></div>;
+    return (
+        <div
+            className={classNames(cls.Skeleton, {}, [className])}
+            style={styles}
+        ></div>
+    );
 });
