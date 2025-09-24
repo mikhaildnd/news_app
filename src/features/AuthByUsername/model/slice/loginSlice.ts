@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, WithSlice } from '@reduxjs/toolkit';
 import { loginByUsername } from '../services/loginByUsername/loginByUsername';
 import { LoginSchema } from '../types/loginSchema';
+import { rootReducer } from 'app/providers/StoreProvider';
 
 const initialState: LoginSchema = {
     isLoading: false,
@@ -35,5 +36,14 @@ export const loginSlice = createSlice({
     },
 });
 
-export const { actions: loginActions } = loginSlice;
+declare module 'app/providers/StoreProvider/config/store' {
+    interface LazyLoadedSlices extends WithSlice<typeof loginSlice> {}
+}
+
+export const injectedLoginSlice = loginSlice.injectInto(rootReducer);
+
+export const { setUsername, setPassword } = loginSlice.actions;
+
 export const { reducer: loginReducer } = loginSlice;
+
+// export const { actions: loginActions } = loginSlice;

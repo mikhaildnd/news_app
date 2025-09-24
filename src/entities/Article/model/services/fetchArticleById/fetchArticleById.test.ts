@@ -41,11 +41,12 @@ const data: Article = {
 describe('fetchArticleById.test', () => {
     test('success', async () => {
         const thunk = new TestAsyncThunk(fetchArticleById);
-        thunk.api.get.mockResolvedValue({ data });
+        // thunk.api.get.mockResolvedValue({ data });
 
+        const spy = jest.spyOn(thunk.api, 'get').mockResolvedValue({ data });
         const result = await thunk.callThunk('1');
 
-        expect(thunk.api.get).toHaveBeenCalledWith('/articles/1');
+        expect(spy).toHaveBeenCalledWith('/articles/1');
         expect(result.meta.requestStatus).toBe('fulfilled');
         expect(result.payload).toEqual(data);
     });

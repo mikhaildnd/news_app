@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
-    "noImplicitAny": true,
+    "strict": true, // Включает все строгие проверки
+    "noImplicitAny": true, // Не разрешает неявный any
+    "strictNullChecks": true, // Отдельно проверка на null/undefined
+    "strictFunctionTypes": true, // Проверяет совместимость типов функций при присваивании или передаче
+    "strictBindCallApply": true, // Проверяет корректность типов при вызове bind, call, apply.
+    "noImplicitThis": true, // Не разрешает использовать this без типа.
+    "alwaysStrict": true, // Включает строгий режим JavaScript ('use strict') для всех файлов.
     "module": "ESNext",
-    "target": "es5",
+    "target": "es2021",
     "jsx": "react-jsx",
     "allowJs": true,
-    //!!! нет смысла исп. тайпскрипт без стрикта
-    // пример: ts не будет ругаться на такую запись без стрикта - state.profile.data.firstname
-    // state?.profile?.data?.firstname - правильная запись, тначе можно словить undefined и приложение упадет
-    "strict": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
@@ -17,8 +19,9 @@
         "./src/*"
       ]
     },
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true, // Позволяет безопасно импортировать CommonJS модули через import.
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true // Пропускает проверку типов в сторонних библиотеках (node_modules).
   },
   "ts-node": {
     "compilerOptions": {

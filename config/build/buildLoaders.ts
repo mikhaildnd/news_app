@@ -1,14 +1,14 @@
-import webpack from 'webpack';
+import { RuleSetRule } from 'webpack';
 import { BuildOptions } from './types/config';
 import { buildCssLoader } from './loaders/buildCssLoader';
 import { buildBabelLoader } from './loaders/buildBabelLoader';
 
-export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
+export function buildLoaders(options: BuildOptions): RuleSetRule[] {
     const { isDev } = options;
     const babelLoader = buildBabelLoader(options);
 
     const fileLoader = {
-        test: /\.(png|jpe?g|gif|woff2|woff)$/i,
+        test: /\.(png|jpe?g|gif|woff2|woff|ttf)$/i,
         use: [
             {
                 loader: 'file-loader',
@@ -29,11 +29,5 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         exclude: /node_modules/,
     };
 
-    return [
-        fileLoader,
-        svgLoader,
-        babelLoader,
-        typescriptLoader,
-        cssLoader,
-    ];
+    return [fileLoader, svgLoader, babelLoader, typescriptLoader, cssLoader];
 }

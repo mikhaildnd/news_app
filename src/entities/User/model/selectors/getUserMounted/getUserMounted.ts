@@ -1,3 +1,5 @@
-import { StateSchema } from 'app/providers/StoreProvider';
+// import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getUserMounted = (state:StateSchema) => state.user._isMounted;
+import { RootState } from 'app/providers/StoreProvider/config/store';
+
+export const getUserMounted = (state: RootState) => state.user._isMounted;

@@ -13,7 +13,10 @@ interface LoginModalProps {
 }
 
 export const LoginModal = ({
-    className, isOpen, onClose, element,
+    className,
+    isOpen,
+    onClose,
+    element,
 }: LoginModalProps) => (
     <Modal
         className={classNames(cls.LoginModal, {}, [className])}

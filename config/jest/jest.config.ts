@@ -2,10 +2,14 @@
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
-
+import type { Config } from '@jest/types';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-export default {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const config: Config.InitialOptions = {
     // A set of global variables that need to be available in all test environments
     globals: {
         __IS_DEV__: true,
@@ -17,48 +21,42 @@ export default {
     clearMocks: true,
 
     // The test environment that will be used for testing
-    testEnvironment: 'jsdom',
+    testEnvironment: 'jest-environment-jsdom',
+    // testEnvironment: 'jsdom', // уже не работает
 
     // An array of regexp pattern strings used to skip coverage collection
-    coveragePathIgnorePatterns: [
-        '\\\\node_modules\\\\',
-    ],
+    coveragePathIgnorePatterns: ['\\\\node_modules\\\\'],
 
     // An array of directory names to be searched recursively up from the requiring module's location
-    moduleDirectories: [
-        'node_modules',
-    ],
+    moduleDirectories: ['node_modules'],
 
     // Для абсолютных импортов типа import { classNames } from 'shared/lib/classNames/classNames';
-    modulePaths: [
-        '<rootDir>/src',
-    ],
+    modulePaths: ['<rootDir>/src'],
 
     // An array of file extensions your modules use
-    moduleFileExtensions: [
-        'js',
-        'jsx',
-        'ts',
-        'tsx',
-        'json',
-        'node',
-    ],
+    moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
     // The root directory that Jest should scan for tests and modules within
     rootDir: '../../',
 
+    // The paths to modules that run some code to configure or set up the testing environment before each test
+    // TextEncoder, TextDecoder из коробки не тянутся в новых версиях jest
+    setupFiles: ['<rootDir>/config/jest/jest.polyfills.ts'],
+
+    // A list of paths to modules that run some code to configure or set up the testing framework before each test
     setupFilesAfterEnv: ['<rootDir>/config/jest/setupTests.ts'],
 
     moduleNameMapper: {
         '\\.s?css$': 'identity-obj-proxy',
         '\\.svg': path.resolve(__dirname, 'jestEmptyComponent.tsx'),
-        '\\.(jpg|jpeg|png|gif)$': path.resolve(__dirname, '__mocks__/fileMock.ts'),
+        '\\.(jpg|jpeg|png|gif)$': path.resolve(
+            __dirname,
+            '__mocks__/fileMock.ts',
+        ),
     },
 
     // The glob patterns Jest uses to detect test files
-    testMatch: [
-        '<rootDir>/src/**/*(*.)@(spec|test).[tj]s?(x)',
-    ],
+    testMatch: ['<rootDir>/src/**/*(*.)@(spec|test).[tj]s?(x)'],
 
     // All imported modules in your tests should be mocked automatically
     // automock: false,
@@ -151,12 +149,6 @@ export default {
     // Allows you to use a custom runner instead of Jest's default test runner
     // runner: "jest-runner",
 
-    // The paths to modules that run some code to configure or set up the testing environment before each test
-    // setupFiles: [],
-
-    // A list of paths to modules that run some code to configure or set up the testing framework before each test
-    // setupFilesAfterEnv: [],
-
     // The number of seconds after which a test is considered as slow and reported as such in the results.
     // slowTestThreshold: 5,
 
@@ -210,3 +202,5 @@ export default {
     // Whether to use watchman for file crawling
     // watchman: true,
 };
+
+export default config;

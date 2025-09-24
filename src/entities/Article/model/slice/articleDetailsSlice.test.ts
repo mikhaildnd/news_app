@@ -12,7 +12,10 @@ describe('articleDetailsSlice (явные тесты)', () => {
             data: undefined,
         };
 
-        const newState = articleDetailsReducer(state, fetchArticleById.pending('', '1'));
+        const newState = articleDetailsReducer(
+            state,
+            fetchArticleById.pending('', '1'),
+        );
 
         expect(newState).toEqual({
             isLoading: true,
@@ -30,7 +33,10 @@ describe('articleDetailsSlice (явные тесты)', () => {
             data: undefined,
         };
 
-        const newState = articleDetailsReducer(state, fetchArticleById.fulfilled(article, '', '1'));
+        const newState = articleDetailsReducer(
+            state,
+            fetchArticleById.fulfilled(article, '', '1'),
+        );
 
         expect(newState).toEqual({
             isLoading: false,
@@ -48,7 +54,10 @@ describe('articleDetailsSlice (явные тесты)', () => {
             data: undefined,
         };
 
-        const newState = articleDetailsReducer(state, fetchArticleById.rejected(null, '', '1', error));
+        const newState = articleDetailsReducer(
+            state,
+            fetchArticleById.rejected(null, '', '1', error),
+        );
 
         expect(newState).toEqual({
             isLoading: false,

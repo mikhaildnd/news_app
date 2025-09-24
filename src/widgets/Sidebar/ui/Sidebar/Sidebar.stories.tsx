@@ -1,41 +1,55 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { Theme } from 'app/providers/ThemeProvider';
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Sidebar } from './Sidebar';
 
-export default {
+const meta: Meta<typeof Sidebar> = {
     title: 'widget/Sidebar',
     component: Sidebar,
-    argTypes: {
-        backgroundColor: { control: 'color' },
-    },
-} as ComponentMeta<typeof Sidebar>;
+};
+export default meta;
 
-const Template: ComponentStory<typeof Sidebar> = (args) => <Sidebar {...args} />;
+type Story = StoryObj<typeof meta>;
 
-export const Light = Template.bind({});
-Light.args = {};
-Light.decorators = [
-    StoreDecorator({
-        user: { authData: {} },
-    }),
-];
+export const Light: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            user: {
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
+            },
+        }),
+    ],
+};
 
-export const Dark = Template.bind({});
-Dark.args = {};
-Dark.decorators = [
-    ThemeDecorator(Theme.DARK),
-    StoreDecorator({
-        user: { authData: {} },
-    }),
-];
+export const Dark: Story = {
+    args: {},
+    decorators: [
+        ThemeDecorator(Theme.DARK),
+        StoreDecorator({
+            user: {
+                authData: {
+                    id: '1',
+                    username: 'user',
+                },
+                _isMounted: true,
+            },
+        }),
+    ],
+};
 
-export const NoAuth = Template.bind({});
-NoAuth.args = {};
-NoAuth.decorators = [
-    StoreDecorator({
-        user: {},
-    }),
-];
+export const NoAuth: Story = {
+    args: {},
+    decorators: [
+        StoreDecorator({
+            user: {
+                _isMounted: true,
+            },
+        }),
+    ],
+};
