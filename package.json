@@ -15,7 +15,7 @@
     "lint:scss:fix": "npx stylelint \"**/*.scss\" --fix",
     "format": "prettier --check \"src/**/*.{ts,tsx,js,jsx,scss,css,json,md}\"",
     "format:fix": "prettier --write \"src/**/*.{ts,tsx,js,jsx,scss,css,json,md}\"",
-    "test:unit": "jest --config ./config/jest/jest.config.ts",
+    "test:unit": "jest --config config/jest/jest.config.ts",
     "test:ui": "npx loki test",
     "test:ui:ok": "npx loki approve",
     "test:ui:ci": "loki --requireReference --reactUri file:./storybook-static",
