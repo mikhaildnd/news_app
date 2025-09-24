@@ -1,5 +1,6 @@
 module.exports = {
-    chromeSelector: '.wrapper > *, #root > *, .story-decorator > *',
+    // chromeSelector: '.wrapper > *, #root > *, .story-decorator > *',
+    chromeSelector: '#storybook-root > *, .story-decorator > *',
     diffingEngine: 'pixelmatch',
 
     // указываем, что Loki должен тестировать уже собранный Storybook
