@@ -7,13 +7,10 @@ import {
 } from '@reduxjs/toolkit';
 
 import { Comment } from 'entities/Comment';
-// import { StateSchema } from 'app/providers/StoreProvider';
-// import { fetchArticleById } from 'entities/Article/model/services/fetchArticleById/fetchArticleById';
 // import { Article } from 'entities/Article';
-import { fetchCommentsByArticleId } from 'pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
+import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId'; //fix?
 import { ArticleDetailsCommentsSchema } from '../types/ArticleDetailsCommentsSchema';
 import { rootReducer } from 'app/providers/StoreProvider';
-// import { loginSlice } from 'features/AuthByUsername/model/slice/loginSlice';
 
 // createEntityAdapter<T>() сам по себе уже умеет выводить selectId (оно по умолчанию ищет id).
 // А если хочешь передать кастомный selectId, нужно явно указать generic для ключа EntityId

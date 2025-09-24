@@ -1,6 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-// import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
@@ -12,7 +11,6 @@ import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg';
 import { Icon } from 'shared/ui/Icon/Icon';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import cls from './ArticleDetails.module.scss';
-// import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArticleById';
 import {
     getArticleDetailsData,
@@ -29,10 +27,6 @@ interface ArticleDetailsProps {
     id: string;
 }
 
-// const reducers: ReducersList = {
-//     articleDetails: articleDetailsReducer,
-// };
-
 export const ArticleDetails = memo(function ArticleDetails(
     props: ArticleDetailsProps,
 ) {
@@ -40,7 +34,6 @@ export const ArticleDetails = memo(function ArticleDetails(
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getArticleDetailsIsLoading);
-    // const isLoading = true;
     const error = useSelector(getArticleDetailsError);
     const article = useSelector(getArticleDetailsData);
 

@@ -5,7 +5,6 @@ import { Input } from 'shared/ui/Input/Input';
 import { useSelector } from 'react-redux';
 import { memo, useCallback } from 'react';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
-// import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { setPassword, setUsername } from '../../model/slice/loginSlice';
 import cls from './LoginForm.module.scss';
@@ -19,11 +18,6 @@ export interface LoginFormProps {
     className?: string;
     onSuccess: () => void;
 }
-
-// Вынес, чтобы объект не пересоздавался в компоненте (можно было передавать как {loginForm: loginReducer})
-// const initialReducers: ReducersList = {
-//     loginForm: loginReducer,
-// };
 
 const LoginForm = memo(function LoginForm({
     className,

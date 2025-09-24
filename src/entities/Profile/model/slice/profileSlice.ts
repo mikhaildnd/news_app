@@ -3,7 +3,6 @@ import { Profile, ProfileSchema } from '../types/profile';
 import { fetchProfileData } from '../services/fetchProfileData/fetchProfileData';
 import { updateProfileData } from '../services/updateProfileData/updateProfileData';
 import { rootReducer } from 'app/providers/StoreProvider';
-// import { loginSlice } from 'features/AuthByUsername/model/slice/loginSlice';
 
 const initialState: ProfileSchema = {
     readonly: true,
@@ -80,8 +79,5 @@ declare module 'app/providers/StoreProvider/config/store' {
 }
 
 export const injectedProfileSlice = profileSlice.injectInto(rootReducer);
-
 export const { setReadonly, cancelEdit, updateProfile } = profileSlice.actions;
-
-// export const { actions: profileActions } = profileSlice;
-export const { reducer: profileReducer } = profileSlice;
+export const profileReducer = profileSlice.reducer;

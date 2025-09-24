@@ -1,7 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useEffect } from 'react';
-// import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     fetchProfileData,
     getProfileError,
@@ -9,9 +8,7 @@ import {
     getProfileIsLoading,
     getProfileReadonly,
     getProfileValidateErrors,
-    // profileActions,
     ProfileCard,
-    // profileReducer,
     ValidateProfileError,
 } from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -25,10 +22,6 @@ import { updateProfile } from 'entities/Profile/model/slice/profileSlice'; //fix
 interface ProfilePageProps {
     className?: string;
 }
-
-// const reducers: ReducersList = {
-//     profile: profileReducer,
-// };
 
 const ProfilePage = memo(function ProfilePage({ className }: ProfilePageProps) {
     const { t } = useTranslation('profile');

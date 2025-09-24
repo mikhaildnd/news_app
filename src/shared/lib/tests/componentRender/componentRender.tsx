@@ -9,7 +9,6 @@ import { RootState } from 'app/providers/StoreProvider/config/store'; //fix mb
 export interface ComponentRenderOptions {
     route?: string;
     initialState?: Partial<RootState>;
-    // initialState?: DeepPartial<RootState>;
 }
 
 export function componentRender(

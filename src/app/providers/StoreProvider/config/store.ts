@@ -1,8 +1,6 @@
 import { configureStore, combineSlices } from '@reduxjs/toolkit';
 import { userSlice } from 'entities/User/model/slice/userSlice';
 import { $api } from 'shared/api/api';
-// import { To } from 'react-router-dom';
-// import { NavigateOptions } from 'react-router';
 import { NavigateFunction } from 'react-router-dom';
 import { counterSlice } from 'entities/Counter/model/slice/CounterSlice';
 
@@ -16,7 +14,6 @@ export const rootReducer = combineSlices(userSlice, counterSlice)
 export function createReduxStore(
     initialState?: Partial<RootState>,
     navigate?: NavigateFunction,
-    // navigate?: (to: To, options?: NavigateOptions) => void,
 ) {
     const store = configureStore({
         reducer: rootReducer,
@@ -37,5 +34,4 @@ export function createReduxStore(
 }
 
 export type RootState = ReturnType<typeof rootReducer>;
-// export type AppStore = ReturnType<typeof createReduxStore>; // для StoreDecorator
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];

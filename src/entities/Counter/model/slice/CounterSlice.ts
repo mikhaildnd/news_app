@@ -25,11 +25,6 @@ declare module 'app/providers/StoreProvider/config/store' {
     interface LazyLoadedSlices extends WithSlice<typeof counterSlice> {}
 }
 
-// 👉 экспортируем actions как есть
 export const { increment, decrement } = counterSlice.actions;
-
-// 👉 экспортируем селекторы (если нужны)
 export const { selectCounter } = counterSlice.selectors;
 export const counterReducer = counterSlice.reducer;
-
-// export const { actions: counterActions, reducer: counterReducer } = counterSlice;

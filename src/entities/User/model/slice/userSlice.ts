@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
 import { User, UserSchema } from '../types/user';
-// import { rootReducer } from 'app/providers/StoreProvider';
 
 const initialState: UserSchema = {
     _isMounted: false,
@@ -30,12 +29,4 @@ export const userSlice = createSlice({
 });
 
 export const { setAuthData, initAuthData, logout } = userSlice.actions;
-// export const userReducer = userSlice.reducer;
-
-// declare module 'app/providers/StoreProvider/config/store' {
-//     export interface LazyLoadedSlices extends WithSlice<typeof userSlice> {}
-// }
-// export const injectedUserSlice = userSlice.injectInto(rootReducer);
-
-// export const { actions: userActions } = userSlice;
-export const { reducer: userReducer } = userSlice;
+export const userReducer = userSlice.reducer;

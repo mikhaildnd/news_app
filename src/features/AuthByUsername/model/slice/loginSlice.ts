@@ -43,7 +43,4 @@ declare module 'app/providers/StoreProvider/config/store' {
 export const injectedLoginSlice = loginSlice.injectInto(rootReducer);
 
 export const { setUsername, setPassword } = loginSlice.actions;
-
-export const { reducer: loginReducer } = loginSlice;
-
-// export const { actions: loginActions } = loginSlice;
+export const loginReducer = loginSlice.reducer;
