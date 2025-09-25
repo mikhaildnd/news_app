@@ -1,5 +1,5 @@
 import { RootState } from 'app/providers/StoreProvider/config/store'; //fix?
 
-//login по имени слайса
 export const getLoginUsername = (state: RootState) =>
+    //login по имени слайса
     state?.login?.username || '';
