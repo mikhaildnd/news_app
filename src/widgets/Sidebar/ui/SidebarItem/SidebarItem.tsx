@@ -5,7 +5,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import cls from './SidebarItem.module.scss';
-import { SidebarItemType } from '../../model/items';
+import type { SidebarItemType } from '../../model/types/sidebarType';
 
 interface SidebarItemProps {
     item: SidebarItemType;
