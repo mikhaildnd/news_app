@@ -3,8 +3,10 @@ import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { ValidateProfileError } from 'entities/Profile';
 import { updateProfileData } from './updateProfileData';
+import { RootState } from 'app/providers/StoreProvider/config/store';
 
 const data = {
+    id: '1',
     username: 'admin',
     firstname: 'Mikhail',
     lastname: 'Dundukov',
@@ -21,7 +23,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        } as RootStateDeepPartial);
+        } as Partial<RootState>); //fix
 
         const spy = jest.spyOn(thunk.api, 'put').mockResolvedValue({ data });
         // thunk.api.put.mockReturnValue(Promise.resolve({ data }));
@@ -39,7 +41,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        } as RootStateDeepPartial);
+        } as Partial<RootState>); ///fix
 
         thunk.api.put.mockReturnValue(Promise.resolve({ status: 403 }));
 
@@ -54,7 +56,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: { ...data, lastname: '' },
             },
-        } as RootStateDeepPartial);
+        } as Partial<RootState>); //fix?
 
         const result = await thunk.callThunk();
 
