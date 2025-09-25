@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback } from 'react';
 import {
     fetchProfileData,
     getProfileError,
@@ -17,7 +17,9 @@ import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
-import { updateProfile } from 'entities/Profile/model/slice/profileSlice'; //fix
+import { updateProfile } from 'entities/Profile/model/slice/profileSlice';
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect'; //fix
+import { useParams } from 'react-router-dom';
 
 interface ProfilePageProps {
     className?: string;
@@ -32,6 +34,7 @@ const ProfilePage = memo(function ProfilePage({ className }: ProfilePageProps) {
     const error = useSelector(getProfileError);
     const readonly = useSelector(getProfileReadonly);
     const validateErrors = useSelector(getProfileValidateErrors);
+    const { id } = useParams<{ id: string }>();
 
     const validateErrorTranslates = {
         [ValidateProfileError.SERVER_ERROR]: t(
@@ -45,11 +48,11 @@ const ProfilePage = memo(function ProfilePage({ className }: ProfilePageProps) {
         [ValidateProfileError.NO_DATA]: t('Данные не указаны'),
     };
 
-    useEffect(() => {
-        if (__PROJECT__ !== 'storybook') {
-            void dispatch(fetchProfileData());
+    useInitialEffect(() => {
+        if (id) {
+            void dispatch(fetchProfileData(id));
         }
-    }, [dispatch]);
+    });
 
     const onChangeFirstname = useCallback(
         (value?: string) => {

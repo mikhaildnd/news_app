@@ -3,7 +3,7 @@ import { CommentList } from './CommentList';
 import { Comment } from '../../model/types/comment';
 
 const meta: Meta<typeof CommentList> = {
-    title: 'entities/CommentList',
+    title: 'entities/Comment/CommentList',
     component: CommentList,
 };
 export default meta;
@@ -33,7 +33,7 @@ export const Normal: Story = {
 
 export const Loading: Story = {
     args: {
-        comments: commentsMock,
+        comments: [],
         isLoading: true,
     },
 };

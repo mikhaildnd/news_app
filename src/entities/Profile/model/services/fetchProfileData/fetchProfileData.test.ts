@@ -20,7 +20,7 @@ describe('fetchProfileData.test', () => {
 
         const spy = jest.spyOn(thunk.api, 'get').mockResolvedValue({ data });
         // thunk.api.get.mockResolvedValue({ data });
-        const result = await thunk.callThunk();
+        const result = await thunk.callThunk('1');
 
         expect(spy).toHaveBeenCalled();
         // expect(thunk.api.get).toHaveBeenCalled();
@@ -38,7 +38,7 @@ describe('fetchProfileData.test', () => {
             .spyOn(thunk.api, 'get')
             .mockResolvedValue({ status: 403 });
         // thunk.api.get.mockResolvedValue({ status: 403 });
-        const result = await thunk.callThunk();
+        const result = await thunk.callThunk('1');
         expect(result.meta.requestStatus).toBe('rejected');
 
         spy.mockRestore();
