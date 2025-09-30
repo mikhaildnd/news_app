@@ -12,7 +12,7 @@ const data: Article = {
     user: {
         id: '1',
         username: 'Mikhail Dundukov',
-        avatar: '"https://avatars.githubusercontent.com/u/58606474?v=4"',
+        avatar: '',
     },
     type: [ArticleType.IT],
     blocks: [
