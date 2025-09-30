@@ -4,8 +4,9 @@ import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
 import { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserMounted, userActions } from 'entities/User';
+import { getUserMounted } from 'entities/User';
 import { useTheme } from 'app/providers/ThemeProvider';
+import { initAuthData } from 'entities/User/model/slice/userSlice'; //fix
 
 function App() {
     const { theme } = useTheme();
@@ -13,7 +14,7 @@ function App() {
     const isMounted = useSelector(getUserMounted);
 
     useEffect(() => {
-        dispatch(userActions.initAuthData());
+        dispatch(initAuthData());
     }, [dispatch]);
 
     return (

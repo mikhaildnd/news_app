@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, WithSlice } from '@reduxjs/toolkit';
 import { CounterSchema } from '../types/counterSchema';
 
 const initialState: CounterSchema = {
@@ -16,7 +16,15 @@ export const counterSlice = createSlice({
             state.value -= 1;
         },
     },
+    selectors: {
+        selectCounter: (state) => state.value,
+    },
 });
 
-export const { actions: counterActions } = counterSlice;
-export const { reducer: counterReducer } = counterSlice;
+declare module 'app/providers/StoreProvider/config/store' {
+    interface LazyLoadedSlices extends WithSlice<typeof counterSlice> {}
+}
+
+export const { increment, decrement } = counterSlice.actions;
+export const { selectCounter } = counterSlice.selectors;
+export const counterReducer = counterSlice.reducer;

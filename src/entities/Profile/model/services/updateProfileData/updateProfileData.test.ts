@@ -3,8 +3,10 @@ import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { ValidateProfileError } from 'entities/Profile';
 import { updateProfileData } from './updateProfileData';
+import { RootState } from 'app/providers/StoreProvider/config/store';
 
 const data = {
+    id: '1',
     username: 'admin',
     firstname: 'Mikhail',
     lastname: 'Dundukov',
@@ -21,13 +23,15 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        });
+        } as Partial<RootState>); //fix
 
-        thunk.api.put.mockReturnValue(Promise.resolve({ data }));
+        const spy = jest.spyOn(thunk.api, 'put').mockResolvedValue({ data });
+        // thunk.api.put.mockReturnValue(Promise.resolve({ data }));
 
         const result = await thunk.callThunk();
 
-        expect(thunk.api.put).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
+        // expect(thunk.api.put).toHaveBeenCalled();
         expect(result.meta.requestStatus).toBe('fulfilled');
         expect(result.payload).toEqual(data);
     });
@@ -37,16 +41,14 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        });
+        } as Partial<RootState>); ///fix
 
         thunk.api.put.mockReturnValue(Promise.resolve({ status: 403 }));
 
         const result = await thunk.callThunk();
 
         expect(result.meta.requestStatus).toBe('rejected');
-        expect(result.payload).toEqual([
-            ValidateProfileError.SERVER_ERROR,
-        ]);
+        expect(result.payload).toEqual([ValidateProfileError.SERVER_ERROR]);
     });
 
     test('validate error', async () => {
@@ -54,7 +56,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: { ...data, lastname: '' },
             },
-        });
+        } as Partial<RootState>); //fix?
 
         const result = await thunk.callThunk();
 

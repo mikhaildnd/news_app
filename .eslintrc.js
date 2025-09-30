@@ -1,16 +1,14 @@
 module.exports = {
+    root: true, // останавливаем поиск конфигов выше по дереву
     env: {
         browser: true,
         es2021: true,
         jest: true,
     },
-    extends: [
-        'plugin:react/recommended',
-        'airbnb',
-        'plugin:i18next/recommended',
-    ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
+        project: './tsconfig.eslint.json', // отдельный tsconfig для линтинга
+        tsconfigRootDir: __dirname,
         ecmaFeatures: {
             jsx: true,
         },
@@ -22,30 +20,60 @@ module.exports = {
         '@typescript-eslint',
         'i18next',
         'react-hooks',
+        'import',
+    ],
+    extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended', // TS базовые правила
+        'plugin:@typescript-eslint/recommended-requiring-type-checking', // правила, завязанные на типы
+        'plugin:react/recommended',
+        'plugin:i18next/recommended',
+        'plugin:storybook/recommended',
+        'plugin:prettier/recommended',
+        'plugin:import/recommended',
+        'plugin:import/typescript',
     ],
     rules: {
-        'react/jsx-indent': [2, 4],
-        'react/jsx-indent-props': [2, 4],
-        indent: [2, 4],
-        'react/jsx-filename-extension': [
-            2,
-            { extensions: ['.js', '.jsx', '.tsx'] },
-        ],
-        'import/no-unresolved': 'off',
-        'import/prefer-default-export': 'off',
-        'no-unused-vars': 'warn',
+        // ----- форматирование -----
+        // доверяем форматирование Prettier
+        indent: 'off',
+        'react/jsx-indent': ['error', 4],
+        'react/jsx-indent-props': ['error', 4],
+        'prettier/prettier': 'error', // ошибки форматирования как ESLint-ошибки
+
+        // ----- React -----
+        'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
+        'react/react-in-jsx-scope': 'off', // не нужен с React 17+
         'react/require-default-props': 'off',
-        'react/react-in-jsx-scope': 'off',
-        'react/jsx-props-no-spreading': 'warn',
         'react/function-component-definition': 'off',
-        'react/self-closing-comp': ['error', {
-            component: true,
-            html: false,
-        }],
+        'react/jsx-props-no-spreading': 'off',
+        'react/self-closing-comp': ['error', { component: true, html: false }],
+
+        // ----- TypeScript -----
+        '@typescript-eslint/no-unused-vars': [
+            'warn',
+            { argsIgnorePattern: '^_' },
+        ],
+        '@typescript-eslint/no-shadow': 'error',
         'no-shadow': 'off',
+        'no-undef': 'off',
+
+        '@typescript-eslint/no-unsafe-argument': 'error',
+        '@typescript-eslint/no-unsafe-member-access': 'error',
+        '@typescript-eslint/no-unsafe-call': 'error',
+        '@typescript-eslint/no-explicit-any': 'error',
+
+        // ----- Импорты -----
+        'import/no-unresolved': 'error', // теперь работает с алиасами
         'import/extensions': 'off',
+        'import/prefer-default-export': 'off',
         'import/no-extraneous-dependencies': 'warn',
+
+        // ----- Логика -----
+        'no-param-reassign': 'off', // redux toolkit допускает
         'no-underscore-dangle': 'off',
+
+        // ----- i18n -----
         'i18next/no-literal-string': [
             'error',
             {
@@ -53,13 +81,24 @@ module.exports = {
                 ignoreAttribute: ['data-testid', 'to'],
             },
         ],
-        'max-len': ['error', { ignoreComments: true, code: 120 }],
+
+        // ----- Длина строк -----
+        'max-len': [
+            'error',
+            {
+                code: 120,
+                ignoreComments: true,
+                ignorePattern: '^import\\s.+\\sfrom\\s.+;$',
+            },
+        ],
+
+        // ----- Hooks -----
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'error',
+
+        // ----- a11y -----
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
-        'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-        'react-hooks/exhaustive-deps': 'error', // Checks effect dependencies
-        'no-param-reassign': 'off', // Для того, чтобы линтер не ругался на изменения стейта в Redux
-        'no-undef': 'off',
     },
     globals: {
         __IS_DEV__: true,
@@ -68,11 +107,64 @@ module.exports = {
     },
     overrides: [
         {
+            // --- тесты и сторибуки ---
             files: ['**/src/**/*.{test,stories}.{ts,tsx}'],
             rules: {
                 'i18next/no-literal-string': 'off',
                 'max-len': 'off',
             },
         },
+        // --- TS-конфиги, скрипты, dev-серверы ---
+        {
+            files: [
+                'config/**/*.ts',
+                'config/**/*.tsx',
+                'scripts/**/*.ts',
+                'json-server/**/*.ts',
+                'webpack.config.ts',
+                'build/**/*.ts',
+            ],
+            parserOptions: {
+                // project: null, // отключаем type-aware линтинг
+                project: './tsconfig.node.json',
+                tsconfigRootDir: __dirname,
+            },
+            env: {
+                node: true,
+            },
+            //     rules: {
+            //         '@typescript-eslint/await-thenable': 'off',
+            //         '@typescript-eslint/no-floating-promises': 'off',
+            //         '@typescript-eslint/no-unsafe-assignment': 'off',
+            //         '@typescript-eslint/no-unsafe-member-access': 'off',
+            //         '@typescript-eslint/no-unsafe-call': 'off',
+            //     },
+        },
+        // --- JS-конфиги ---
+        {
+            files: [
+                'config/**/*.js',
+                'scripts/**/*.js',
+                'json-server/**/*.js',
+                'webpack.config.js',
+                'build/**/*.js',
+            ],
+            parserOptions: {
+                project: null, // без type-aware линтинга
+            },
+            env: {
+                node: true,
+            },
+        },
     ],
+    settings: {
+        react: {
+            version: 'detect',
+        },
+        'import/resolver': {
+            typescript: {
+                project: './tsconfig.json',
+            },
+        },
+    },
 };

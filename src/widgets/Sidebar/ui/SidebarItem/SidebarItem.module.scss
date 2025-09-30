@@ -10,7 +10,9 @@
     white-space: nowrap;
     max-width: 100%;
     opacity: 1;
-    transition: max-width 0.3s ease, opacity 0.4s ease;
+    transition:
+        max-width 0.3s ease,
+        opacity 0.4s ease;
 }
 
 .icon {

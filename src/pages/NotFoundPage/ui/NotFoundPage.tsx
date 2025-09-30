@@ -7,7 +7,9 @@ interface NotFoundPageProps {
     className?: string;
 }
 
-export const NotFoundPage = memo(({ className }: NotFoundPageProps) => {
+export const NotFoundPage = memo(function NotFoundPage({
+    className,
+}: NotFoundPageProps) {
     const { t } = useTranslation();
     return (
         <div className={classNames(cls.NotFoundPage, {}, [className])}>

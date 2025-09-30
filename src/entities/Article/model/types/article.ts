@@ -26,12 +26,15 @@ export interface ArticleImageBlock extends ArticleBlockBase {
     title: string;
 }
 
-export type ArticleBlock = ArticleCodeBlock | ArticleTextBlock | ArticleImageBlock;
+export type ArticleBlock =
+    | ArticleCodeBlock
+    | ArticleTextBlock
+    | ArticleImageBlock;
 
 export enum ArticleType {
     IT = 'IT',
     SCIENCE = 'SCIENCE',
-    ECONOMICS = 'ECONOMICS'
+    ECONOMICS = 'ECONOMICS',
 }
 
 export interface Article {

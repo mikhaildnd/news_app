@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, WithSlice } from '@reduxjs/toolkit';
 import { Profile, ProfileSchema } from '../types/profile';
 import { fetchProfileData } from '../services/fetchProfileData/fetchProfileData';
 import { updateProfileData } from '../services/updateProfileData/updateProfileData';
+import { rootReducer } from 'app/providers/StoreProvider';
 
 const initialState: ProfileSchema = {
     readonly: true,
@@ -38,16 +39,16 @@ export const profileSlice = createSlice({
                 state.error = undefined; // обнуляем ошибку, если есть
                 state.isLoading = true;
             })
-            .addCase(fetchProfileData.fulfilled, (
-                state,
-                action: PayloadAction<Profile>,
-            ) => {
-                state.isLoading = false;
-                // один раз получаем
-                state.data = action.payload;
-                // тут уже пользователь меняет данные
-                state.form = action.payload;
-            })
+            .addCase(
+                fetchProfileData.fulfilled,
+                (state, action: PayloadAction<Profile>) => {
+                    state.isLoading = false;
+                    // один раз получаем
+                    state.data = action.payload;
+                    // тут уже пользователь меняет данные
+                    state.form = action.payload;
+                },
+            )
             .addCase(fetchProfileData.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
@@ -56,16 +57,16 @@ export const profileSlice = createSlice({
                 state.validateErrors = undefined;
                 state.isLoading = true;
             })
-            .addCase(updateProfileData.fulfilled, (
-                state,
-                action: PayloadAction<Profile>,
-            ) => {
-                state.isLoading = false;
-                state.data = action.payload;
-                state.form = action.payload;
-                state.readonly = true;
-                state.validateErrors = undefined;
-            })
+            .addCase(
+                updateProfileData.fulfilled,
+                (state, action: PayloadAction<Profile>) => {
+                    state.isLoading = false;
+                    state.data = action.payload;
+                    state.form = action.payload;
+                    state.readonly = true;
+                    state.validateErrors = undefined;
+                },
+            )
             .addCase(updateProfileData.rejected, (state, action) => {
                 state.isLoading = false;
                 state.validateErrors = action.payload;
@@ -73,5 +74,10 @@ export const profileSlice = createSlice({
     },
 });
 
-export const { actions: profileActions } = profileSlice;
-export const { reducer: profileReducer } = profileSlice;
+declare module 'app/providers/StoreProvider/config/store' {
+    interface LazyLoadedSlices extends WithSlice<typeof profileSlice> {}
+}
+
+export const injectedProfileSlice = profileSlice.injectInto(rootReducer);
+export const { setReadonly, cancelEdit, updateProfile } = profileSlice.actions;
+export const profileReducer = profileSlice.reducer;

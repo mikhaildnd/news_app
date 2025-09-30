@@ -5,14 +5,15 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import cls from './SidebarItem.module.scss';
-import { SidebarItemType } from '../../model/items';
+import type { SidebarItemType } from '../../model/types/sidebarType';
 
 interface SidebarItemProps {
     item: SidebarItemType;
     collapsed: boolean;
 }
 
-export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
+export const SidebarItem = memo(function SidebarItem(props: SidebarItemProps) {
+    const { item, collapsed } = props;
     const { t } = useTranslation();
     const isAuth = useSelector(getUserAuthData);
 
@@ -27,9 +28,7 @@ export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
             to={item.path}
         >
             <item.Icon className={cls.icon} />
-            <span className={cls.link}>
-                {t(item.text)}
-            </span>
+            <span className={cls.link}>{t(item.text)}</span>
         </AppLink>
     );
 });

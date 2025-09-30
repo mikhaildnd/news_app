@@ -27,7 +27,7 @@ interface TextProps {
     size?: TextSize;
 }
 
-export const Text = memo((props: TextProps) => {
+export const Text = memo(function Text(props: TextProps) {
     const {
         className,
         title,
@@ -37,16 +37,11 @@ export const Text = memo((props: TextProps) => {
         size = TextSize.M,
     } = props;
 
-    const additional = [
-        className,
-        cls[theme],
-        cls[align],
-        cls[size],
-    ];
+    const additional = [className, cls[theme], cls[align], cls[size]];
 
     return (
         <div className={classNames(cls.Text, {}, additional)}>
-            {title && (<p className={cls.title}>{title}</p>)}
+            {title && <p className={cls.title}>{title}</p>}
             {text && <p className={cls.text}>{text}</p>}
         </div>
     );
