@@ -1,13 +1,11 @@
 import {
     createEntityAdapter,
     createSlice,
-    // EntityId,
     PayloadAction,
     WithSlice,
 } from '@reduxjs/toolkit';
 
 import { Comment } from 'entities/Comment';
-// import { Article } from 'entities/Article';
 import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId'; //fix?
 import { ArticleDetailsCommentsSchema } from '../types/ArticleDetailsCommentsSchema';
 import { rootReducer } from 'app/providers/StoreProvider';
@@ -15,14 +13,6 @@ import { rootReducer } from 'app/providers/StoreProvider';
 // createEntityAdapter<T>() сам по себе уже умеет выводить selectId (оно по умолчанию ищет id).
 // А если хочешь передать кастомный selectId, нужно явно указать generic для ключа EntityId
 const commentsAdapter = createEntityAdapter<Comment>();
-
-// const commentsAdapter = createEntityAdapter<Comment, EntityId>({
-//     selectId: (comment: Comment) => comment.id,
-// });
-
-// export const getArticleComments = commentsAdapter.getSelectors<StateSchema>(
-//     (state) => state.articleDetailsComments || commentsAdapter.getInitialState(),
-// );
 
 const articleDetailsCommentsSlice = createSlice({
     name: 'articleDetailsComments',

@@ -16,6 +16,12 @@
   "Язык": "English",
   "Короткий язык": "En",
   "Профиль": "Profile",
+  "Статьи": "Articles",
   "Укажите валюту": "Specify the currency",
-  "Укажите страну": "Specify the country"
+  "Укажите страну": "Specify the country",
+  "Комментарии отсутствуют": "No comments",
+  "Комментарии": "Comments",
+  "Введите текст комментария": "Enter the comment text",
+  "Отправить": "Send",
+  "Назад к списку": "Back to the list"
 }
