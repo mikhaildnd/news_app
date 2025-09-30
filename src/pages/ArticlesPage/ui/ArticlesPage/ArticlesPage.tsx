@@ -9,16 +9,18 @@ import {
 } from 'entities/Article';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchArticlesList } from '../../model/services/fetchArticlesList';
+import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import {
     articlesPageSliceActions,
     articlesPageSliceSelectors,
 } from '../../model/slice/articlesPageSlice';
 import {
-    getArticlesPageError,
+    // getArticlesPageError,
     getArticlesPageIsLoading,
     getArticlesPageView,
 } from '../../model/selectors/articlePageSelectors';
+import { Page } from 'shared/ui/Page/Page';
+import { fetchNextArticlesPage } from 'pages/ArticlesPage/model/services/fetchNextArticlesPage/fetchNextArticlesPage';
 
 interface ArticlesPageProps {
     className?: string;
@@ -29,7 +31,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     const dispatch = useAppDispatch();
     const articles = useSelector(articlesPageSliceSelectors.selectAll);
     const isLoading = useSelector(getArticlesPageIsLoading);
-    const error = useSelector(getArticlesPageError);
+    // const error = useSelector(getArticlesPageError);
     const view = useSelector(getArticlesPageView);
 
     const onChangeView = useCallback(
@@ -39,20 +41,31 @@ const ArticlesPage = (props: ArticlesPageProps) => {
         [dispatch],
     );
 
+    const onLoadNextPart = useCallback(() => {
+        void dispatch(fetchNextArticlesPage());
+    }, [dispatch]);
+
     useInitialEffect(() => {
-        void dispatch(fetchArticlesList());
         dispatch(articlesPageSliceActions.initState());
+        void dispatch(
+            fetchArticlesList({
+                page: 1,
+            }),
+        );
     });
 
     return (
-        <div className={classNames(cls.ArticlesPage, {}, [className])}>
+        <Page
+            onScrollEnd={onLoadNextPart}
+            className={classNames(cls.ArticlesPage, {}, [className])}
+        >
             <ArticleViewSelector view={view} onViewClick={onChangeView} />
             <ArticleList
                 isLoading={isLoading}
                 view={view}
                 articles={articles}
             />
-        </div>
+        </Page>
     );
 };
 

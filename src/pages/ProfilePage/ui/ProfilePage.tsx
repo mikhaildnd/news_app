@@ -18,8 +18,9 @@ import { Country } from 'entities/Country';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader';
 import { updateProfile } from 'entities/Profile/model/slice/profileSlice';
-import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect'; //fix
+import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useParams } from 'react-router-dom';
+import { Page } from 'shared/ui/Page/Page';
 
 interface ProfilePageProps {
     className?: string;
@@ -112,7 +113,7 @@ const ProfilePage = memo(function ProfilePage({ className }: ProfilePageProps) {
 
     return (
         // <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
-        <div className={classNames('', {}, [className])}>
+        <Page className={classNames('', {}, [className])}>
             <ProfilePageHeader />
             {validateErrors?.length &&
                 validateErrors.map((err) => (
@@ -136,7 +137,7 @@ const ProfilePage = memo(function ProfilePage({ className }: ProfilePageProps) {
                 onChangeCurrency={onChangeCurrency}
                 onChangeCountry={onChangeCountry}
             />
-        </div>
+        </Page>
         // </DynamicModuleLoader>
     );
 });
