@@ -71,7 +71,7 @@ export const Normal: Story = {
                 view: ArticleView.SMALL,
                 page: 1,
                 limit: 4,
-                hasMore: true,
+                hasMore: false,
             },
         }),
     ],
