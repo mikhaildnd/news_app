@@ -9,7 +9,6 @@ import {
 } from 'entities/Article';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import {
     articlesPageSliceActions,
     articlesPageSliceSelectors,
@@ -20,7 +19,8 @@ import {
     getArticlesPageView,
 } from '../../model/selectors/articlePageSelectors';
 import { Page } from 'shared/ui/Page/Page';
-import { fetchNextArticlesPage } from 'pages/ArticlesPage/model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPage/fetchNextArticlesPage';
+import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
 
 interface ArticlesPageProps {
     className?: string;
@@ -46,12 +46,7 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     }, [dispatch]);
 
     useInitialEffect(() => {
-        dispatch(articlesPageSliceActions.initState());
-        void dispatch(
-            fetchArticlesList({
-                page: 1,
-            }),
-        );
+        void dispatch(initArticlesPage());
     });
 
     return (
