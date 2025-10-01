@@ -4,7 +4,6 @@ import {
     AppDispatch,
     RootState,
 } from 'app/providers/StoreProvider/config/store';
-import { NavigateOptions, To } from 'react-router-dom';
 import { ThunkExtraArg } from 'app/providers/StoreProvider/config/StateSchema'; //fix?
 
 type ActionCreatorType<Return, Arg, RejectedValue> = Arg extends void
@@ -39,8 +38,6 @@ export class TestAsyncThunk<Return, Arg, RejectedValue> {
 
     api: jest.MockedFunctionDeep<AxiosStatic>;
 
-    navigate: jest.MockedFn<(to: To, options?: NavigateOptions) => void>;
-
     constructor(
         actionCreator: ActionCreatorType<Return, Arg, RejectedValue>,
         state?: Partial<RootState>,
@@ -50,7 +47,6 @@ export class TestAsyncThunk<Return, Arg, RejectedValue> {
         this.getState = jest.fn(() => state as RootState);
 
         this.api = mockedAxios;
-        this.navigate = jest.fn();
     }
 
     async callThunk(arg?: Arg) {
@@ -58,7 +54,7 @@ export class TestAsyncThunk<Return, Arg, RejectedValue> {
         const result = await action(
             this.dispatch as unknown as Parameters<typeof action>[0],
             this.getState as unknown as Parameters<typeof action>[1],
-            { api: this.api, navigate: this.navigate },
+            { api: this.api },
         );
 
         return result;
