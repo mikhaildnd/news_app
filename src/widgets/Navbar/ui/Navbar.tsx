@@ -6,7 +6,7 @@ import { LoginModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import cls from './Navbar.module.scss';
-import { logout } from 'entities/User/model/slice/userSlice'; // mb fix
+import { logout } from 'entities/User/model/slice/userSlice';
 
 interface NavbarProps {
     className?: string;
