@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { Provider } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { createReduxStore, RootState } from '../config/store';
 
 interface StoreProviderProps {
@@ -11,10 +10,7 @@ interface StoreProviderProps {
 export const StoreProvider = (props: StoreProviderProps) => {
     const { children, initialState } = props;
 
-    // Функция для перемещения по роутам при каких-либо действиях
-    const navigate = useNavigate();
-
-    const store = createReduxStore(initialState, navigate);
+    const store = createReduxStore(initialState);
 
     return <Provider store={store}>{children}</Provider>;
 };

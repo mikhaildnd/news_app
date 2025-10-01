@@ -72,6 +72,7 @@ export const Normal: Story = {
                 page: 1,
                 limit: 4,
                 hasMore: false,
+                _inited: false,
             },
         }),
     ],
