@@ -6,18 +6,21 @@ import { fetchArticlesList } from '../fetchArticlesList/fetchArticlesList';
 jest.mock('../fetchArticlesList/fetchArticlesList');
 
 describe('fetchNextArticlesPage.test', () => {
+    const baseState = {
+        page: 2,
+        ids: [],
+        entities: {},
+        limit: 5,
+        isLoading: false,
+        hasMore: true,
+        view: ArticleView.BIG,
+        error: undefined,
+        _inited: true,
+    };
+
     test('success', async () => {
         const thunk = new TestAsyncThunk(fetchNextArticlesPage, {
-            articlesPage: {
-                page: 2,
-                ids: [],
-                entities: {},
-                limit: 5,
-                isLoading: false,
-                hasMore: true,
-                view: ArticleView.BIG,
-                error: undefined,
-            },
+            articlesPage: baseState,
         });
 
         await thunk.callThunk();
@@ -26,18 +29,9 @@ describe('fetchNextArticlesPage.test', () => {
         expect(fetchArticlesList).toHaveBeenCalledWith({ page: 3 });
     });
 
-    test('fetchArticleList not called', async () => {
+    test('fetchArticleList not called if hasMore=false', async () => {
         const thunk = new TestAsyncThunk(fetchNextArticlesPage, {
-            articlesPage: {
-                page: 2,
-                ids: [],
-                entities: {},
-                limit: 5,
-                isLoading: false,
-                hasMore: false,
-                view: ArticleView.BIG,
-                error: undefined,
-            },
+            articlesPage: { ...baseState, hasMore: false },
         });
 
         await thunk.callThunk();
@@ -46,18 +40,9 @@ describe('fetchNextArticlesPage.test', () => {
         expect(fetchArticlesList).not.toHaveBeenCalled();
     });
 
-    test('isLoading', async () => {
+    test('fetchArticleList not called if isLoading=true', async () => {
         const thunk = new TestAsyncThunk(fetchNextArticlesPage, {
-            articlesPage: {
-                page: 2,
-                ids: [],
-                entities: {},
-                limit: 5,
-                isLoading: true,
-                hasMore: false,
-                view: ArticleView.BIG,
-                error: undefined,
-            },
+            articlesPage: { ...baseState, isLoading: true },
         });
 
         await thunk.callThunk();
