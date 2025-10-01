@@ -22,6 +22,7 @@ export const articlesPageSlice = createSlice({
         view: ArticleView.SMALL,
         page: 1,
         hasMore: true,
+        _inited: false,
     }),
     reducers: {
         setView: (state, action: PayloadAction<ArticleView>) => {
@@ -32,17 +33,19 @@ export const articlesPageSlice = createSlice({
             state.page = action.payload;
         },
         initState: (state) => {
-            const view = localStorage.getItem(
-                ARTICLE_VIEW_LOCALSTORAGE_KEY,
-            ) as ArticleView; // local storage хранит только строки - кастуем в енам
+            const view =
+                (localStorage.getItem(
+                    ARTICLE_VIEW_LOCALSTORAGE_KEY,
+                ) as ArticleView) ?? ArticleView.SMALL;
             state.view = view;
             state.limit = view === ArticleView.BIG ? 4 : 9;
+            state._inited = true;
         },
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchArticlesList.pending, (state) => {
-                state.error = undefined; // обнуляем ошибку, если есть
+                state.error = undefined;
                 state.isLoading = true;
             })
             .addCase(
