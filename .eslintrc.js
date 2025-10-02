@@ -108,10 +108,16 @@ module.exports = {
     overrides: [
         {
             // --- тесты и сторибуки ---
-            files: ['**/src/**/*.{test,stories}.{ts,tsx}'],
+            files: [
+                '**/src/**/*.{test,stories}.{ts,tsx}',
+                '**/config/storybook/**/*.{ts,tsx}',
+            ],
             rules: {
                 'i18next/no-literal-string': 'off',
                 'max-len': 'off',
+                '@typescript-eslint/no-unsafe-call': 'off',
+                'react/display-name': 'off',
+                'import/no-extraneous-dependencies': 'off',
             },
         },
         // --- TS-конфиги, скрипты, dev-серверы ---

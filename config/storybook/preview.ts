@@ -4,6 +4,7 @@ import { ThemeDecorator } from '../../src/shared/config/storybook/ThemeDecorator
 import { Theme } from '../../src/app/providers/ThemeProvider';
 import { RouterDecorator } from '../../src/shared/config/storybook/RouterDecorator/RouterDecorator';
 import '../../src/app/styles/index.scss';
+import { StoreDecorator } from '../../src/shared/config/storybook/StoreDecorator/StoreDecorator';
 
 const preview: Preview = {
     parameters: {
@@ -18,8 +19,12 @@ const preview: Preview = {
     decorators: [
         RouterDecorator,
         StyleDecorator,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        ThemeDecorator(Theme.LIGHT), // функция-декоратор вызывается здесь
+        ThemeDecorator(Theme.LIGHT),
+        StoreDecorator({
+            scrollSaveSlice: {
+                scroll: {},
+            },
+        }),
     ],
 };
 
