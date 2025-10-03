@@ -48,7 +48,7 @@ const articleDetailsCommentsSlice = createSlice({
 
 export const injectedArticleDetailsCommentsSlice =
     articleDetailsCommentsSlice.injectInto(rootReducer);
-export const articleDetailsCommentsSelectors = commentsAdapter.getSelectors(
+export const getArticleDetailsComments = commentsAdapter.getSelectors(
     (state: ReturnType<typeof rootReducer>) =>
         injectedArticleDetailsCommentsSlice.selectSlice(state) ??
         commentsAdapter.getInitialState(),
