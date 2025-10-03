@@ -1,14 +1,16 @@
 import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk';
 import { initArticlesPage } from './initArticlesPage';
-import { ArticleView } from 'entities/Article';
+import { ArticleType, ArticleView } from 'entities/Article';
 import { fetchArticlesList } from '../fetchArticlesList/fetchArticlesList';
 import { articlesPageSliceActions } from '../../slice/articlesPageSlice';
+import { ArticlesPageSchema } from '../../types/articlesPageSchema';
+import { ArticleSortField } from 'entities/Article/model/types/article';
 
 jest.mock('../fetchArticlesList/fetchArticlesList');
 
 describe('initArticlesPage.test', () => {
-    const baseState = {
-        page: 1,
+    const baseState: ArticlesPageSchema = {
+        page: 2,
         ids: [],
         entities: {},
         limit: 5,
@@ -16,6 +18,11 @@ describe('initArticlesPage.test', () => {
         hasMore: true,
         view: ArticleView.BIG,
         error: undefined,
+        sort: ArticleSortField.CREATED,
+        search: '',
+        order: 'asc',
+        _inited: false,
+        type: ArticleType.ALL,
     };
 
     test('dispatch initState and fetchArticlesList if _inited=false', async () => {
