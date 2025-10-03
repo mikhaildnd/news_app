@@ -5,11 +5,11 @@ export function useThrottle<TArgs extends unknown[]>(
     delay: number,
 ): (...args: TArgs) => void {
     const throttleRef = useRef(false);
-    const timerRef = useRef<number | null>(null);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         return () => {
-            if (timerRef.current !== null) {
+            if (timerRef.current) {
                 clearTimeout(timerRef.current);
             }
         };
@@ -21,7 +21,7 @@ export function useThrottle<TArgs extends unknown[]>(
                 callback(...args);
                 throttleRef.current = true;
 
-                timerRef.current = window.setTimeout(() => {
+                timerRef.current = setTimeout(() => {
                     throttleRef.current = false;
                 }, delay);
             }
@@ -29,3 +29,35 @@ export function useThrottle<TArgs extends unknown[]>(
         [callback, delay],
     );
 }
+
+// import { useCallback, useEffect, useRef } from 'react';
+//
+// export function useThrottle<TArgs extends unknown[]>(
+//     callback: (...args: TArgs) => void,
+//     delay: number,
+// ): (...args: TArgs) => void {
+//     const throttleRef = useRef(false);
+//     const timerRef = useRef<number | null>(null);
+//
+//     useEffect(() => {
+//         return () => {
+//             if (timerRef.current !== null) {
+//                 clearTimeout(timerRef.current);
+//             }
+//         };
+//     }, []);
+//
+//     return useCallback(
+//         (...args: TArgs) => {
+//             if (!throttleRef.current) {
+//                 callback(...args);
+//                 throttleRef.current = true;
+//
+//                 timerRef.current = window.setTimeout(() => {
+//                     throttleRef.current = false;
+//                 }, delay);
+//             }
+//         },
+//         [callback, delay],
+//     );
+// }
