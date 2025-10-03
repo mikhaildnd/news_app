@@ -16,27 +16,6 @@ export const initArticlesPage = createAsyncThunk<
 
     if (inited) return;
 
-    // const paramConfig: Record<
-    //     string,
-    //     (
-    //         value: string,
-    //     ) => ReturnType<
-    //         (typeof articlesPageSliceActions)[keyof typeof articlesPageSliceActions]
-    //     >
-    // > = {
-    //     order: (value) => articlesPageSliceActions.setOrder(value as SortOrder),
-    //     sort: (value) =>
-    //         articlesPageSliceActions.setSort(value as ArticleSortField),
-    //     search: (value) => articlesPageSliceActions.setSearch(value),
-    // };
-    //
-    // Object.entries(paramConfig).forEach(([key, actionCreator]) => {
-    //     const value = searchParams.get(key);
-    //     if (value) {
-    //         dispatch(actionCreator(value));
-    //     }
-    // });
-
     const orderFromUrl = searchParams.get('order') as SortOrder;
     const sortFromUrl = searchParams.get('sort') as ArticleSortField;
     const searchFromUrl = searchParams.get('search');

@@ -30,12 +30,13 @@ describe('initArticlesPage.test', () => {
             articlesPage: { ...baseState, _inited: false },
         });
 
-        await thunk.callThunk();
+        await thunk.callThunk(new URLSearchParams());
 
         expect(thunk.dispatch).toHaveBeenCalledWith(
             articlesPageSliceActions.initState(),
         );
-        expect(fetchArticlesList).toHaveBeenCalledWith({ page: 1 });
+
+        expect(fetchArticlesList).toHaveBeenCalledWith({});
     });
 
     test('fetchArticleList not called', async () => {
@@ -43,7 +44,7 @@ describe('initArticlesPage.test', () => {
             articlesPage: { ...baseState, _inited: true },
         });
 
-        await thunk.callThunk();
+        await thunk.callThunk(new URLSearchParams());
 
         expect(thunk.dispatch).not.toHaveBeenCalledWith(
             articlesPageSliceActions.initState(),
