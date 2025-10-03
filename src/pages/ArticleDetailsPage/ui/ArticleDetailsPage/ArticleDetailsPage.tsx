@@ -1,14 +1,14 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useEffect } from 'react';
-import { ArticleDetails } from 'entities/Article';
+import { ArticleDetails, ArticleList } from 'entities/Article';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Text } from 'shared/ui/Text/Text';
+import { Text, TextSize } from 'shared/ui/Text/Text';
 import { CommentList } from 'entities/Comment';
 import { useSelector } from 'react-redux';
 import { useInitialEffect } from 'shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { articleDetailsCommentsSelectors } from '../../model/slice/articleDetailsCommentsSlice';
+import { getArticleDetailsComments } from '../../model/slice/articleDetailsCommentsSlice';
 import cls from './ArticleDetailsPage.module.scss';
 import { getArticleCommentsIsLoading } from '../../model/selectors/comments';
 import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId';
@@ -18,6 +18,9 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Page } from 'widgets/Page/Page';
 import { articleDetailsActions } from 'entities/Article/model/slice/articleDetailsSlice';
+import { getArticleRecommendations } from '../../model/slice/articleDetailsPageRecommendationsSlice';
+import { getArticleRecommendationsIsLoading } from '../../model/selectors/recommendations';
+import { fetchArticlesRecommendations } from '../../model/services/fetchArticleRecommendations/fetchArticleRecommendations';
 
 interface ArticleDetailsPageProps {
     className?: string;
@@ -29,8 +32,12 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { id } = useParams<{ id: string }>();
-    const comments = useSelector(articleDetailsCommentsSelectors.selectAll);
+    const comments = useSelector(getArticleDetailsComments.selectAll);
     const commentsIsLoading = useSelector(getArticleCommentsIsLoading);
+    const recommendations = useSelector(getArticleRecommendations.selectAll);
+    const recommendationsLoading = useSelector(
+        getArticleRecommendationsIsLoading,
+    );
     // const error = useSelector(getArticleDetailsError);
 
     const onBackToList = useCallback(() => {
@@ -46,6 +53,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
 
     useInitialEffect(() => {
         void dispatch(fetchCommentsByArticleId(id));
+        void dispatch(fetchArticlesRecommendations());
     });
 
     useEffect(() => {
@@ -71,7 +79,22 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                 {t('Назад к списку')}
             </Button>
             <ArticleDetails id={id} />
-            <Text className={cls.commentTitle} title={t('Комментарии')} />
+            <Text
+                size={TextSize.L}
+                className={cls.commentTitle}
+                title={t('Рекомендуем')}
+            />
+            <ArticleList
+                className={cls.recommendations}
+                articles={recommendations}
+                isLoading={recommendationsLoading}
+                target={'_blank'}
+            />
+            <Text
+                size={TextSize.L}
+                className={cls.commentTitle}
+                title={t('Комментарии')}
+            />
             <AddCommentForm onSendComment={onSendComment} />
             <CommentList isLoading={commentsIsLoading} comments={comments} />
         </Page>
@@ -79,4 +102,6 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     );
 };
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export default memo(ArticleDetailsPage);
