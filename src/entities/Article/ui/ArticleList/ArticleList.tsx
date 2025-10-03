@@ -5,6 +5,7 @@ import cls from './ArticleList.module.scss';
 import { Article, ArticleView } from '../../model/types/article';
 import { ArticleListItem } from '../ArticleListItem/ArticleListItem';
 import { ArticleListItemSkeleton } from '../ArticleListItem/ArticleListItemSkeleton';
+import { Text, TextSize } from 'shared/ui/Text/Text';
 
 interface ArticleListProps {
     className?: string;
@@ -16,7 +17,7 @@ interface ArticleListProps {
 const getSkeletons = (view: ArticleView) => {
     return new Array(view === ArticleView.SMALL ? 9 : 3)
         .fill(0)
-        .map((item, index) => (
+        .map((_, index) => (
             <ArticleListItemSkeleton
                 className={cls.card}
                 key={index}
@@ -39,6 +40,19 @@ export const ArticleList = memo((props: ArticleListProps) => {
             />
         );
     };
+
+    if (!isLoading && !articles.length) {
+        return (
+            <div
+                className={classNames(cls.ArticleList, {}, [
+                    className,
+                    cls[view],
+                ])}
+            >
+                <Text title={t('Статьи не найдены')} size={TextSize.L} />
+            </div>
+        );
+    }
 
     return (
         <div

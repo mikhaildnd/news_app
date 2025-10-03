@@ -10,6 +10,12 @@ import ArticleDetailsPage from './ArticleDetailsPage';
 const meta: Meta<typeof ArticleDetailsPage> = {
     title: 'pages/ArticleDetailsPage',
     component: ArticleDetailsPage,
+    parameters: {
+        router: {
+            path: '/articles/:id', // динамический сегмент, говорит роутеру: "в этом месте может быть любое значение"
+            initialEntries: ['/articles/1'], //Это свойство MemoryRouter. Оно указывает, какой URL должен быть в истории роутера при старте.
+        },
+    },
 };
 export default meta;
 
@@ -66,10 +72,4 @@ export const Normal: Story = {
             },
         }),
     ],
-    parameters: {
-        router: {
-            path: '/articles/:id', // динамический сегмент, говорит роутеру: "в этом месте может быть любое значение"
-            initialEntries: ['/articles/1'], //Это свойство MemoryRouter. Оно указывает, какой URL должен быть в истории роутера при старте.
-        },
-    },
 };
