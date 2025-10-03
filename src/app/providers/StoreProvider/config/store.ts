@@ -1,20 +1,18 @@
 import { configureStore, combineSlices } from '@reduxjs/toolkit';
 import { userSlice } from 'entities/User/model/slice/userSlice';
 import { $api } from 'shared/api/api';
-import { NavigateFunction } from 'react-router-dom';
 import { counterSlice } from 'entities/Counter/model/slice/CounterSlice';
+import { scrollSaveSlice } from 'features/ScrollSave';
 
 export interface LazyLoadedSlices {}
 
-// базовый rootReducer со статическими слайсами
-export const rootReducer = combineSlices(userSlice, counterSlice)
-    // указываем, что могут быть подключаемые ленивые слайсы
-    .withLazyLoadedSlices<LazyLoadedSlices>();
+export const rootReducer = combineSlices(
+    userSlice,
+    scrollSaveSlice,
+    counterSlice,
+).withLazyLoadedSlices<LazyLoadedSlices>();
 
-export function createReduxStore(
-    initialState?: Partial<RootState>,
-    navigate?: NavigateFunction,
-) {
+export function createReduxStore(initialState?: Partial<RootState>) {
     const store = configureStore({
         reducer: rootReducer,
         devTools: __IS_DEV__,
@@ -24,7 +22,6 @@ export function createReduxStore(
                 thunk: {
                     extraArgument: {
                         api: $api,
-                        navigate,
                     },
                 },
             }),

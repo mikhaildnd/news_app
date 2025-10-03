@@ -1,6 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { ArticleDetails } from 'entities/Article';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Text } from 'shared/ui/Text/Text';
@@ -16,7 +16,8 @@ import AddCommentForm from 'features/AddCommentForm/ui/addCommentForm/addComment
 import { addCommentForArticle } from '../../model/services/addCommentForArticle/addCommentForArticle';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import { Page } from 'shared/ui/Page/Page';
+import { Page } from 'widgets/Page/Page';
+import { articleDetailsActions } from 'entities/Article/model/slice/articleDetailsSlice';
 
 interface ArticleDetailsPageProps {
     className?: string;
@@ -46,6 +47,12 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     useInitialEffect(() => {
         void dispatch(fetchCommentsByArticleId(id));
     });
+
+    useEffect(() => {
+        return () => {
+            dispatch(articleDetailsActions.reset());
+        };
+    }, [dispatch]);
 
     if (!id) {
         return (

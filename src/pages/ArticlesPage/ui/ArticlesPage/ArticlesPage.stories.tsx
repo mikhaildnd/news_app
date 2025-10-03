@@ -4,8 +4,10 @@ import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDeco
 import { Article, ArticleView } from 'entities/Article';
 import {
     ArticleBlockType,
+    ArticleSortField,
     ArticleType,
 } from 'entities/Article/model/types/article';
+import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
 
 const meta: Meta<typeof ArticlesPage> = {
     title: 'pages/ArticlesPage',
@@ -56,28 +58,34 @@ const article: Article = {
     ],
 };
 
+const baseState: ArticlesPageSchema = {
+    isLoading: false,
+    error: undefined,
+    ids: [],
+    entities: {},
+    view: ArticleView.SMALL,
+    page: 1,
+    hasMore: false,
+    _inited: false,
+    limit: 4,
+    sort: ArticleSortField.CREATED,
+    search: '',
+    order: 'asc',
+    type: ArticleType.ALL,
+};
+
 export const Normal: Story = {
     args: {},
     decorators: [
         StoreDecorator({
             articlesPage: {
+                ...baseState,
                 ids: ['1', '2'],
                 entities: {
                     '1': article,
                     '2': { ...article, id: '2', title: 'React news' },
                 },
-                isLoading: false,
-                error: undefined,
-                view: ArticleView.SMALL,
-                page: 1,
-                limit: 4,
-                hasMore: false,
             },
         }),
     ],
-    parameters: {
-        router: {
-            initialEntries: ['/articles/'],
-        },
-    },
 };
