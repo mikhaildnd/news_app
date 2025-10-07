@@ -6,7 +6,7 @@
     "start": "webpack serve --env port=3000",
     "start:dev": "concurrently \"npm start\" \"npm run start:dev:server\"",
     "start:dev:server": "node ./json-server/index.js",
-    "build:prod": "webpack --env mode=production",
+    "build:prod": "webpack --env mode=production apiUrl=https://project1-server-kappa.vercel.app/",
     "build:dev": "webpack --env mode=development",
     "lint": "npm run lint:ts && npm run lint:scss && npm run format",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
