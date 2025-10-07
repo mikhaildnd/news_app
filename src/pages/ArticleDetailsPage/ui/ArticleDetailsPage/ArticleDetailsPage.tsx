@@ -67,7 +67,6 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     }
 
     return (
-        // <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
         <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
             <ArticleDetailsPageHeader />
             <ArticleDetails id={id} />
@@ -90,7 +89,6 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
             <AddCommentForm onSendComment={onSendComment} />
             <CommentList isLoading={commentsIsLoading} comments={comments} />
         </Page>
-        // </DynamicModuleLoader>
     );
 };
 

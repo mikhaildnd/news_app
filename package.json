@@ -57,6 +57,7 @@
     "babel-loader": "^10.0.0",
     "babel-plugin-i18next-extract": "^1.1.0",
     "chromatic": "^13.2.0",
+    "copy-webpack-plugin": "^13.0.1",
     "css-loader": "^7.1.2",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
