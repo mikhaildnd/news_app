@@ -23,5 +23,23 @@
   "Комментарии": "Comments",
   "Введите текст комментария": "Enter the comment text",
   "Отправить": "Send",
-  "Назад к списку": "Back to the list"
+  "Назад к списку": "Back to the list",
+  "Рекомендуем": "Recommended",
+  "Создать статью": "Create article",
+  "Редактировать": "Edit",
+  "Читать далее...": "Read more...",
+  "Поиск": "Find",
+  "Сортировать по": "Sort by",
+  "по": "by",
+  "дате создания": "creation date",
+  "названию": "name",
+  "просмотрам": "views",
+  "возрастанию": "ascending order",
+  "убыванию": "descending order",
+  "Все статьи":  "All articles",
+  "Айти": "IT",
+  "Наука":  "Science",
+  "Экономика": "Economics",
+  "Создание новой статьи": "Creating a new article"
+
 }

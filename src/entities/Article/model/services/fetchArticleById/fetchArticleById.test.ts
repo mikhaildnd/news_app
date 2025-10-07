@@ -51,7 +51,9 @@ describe('fetchArticleById.test', () => {
         const spy = jest.spyOn(thunk.api, 'get').mockResolvedValue({ data });
         const result = await thunk.callThunk('1');
 
-        expect(spy).toHaveBeenCalledWith('/articles/1');
+        expect(spy).toHaveBeenCalledWith('/articles/1', {
+            params: { _expand: 'user' },
+        });
         expect(result.meta.requestStatus).toBe('fulfilled');
         expect(result.payload).toEqual(data);
     });
