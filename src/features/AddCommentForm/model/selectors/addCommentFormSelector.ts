@@ -1,5 +1,5 @@
 import { RootState } from 'app/providers/StoreProvider/config/store';
-import { injectedAddCommentFormSlice } from 'features/AddCommentForm/model/slice/addCommentFormSlice';
+import { injectedAddCommentFormSlice } from '../slice/addCommentFormSlice';
 
 export const getAddCommentFormText = (state: RootState) =>
     injectedAddCommentFormSlice.selectSlice(state)?.text ?? '';

@@ -4,13 +4,10 @@ import {
     PayloadAction,
     WithSlice,
 } from '@reduxjs/toolkit';
-
-import { Comment } from 'entities/Comment';
-import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId'; //fix?
 import { rootReducer } from 'app/providers/StoreProvider';
 import { ArticleDetailsRecommendationsSchema } from '../../model/types/ArticleDetailsRecommendationsSchema';
 import { Article } from 'entities/Article';
-import { fetchArticlesRecommendations } from 'pages/ArticleDetailsPage/model/services/fetchArticleRecommendations/fetchArticleRecommendations';
+import { fetchArticlesRecommendations } from '../services/fetchArticleRecommendations/fetchArticleRecommendations';
 
 // createEntityAdapter<T>() сам по себе уже умеет выводить selectId (оно по умолчанию ищет id).
 // А если хочешь передать кастомный selectId, нужно явно указать generic для ключа EntityId

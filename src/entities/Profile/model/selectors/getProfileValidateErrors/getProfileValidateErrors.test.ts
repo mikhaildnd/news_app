@@ -1,4 +1,4 @@
-import { ValidateProfileError } from 'entities/Profile';
+import { ValidateProfileError } from '../../types/profile';
 import { getProfileValidateErrors } from './getProfileValidateErrors';
 import { RootState } from 'app/providers/StoreProvider/config/store';
 
