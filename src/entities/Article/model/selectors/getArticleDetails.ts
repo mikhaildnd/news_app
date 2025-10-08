@@ -1,5 +1,5 @@
 import { RootState } from 'app/providers/StoreProvider/config/store';
-import { injectArticleDetailsSlice } from 'entities/Article/model/slice/articleDetailsSlice'; //fix?
+import { injectArticleDetailsSlice } from '../slice/articleDetailsSlice';
 
 export const getArticleDetailsData = (state: RootState) =>
     injectArticleDetailsSlice.selectSlice(state)?.data;

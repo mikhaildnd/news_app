@@ -6,7 +6,7 @@ import {
     ArticleBlockType,
     ArticleType,
 } from '../../model/types/article';
-import { injectArticleDetailsSlice } from 'entities/Article/model/slice/articleDetailsSlice';
+import { injectArticleDetailsSlice } from '../../model/slice/articleDetailsSlice';
 
 const article: Article = {
     id: '1',

@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit';
 
 import { Comment } from 'entities/Comment';
-import { fetchCommentsByArticleId } from '../../model/services/fetchCommentsByArticleId/fetchCommentsByArticleId'; //fix?
+import { fetchCommentsByArticleId } from '../services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { ArticleDetailsCommentsSchema } from '../types/ArticleDetailsCommentsSchema';
 import { rootReducer } from 'app/providers/StoreProvider';
 
