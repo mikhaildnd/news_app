@@ -4,7 +4,7 @@ import {
     AppDispatch,
     RootState,
 } from 'app/providers/StoreProvider/config/store';
-import { ThunkExtraArg } from 'app/providers/StoreProvider/config/StateSchema'; //fix?
+import { ThunkExtraArg } from 'app/providers/StoreProvider/config/StateSchema';
 
 type ActionCreatorType<Return, Arg, RejectedValue> = Arg extends void
     ? () => AsyncThunkAction<
@@ -25,7 +25,18 @@ type ActionCreatorType<Return, Arg, RejectedValue> = Arg extends void
 //     arg: Arg,
 // ) => AsyncThunkAction<Return, Arg, { rejectValue: RejectedValue }>;
 
-jest.mock('axios');
+jest.mock('axios', () => ({
+    create: jest.fn(() => ({
+        get: jest.fn(),
+        post: jest.fn(),
+        put: jest.fn(),
+        delete: jest.fn(),
+        interceptors: {
+            request: { use: jest.fn() },
+            response: { use: jest.fn() },
+        },
+    })),
+}));
 
 const mockedAxios = jest.mocked(axios, { shallow: false });
 
@@ -36,7 +47,8 @@ export class TestAsyncThunk<Return, Arg, RejectedValue> {
 
     actionCreator: ActionCreatorType<Return, Arg, RejectedValue>;
 
-    api: jest.MockedFunctionDeep<AxiosStatic>;
+    // api: jest.MockedFunctionDeep<AxiosStatic>;
+    api: ReturnType<typeof mockedAxios.create>;
 
     constructor(
         actionCreator: ActionCreatorType<Return, Arg, RejectedValue>,
@@ -46,7 +58,7 @@ export class TestAsyncThunk<Return, Arg, RejectedValue> {
         this.dispatch = jest.fn() as unknown as AppDispatch;
         this.getState = jest.fn(() => state as RootState);
 
-        this.api = mockedAxios;
+        this.api = mockedAxios.create();
     }
 
     async callThunk(arg?: Arg) {
