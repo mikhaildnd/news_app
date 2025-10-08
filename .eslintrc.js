@@ -21,6 +21,7 @@ module.exports = {
         'i18next',
         'react-hooks',
         'import',
+        'mikhaildnd',
     ],
     extends: [
         'eslint:recommended',
@@ -34,6 +35,8 @@ module.exports = {
         'plugin:import/typescript',
     ],
     rules: {
+        //custom plugins
+        'mikhaildnd/path-checker': 'error',
         // ----- форматирование -----
         // доверяем форматирование Prettier
         indent: 'off',
