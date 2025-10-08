@@ -2,9 +2,9 @@ import { memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Text } from 'shared/ui/Text/Text';
 import { useTranslation } from 'react-i18next';
-import cls from './CommentList.module.scss';
 import { CommentCard } from '../CommentCard/CommentCard';
 import { Comment } from '../../model/types/comment';
+import { VStack } from 'shared/ui/Stack';
 
 interface CommentListProps {
     className?: string;
@@ -16,30 +16,37 @@ export const CommentList = memo(function CommentList(props: CommentListProps) {
     const { className, isLoading, comments } = props;
     const { t } = useTranslation();
 
+    let content;
+
     if (isLoading) {
-        return (
-            <div className={classNames(cls.CommentList, {}, [className])}>
+        content = (
+            <>
                 <CommentCard isLoading />
                 <CommentCard isLoading />
                 <CommentCard isLoading />
-            </div>
+            </>
+        );
+    } else {
+        content = (
+            <>
+                {comments?.length ? (
+                    comments.map((comment) => (
+                        <CommentCard
+                            key={comment.id}
+                            isLoading={isLoading}
+                            comment={comment}
+                        />
+                    ))
+                ) : (
+                    <Text text={t('Комментарии отсутствуют')} />
+                )}
+            </>
         );
     }
 
     return (
-        <div className={classNames(cls.CommentList, {}, [className])}>
-            {comments?.length ? (
-                comments.map((comment) => (
-                    <CommentCard
-                        key={comment.id}
-                        isLoading={isLoading}
-                        className={cls.comment}
-                        comment={comment}
-                    />
-                ))
-            ) : (
-                <Text text={t('Комментарии отсутствуют')} />
-            )}
-        </div>
+        <VStack gap="16" max className={classNames('', {}, [className])}>
+            {content}
+        </VStack>
     );
 });

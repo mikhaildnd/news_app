@@ -20,6 +20,7 @@ import { getArticleRecommendations } from '../../model/slice/articleDetailsPageR
 import { getArticleRecommendationsIsLoading } from '../../model/selectors/recommendations';
 import { fetchArticlesRecommendations } from '../../model/services/fetchArticleRecommendations/fetchArticleRecommendations';
 import { ArticleDetailsPageHeader } from '../../ui/ArticleDetailsPageHeader/ArticleDetailsPageHeader';
+import { VStack } from 'shared/ui/Stack';
 
 interface ArticleDetailsPageProps {
     className?: string;
@@ -68,30 +69,33 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
 
     return (
         <Page className={classNames(cls.ArticleDetailsPage, {}, [className])}>
-            <ArticleDetailsPageHeader />
-            <ArticleDetails id={id} />
-            <Text
-                size={TextSize.L}
-                className={cls.commentTitle}
-                title={t('Рекомендуем')}
-            />
-            <ArticleList
-                className={cls.recommendations}
-                articles={recommendations}
-                isLoading={recommendationsLoading}
-                target={'_blank'}
-            />
-            <Text
-                size={TextSize.L}
-                className={cls.commentTitle}
-                title={t('Комментарии')}
-            />
-            <AddCommentForm onSendComment={onSendComment} />
-            <CommentList isLoading={commentsIsLoading} comments={comments} />
+            <VStack gap="16" max>
+                <ArticleDetailsPageHeader />
+                <ArticleDetails id={id} />
+                <Text
+                    size={TextSize.L}
+                    className={cls.commentTitle}
+                    title={t('Рекомендуем')}
+                />
+                <ArticleList
+                    className={cls.recommendations}
+                    articles={recommendations}
+                    isLoading={recommendationsLoading}
+                    target={'_blank'}
+                />
+                <Text
+                    size={TextSize.L}
+                    className={cls.commentTitle}
+                    title={t('Комментарии')}
+                />
+                <AddCommentForm onSendComment={onSendComment} />
+                <CommentList
+                    isLoading={commentsIsLoading}
+                    comments={comments}
+                />
+            </VStack>
         </Page>
     );
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export default memo(ArticleDetailsPage);
