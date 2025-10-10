@@ -81,7 +81,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                     className={cls.recommendations}
                     articles={recommendations}
                     isLoading={recommendationsLoading}
-                    target={'_blank'}
+                    target="_blank"
                 />
                 <Text
                     size={TextSize.L}
