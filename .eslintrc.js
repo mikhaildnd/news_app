@@ -51,6 +51,10 @@ module.exports = {
         'react/function-component-definition': 'off',
         'react/jsx-props-no-spreading': 'off',
         'react/self-closing-comp': ['error', { component: true, html: false }],
+        'react/jsx-curly-brace-presence': [
+            'error',
+            { props: 'never', children: 'never' },
+        ],
 
         // ----- TypeScript -----
         '@typescript-eslint/no-unused-vars': [
@@ -89,6 +93,7 @@ module.exports = {
                     'align',
                     'direction',
                     'gap',
+                    'role',
                 ],
             },
         ],
