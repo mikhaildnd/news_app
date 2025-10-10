@@ -45,7 +45,7 @@ export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
     return (
         <HStack
             max
-            justify={'between'}
+            justify="between"
             className={classNames('', {}, [className])}
         >
             <Text title={t('Профиль')} />
