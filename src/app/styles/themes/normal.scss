@@ -1,4 +1,6 @@
-.app_light_theme {
+// .app_light_theme
+
+:root {
     --bg-color: #e8e8ea;
     --inverted-bg-color: #090949;
     --primary-color: #0232c2;
@@ -15,4 +17,7 @@
 
     // Card
     --card-bg: #d5d5d7;
+
+    // Listbox
+    --listbox-bg: #d5d5d7;
 }
