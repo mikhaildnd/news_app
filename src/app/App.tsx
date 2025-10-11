@@ -6,7 +6,7 @@ import { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMounted } from 'entities/User';
 import { useTheme } from 'app/providers/ThemeProvider';
-import { initAuthData } from 'entities/User/model/slice/userSlice'; //fix
+import { initAuthData } from 'entities/User/model/slice/userSlice';
 
 function App() {
     const { theme } = useTheme();

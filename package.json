@@ -98,6 +98,7 @@
     "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
     "@reduxjs/toolkit": "^2.9.0",
     "axios": "^1.12.2",
     "concurrently": "^9.2.1",
