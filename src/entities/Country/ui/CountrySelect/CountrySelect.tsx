@@ -39,10 +39,10 @@ export const CountrySelect = memo(function CountrySelect({
             className={className}
             value={value}
             items={options}
-            defaultValue={t('Укажите страну')}
+            defaultValue={Country.Russia}
             onChange={onChangeHandler}
             readonly={readonly}
-            label={t('Укажите страну>')}
+            label={t('Укажите страну')}
         />
     );
 });

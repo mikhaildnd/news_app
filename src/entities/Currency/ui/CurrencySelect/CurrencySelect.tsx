@@ -37,12 +37,12 @@ export const CurrencySelect = memo(function CurrencySelect({
     return (
         <ListBox
             className={classNames('', {}, [className])}
-            defaultValue={t('Укажите валюту')}
+            defaultValue={Currency.RUB}
             items={options}
             value={value}
             onChange={onChangeHandler}
             readonly={readonly}
-            label={t('Укажите валюту>')}
+            label={t('Укажите валюту')}
         />
     );
 });
