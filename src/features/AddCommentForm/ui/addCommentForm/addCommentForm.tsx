@@ -11,6 +11,7 @@ import {
 } from '../../model/selectors/addCommentFormSelector';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { setText } from '../../model/slice/addCommentFormSlice';
+import { HStack } from 'shared/ui/Stack';
 
 export interface addCommentFormProps {
     className?: string;
@@ -37,7 +38,11 @@ const addCommentForm = memo((props: addCommentFormProps) => {
     }, [onCommentTextChange, onSendComment, text]);
 
     return (
-        <div className={classNames(cls.addCommentForm, {}, [className])}>
+        <HStack
+            justify="between"
+            max
+            className={classNames(cls.addCommentForm, {}, [className])}
+        >
             <Input
                 className={cls.input}
                 placeholder={t('Введите текст комментария')}
@@ -47,7 +52,7 @@ const addCommentForm = memo((props: addCommentFormProps) => {
             <Button theme={ButtonTheme.OUTLINE} onClick={onSendHandler}>
                 {t('Отправить')}
             </Button>
-        </div>
+        </HStack>
     );
 });
 

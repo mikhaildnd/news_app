@@ -69,6 +69,22 @@ export const OnlyTextDark: Story = {
     decorators: [ThemeDecorator(Theme.DARK)],
 };
 
+export const SizeS: Story = {
+    args: {
+        title: 'Title',
+        text: 'Description',
+        size: TextSize.S,
+    },
+};
+
+export const SizeM: Story = {
+    args: {
+        title: 'Title',
+        text: 'Description',
+        size: TextSize.M,
+    },
+};
+
 export const SizeL: Story = {
     args: {
         title: 'Title',
@@ -76,62 +92,3 @@ export const SizeL: Story = {
         size: TextSize.L,
     },
 };
-
-// export default {
-//     title: 'shared/Text',
-//     component: Text,
-//     argTypes: {
-//         backgroundColor: { control: 'color' },
-//     },
-// } as ComponentMeta<typeof Text>;
-//
-// const Template: ComponentStory<typeof Text> = (args) => <Text {...args} />;
-//
-// export const Primary = Template.bind({});
-// Primary.args = {
-//     title: 'Title',
-//     text: 'Description',
-// };
-//
-// export const Error = Template.bind({});
-// Error.args = {
-//     title: 'Title',
-//     text: 'Description',
-//     theme: TextTheme.ERROR,
-// };
-//
-// export const onlyTitle = Template.bind({});
-// onlyTitle.args = {
-//     title: 'Title',
-// };
-//
-// export const onlyText = Template.bind({});
-// onlyText.args = {
-//     text: 'Description',
-// };
-//
-// export const PrimaryDark = Template.bind({});
-// PrimaryDark.args = {
-//     title: 'Title',
-//     text: 'Description',
-// };
-// PrimaryDark.decorators = [ThemeDecorator(Theme.DARK)];
-//
-// export const onlyTitleDark = Template.bind({});
-// onlyTitleDark.args = {
-//     title: 'Title',
-// };
-// onlyTitleDark.decorators = [ThemeDecorator(Theme.DARK)];
-//
-// export const onlyTextDark = Template.bind({});
-// onlyTextDark.args = {
-//     text: 'Description',
-// };
-// onlyTextDark.decorators = [ThemeDecorator(Theme.DARK)];
-//
-// export const SizeL = Template.bind({});
-// SizeL.args = {
-//     title: 'Title',
-//     text: 'Description',
-//     size: TextSize.L,
-// };

@@ -51,6 +51,10 @@ module.exports = {
         'react/function-component-definition': 'off',
         'react/jsx-props-no-spreading': 'off',
         'react/self-closing-comp': ['error', { component: true, html: false }],
+        'react/jsx-curly-brace-presence': [
+            'error',
+            { props: 'never', children: 'never' },
+        ],
 
         // ----- TypeScript -----
         '@typescript-eslint/no-unused-vars': [
@@ -81,7 +85,17 @@ module.exports = {
             'error',
             {
                 markupOnly: true,
-                ignoreAttribute: ['data-testid', 'to', 'target'],
+                ignoreAttribute: [
+                    'data-testid',
+                    'to',
+                    'target',
+                    'justify',
+                    'align',
+                    'direction',
+                    'gap',
+                    'role',
+                    'as',
+                ],
             },
         ],
 
