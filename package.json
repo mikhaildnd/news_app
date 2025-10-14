@@ -24,7 +24,8 @@
     "test:ui:report": "npm run test:ui:json && npm run test:ui:html",
     "storybook": "storybook dev -p 6006 --config-dir ./config/storybook",
     "storybook:build": "storybook build --config-dir ./config/storybook",
-    "chromatic": "npx chromatic --project-token=chpt_004d946d6420827 --build-script-name=storybook:build"
+    "chromatic": "npx chromatic --project-token=chpt_004d946d6420827 --build-script-name=storybook:build",
+    "generate:slice": "node ./scripts/createSlice/index.js"
   },
   "keywords": [],
   "author": "",
