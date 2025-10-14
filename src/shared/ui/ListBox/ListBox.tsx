@@ -11,6 +11,7 @@ import cls from './ListBox.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button } from '../Button/Button';
 import { HStack } from '../Stack';
+import { DropdownDirection } from '../../types/ui';
 
 export interface ListBoxItem {
     value: string;
@@ -21,21 +22,39 @@ export interface ListBoxItem {
 interface ListBoxProps {
     items?: ListBoxItem[];
     className?: string;
-    value?: string;
+    value?: string; // Выбранный элемент
     defaultValue?: string;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     readonly?: boolean;
-    label?: ReactNode;
+    label?: string;
+    direction?: DropdownDirection;
 }
 
+const mapDirectionClass: Record<DropdownDirection, string> = {
+    'bottom left': cls.optionsBottomLeft,
+    'bottom right': cls.optionsBottomRight,
+    'top right': cls.optionsTopRight,
+    'top left': cls.optionsTopLeft,
+};
+
 export const ListBox = (props: ListBoxProps) => {
-    const { items, className, value, defaultValue, onChange, readonly, label } =
-        props;
+    const {
+        items,
+        className,
+        value,
+        defaultValue,
+        onChange,
+        readonly,
+        label,
+        direction = 'bottom right',
+    } = props;
+
+    const optionsClasses = [mapDirectionClass[direction]];
 
     return (
         <Field>
             <HStack gap="8">
-                {label && <Label>{label}</Label>}
+                {label && <Label>{`${label}>`}</Label>}
                 <Listbox
                     as="div"
                     className={classNames(cls.ListBox, {}, [className])}
@@ -43,12 +62,11 @@ export const ListBox = (props: ListBoxProps) => {
                     onChange={onChange}
                     disabled={readonly}
                 >
-                    <ListboxButton as="span" className={cls.trigger}>
+                    <ListboxButton as={Fragment}>
                         <Button>{value ?? defaultValue}</Button>
                     </ListboxButton>
                     <ListboxOptions
-                        className={classNames(cls.options, {}, [className])}
-                        anchor="bottom"
+                        className={classNames(cls.options, {}, optionsClasses)}
                     >
                         {items?.map((item) => (
                             <ListboxOption

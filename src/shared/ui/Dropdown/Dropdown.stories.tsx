@@ -1,27 +1,27 @@
-import { ListBox } from './ListBox';
+import { Dropdown } from './Dropdown';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof ListBox> = {
-    title: 'shared/ListBox',
-    component: ListBox,
+const meta: Meta<typeof Dropdown> = {
+    title: 'shared/Dropdown',
+    component: Dropdown,
     args: {
-        label: 'Label',
-        value: 'items list',
+        trigger: 'Open',
         direction: 'bottom left',
         items: [
             {
-                value: '1',
-                content: 'storybookItem 1 ',
+                content: 'first',
             },
             {
-                value: '2',
-                content: 'storybookItem 2',
+                content: 'second',
+            },
+            {
+                content: 'third',
             },
         ],
     },
     decorators: [
         (Story) => (
-            <div style={{ padding: 100 }}>
+            <div style={{ display: 'flex', padding: 100 }}>
                 <Story />
             </div>
         ),
