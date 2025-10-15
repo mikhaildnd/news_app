@@ -58,6 +58,19 @@ const config: Config.InitialOptions = {
     // The glob patterns Jest uses to detect test files
     testMatch: ['<rootDir>/src/**/*(*.)@(spec|test).[tj]s?(x)'],
 
+    reporters: [
+        'default',
+        [
+            'jest-html-reporters',
+            {
+                publicPath: '<rootDir>/reports/unit',
+                filename: 'report.html',
+                openReport: true,
+                inlineSource: true,
+            },
+        ],
+    ],
+
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 

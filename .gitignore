@@ -33,3 +33,5 @@ dist-ssr
 
 .loki/report.json
 .loki/report.html
+
+/reports
