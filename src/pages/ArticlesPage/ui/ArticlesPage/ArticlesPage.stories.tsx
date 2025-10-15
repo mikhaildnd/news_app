@@ -10,7 +10,7 @@ import {
 import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
 
 const meta: Meta<typeof ArticlesPage> = {
-    title: 'pages/ArticlesPage',
+    title: 'pages/ArticlesPage/ArticlesPage',
     component: ArticlesPage,
 };
 export default meta;

@@ -1,21 +1,18 @@
+import { ArticleInfiniteList } from './ArticleInfiniteList';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Article } from 'entities/Article';
 import {
-    ArticleBlockType,
+    Article,
+    ArticleSortField,
     ArticleType,
-} from 'entities/Article/model/types/article';
+    ArticleView,
+} from 'entities/Article';
+import { ArticleBlockType } from 'entities/Article/model/types/article';
+import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
-import ArticleDetailsPage from './ArticleDetailsPage';
 
-const meta: Meta<typeof ArticleDetailsPage> = {
-    title: 'pages/ArticleDetailsPage/ArticleDetailsPage',
-    component: ArticleDetailsPage,
-    parameters: {
-        router: {
-            path: '/articles/:id', // динамический сегмент, говорит роутеру: "в этом месте может быть любое значение"
-            initialEntries: ['/articles/1'], //Это свойство MemoryRouter. Оно указывает, какой URL должен быть в истории роутера при старте.
-        },
-    },
+const meta: Meta<typeof ArticleInfiniteList> = {
+    title: 'pages/ArticlesPage/ArticleInfiniteList',
+    component: ArticleInfiniteList,
 };
 export default meta;
 
@@ -62,13 +59,33 @@ const article: Article = {
     ],
 };
 
-export const Normal: Story = {
+const baseState: ArticlesPageSchema = {
+    isLoading: false,
+    error: undefined,
+    ids: [],
+    entities: {},
+    view: ArticleView.SMALL,
+    page: 1,
+    hasMore: false,
+    _inited: false,
+    limit: 4,
+    sort: ArticleSortField.CREATED,
+    search: '',
+    order: 'asc',
+    type: ArticleType.ALL,
+};
+
+export const Primary: Story = {
     args: {},
     decorators: [
         StoreDecorator({
-            articleDetails: {
-                data: article,
-                isLoading: false,
+            articlesPage: {
+                ...baseState,
+                ids: ['1', '2'],
+                entities: {
+                    '1': article,
+                    '2': { ...article, id: '2', title: 'React news' },
+                },
             },
         }),
     ],

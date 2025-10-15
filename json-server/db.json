@@ -588,7 +588,7 @@
       "id": "1",
       "firstname": "Mikhail",
       "lastname": "Dundukov",
-      "age": "33",
+      "age": 33,
       "currency": "EUR",
       "country": "Russia",
       "city": "Togliatty",

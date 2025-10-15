@@ -3,6 +3,7 @@ import { userSlice } from 'entities/User/model/slice/userSlice';
 import { $api } from 'shared/api/api';
 import { counterSlice } from 'entities/Counter/model/slice/CounterSlice';
 import { scrollSaveSlice } from 'features/ScrollSave';
+import { rtkApi } from 'shared/api/rtkApi';
 
 export interface LazyLoadedSlices {}
 
@@ -10,6 +11,9 @@ export const rootReducer = combineSlices(
     userSlice,
     scrollSaveSlice,
     counterSlice,
+    {
+        [rtkApi.reducerPath]: rtkApi.reducer,
+    },
 ).withLazyLoadedSlices<LazyLoadedSlices>();
 
 export function createReduxStore(initialState?: Partial<RootState>) {
@@ -24,7 +28,7 @@ export function createReduxStore(initialState?: Partial<RootState>) {
                         api: $api,
                     },
                 },
-            }),
+            }).concat(rtkApi.middleware),
     });
 
     return store;

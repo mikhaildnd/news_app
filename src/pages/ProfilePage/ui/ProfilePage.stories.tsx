@@ -7,7 +7,7 @@ import { Country } from 'entities/Country/model/types/country';
 import ProfilePage from './ProfilePage';
 
 const meta: Meta<typeof ProfilePage> = {
-    title: 'pages/ProfilePage',
+    title: 'pages/ProfilePage/ProfilePage',
     component: ProfilePage,
 };
 export default meta;
