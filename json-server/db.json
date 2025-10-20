@@ -572,14 +572,27 @@
       "id": "1",
       "username": "admin",
       "password": "123",
-      "role": "ADMIN",
+      "roles": [
+        "ADMIN"
+      ],
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     },
     {
       "id": "2",
       "username": "user",
       "password": "123",
-      "role": "USER",
+      "roles": [
+        "USER"
+      ],
+      "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
+    },
+    {
+      "id": "3",
+      "username": "manager",
+      "password": "123",
+      "roles": [
+        "MANAGER"
+      ],
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     }
   ],
@@ -597,7 +610,7 @@
     },
     {
       "id": "2",
-      "firstname": "Jonny",
+      "firstname": "Johnny",
       "lastname": "Walker",
       "age": 33,
       "currency": "EUR",
