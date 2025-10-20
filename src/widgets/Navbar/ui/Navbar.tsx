@@ -4,7 +4,7 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { memo, useCallback, useState } from 'react';
 import { LoginModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserAuthData } from 'entities/User';
+import { getUserAuthData, isUserAdmin, isUserManager } from 'entities/User';
 import cls from './Navbar.module.scss';
 import { userActions } from 'entities/User/model/slice/userSlice';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
@@ -22,6 +22,8 @@ export const Navbar = memo(function Navbar({ className }: NavbarProps) {
     const [isAuthModal, setIsAuthModal] = useState(false);
     const authData = useSelector(getUserAuthData);
     const dispatch = useDispatch();
+    const isAdmin = useSelector(isUserAdmin);
+    const isManager = useSelector(isUserManager);
 
     const onCloseModal = useCallback(() => {
         setIsAuthModal(false);
@@ -34,6 +36,8 @@ export const Navbar = memo(function Navbar({ className }: NavbarProps) {
     const onLogout = useCallback(() => {
         dispatch(userActions.logout());
     }, [dispatch]);
+
+    const isAdminPanelAvailable = isAdmin || isManager;
 
     if (authData) {
         return (
@@ -53,6 +57,14 @@ export const Navbar = memo(function Navbar({ className }: NavbarProps) {
                     direction="bottom left"
                     className={cls.dropdown}
                     items={[
+                        ...(isAdminPanelAvailable
+                            ? [
+                                  {
+                                      content: t('Админка'),
+                                      href: RoutePath.admin_panel,
+                                  },
+                              ]
+                            : []),
                         {
                             content: t('Профиль'),
                             href: `${RoutePath.profile}${authData.id}`,

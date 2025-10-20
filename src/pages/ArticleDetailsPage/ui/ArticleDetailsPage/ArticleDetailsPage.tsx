@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { memo, useEffect } from 'react';
 import { ArticleDetails } from 'entities/Article';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+// import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import cls from './ArticleDetailsPage.module.scss';
 import { Page } from 'widgets/Page/Page';
-import { articleDetailsActions } from 'entities/Article/model/slice/articleDetailsSlice';
+// import { articleDetailsActions } from 'entities/Article/model/slice/articleDetailsSlice';
 import { ArticleDetailsPageHeader } from '../../ui/ArticleDetailsPageHeader/ArticleDetailsPageHeader';
 import { VStack } from 'shared/ui/Stack';
 import { ArticleRecommendationsList } from 'features/articleRecommendationsList';
@@ -28,15 +28,15 @@ const reducers: ReducersList = {
 const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     const { className } = props;
     const { t } = useTranslation();
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const { id } = useParams<{ id: string }>();
     // const error = useSelector(getArticleDetailsError);
 
-    useEffect(() => {
-        return () => {
-            dispatch(articleDetailsActions.reset());
-        };
-    }, [dispatch]);
+    // useEffect(() => {
+    //     return () => {
+    //         dispatch(articleDetailsActions.reset());
+    //     };
+    // }, [dispatch]);
 
     if (!id) {
         return (
