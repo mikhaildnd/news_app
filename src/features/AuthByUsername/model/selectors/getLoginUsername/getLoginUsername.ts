@@ -1,5 +1,4 @@
-import { RootState } from 'app/providers/StoreProvider/config/store'; //fix?
+import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getLoginUsername = (state: RootState) =>
-    //login по имени слайса
-    state?.login?.username || '';
+export const getLoginUsername = (state: StateSchema) =>
+    state?.loginForm?.username || '';

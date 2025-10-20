@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction, type WithSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ArticleDetailsSchema } from '../types/articleDetailsSchema';
 import { Article } from '../types/article';
 import { fetchArticleById } from '../../model/services/fetchArticleById/fetchArticleById';
-import { rootReducer } from 'app/providers/StoreProvider';
 
 const initialState: ArticleDetailsSchema = {
     isLoading: false,
@@ -36,11 +35,5 @@ export const articleDetailsSlice = createSlice({
     },
 });
 
-export const injectArticleDetailsSlice =
-    articleDetailsSlice.injectInto(rootReducer);
-export const articleDetailsReducer = articleDetailsSlice.reducer;
-export const articleDetailsActions = articleDetailsSlice.actions;
-
-declare module 'app/providers/StoreProvider/config/store' {
-    interface LazyLoadedSlices extends WithSlice<typeof articleDetailsSlice> {}
-}
+export const { actions: articleDetailsActions } = articleDetailsSlice;
+export const { reducer: articleDetailsReducer } = articleDetailsSlice;

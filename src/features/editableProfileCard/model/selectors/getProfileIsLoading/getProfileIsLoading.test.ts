@@ -1,18 +1,18 @@
-import { RootState } from 'app/providers/StoreProvider/config/store';
 import { getProfileIsLoading } from './getProfileIsLoading';
+import { StateSchema } from 'app/providers/StoreProvider';
 
 describe('getProfileIsLoading.test', () => {
     test('should work with filled state', () => {
-        const state: DeepPartial<RootState> = {
+        const state: DeepPartial<StateSchema> = {
             profile: {
                 isLoading: true,
             },
         };
-        expect(getProfileIsLoading(state as RootState)).toEqual(true);
+        expect(getProfileIsLoading(state as StateSchema)).toEqual(true);
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<RootState> = {};
-        expect(getProfileIsLoading(state as RootState)).toEqual(undefined);
+        const state: DeepPartial<StateSchema> = {};
+        expect(getProfileIsLoading(state as StateSchema)).toEqual(undefined);
     });
 });

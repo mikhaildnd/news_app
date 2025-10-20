@@ -1,3 +1,3 @@
-import { RootState } from 'app/providers/StoreProvider/config/store';
+import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getProfileData = (state: RootState) => state?.profile?.data;
+export const getProfileData = (state: StateSchema) => state?.profile?.data;

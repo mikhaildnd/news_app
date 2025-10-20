@@ -22,11 +22,20 @@ import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleC
 import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
 import { HStack, VStack } from 'shared/ui/Stack';
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
 
 interface ArticleDetailsProps {
     className?: string;
     id: string;
 }
+
+const reducers: ReducersList = {
+    articleDetails: articleDetailsReducer,
+};
 
 export const ArticleDetails = memo(function ArticleDetails(
     props: ArticleDetailsProps,
@@ -116,12 +125,14 @@ export const ArticleDetails = memo(function ArticleDetails(
     }
 
     return (
-        <VStack
-            max
-            gap="16"
-            className={classNames(cls.ArticleDetails, {}, [className])}
-        >
-            {content}
-        </VStack>
+        <DynamicModuleLoader reducers={reducers}>
+            <VStack
+                max
+                gap="16"
+                className={classNames(cls.ArticleDetails, {}, [className])}
+            >
+                {content}
+            </VStack>
+        </DynamicModuleLoader>
     );
 });

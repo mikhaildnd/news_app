@@ -1,12 +1,13 @@
 import '@testing-library/jest-dom';
 import { screen } from '@testing-library/react';
-import { componentRender } from 'shared/lib/tests/componentRender/componentRender';
 import userEvent from '@testing-library/user-event';
-
+import { componentRender } from 'shared/lib/tests/componentRender/componentRender';
+import { $api } from 'shared/api/api';
 import { Profile } from 'entities/Profile';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { EditableProfileCard } from './EditableProfileCard';
+import { profileReducer } from '../../model/slice/profileSlice';
 
 const profile: Profile = {
     id: '1',
@@ -32,15 +33,18 @@ const options = {
                 id: '1',
                 username: 'admin',
             },
-            _isMounted: false,
+            _isMounted: true,
         },
+    },
+    asyncReducers: {
+        profile: profileReducer,
     },
 };
 
 describe('features/EditableProfileCard', () => {
-    test('readonly mode should switch over', () => {
+    test('readonly mode should switch over', async () => {
         componentRender(<EditableProfileCard id="1" />, options);
-        userEvent.click(
+        await userEvent.click(
             screen.getByTestId('EditableProfileCardHeader.EditButton'),
         );
         expect(
@@ -48,21 +52,27 @@ describe('features/EditableProfileCard', () => {
         ).toBeInTheDocument();
     });
 
-    test('when canceling, the values should be reset', () => {
+    test('when canceling, the values should be reset', async () => {
         componentRender(<EditableProfileCard id="1" />, options);
-        userEvent.click(
+        await userEvent.click(
             screen.getByTestId('EditableProfileCardHeader.EditButton'),
         );
-        userEvent.clear(screen.getByTestId('ProfileCard.Firstname'));
-        userEvent.clear(screen.getByTestId('ProfileCard.Lastname'));
+        await userEvent.clear(screen.getByTestId('ProfileCard.Firstname'));
+        await userEvent.clear(screen.getByTestId('ProfileCard.Lastname'));
 
-        userEvent.type(screen.getByTestId('ProfileCard.Firstname'), 'user');
-        userEvent.type(screen.getByTestId('ProfileCard.Lastname'), 'user');
+        await userEvent.type(
+            screen.getByTestId('ProfileCard.Firstname'),
+            'user',
+        );
+        await userEvent.type(
+            screen.getByTestId('ProfileCard.Lastname'),
+            'user',
+        );
 
         expect(screen.getByTestId('ProfileCard.Firstname')).toHaveValue('user');
         expect(screen.getByTestId('ProfileCard.Lastname')).toHaveValue('user');
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByTestId('EditableProfileCardHeader.CancelButton'),
         );
 
@@ -72,14 +82,14 @@ describe('features/EditableProfileCard', () => {
         expect(screen.getByTestId('ProfileCard.Lastname')).toHaveValue('admin');
     });
 
-    test('should be error', () => {
+    test('should be error', async () => {
         componentRender(<EditableProfileCard id="1" />, options);
-        userEvent.click(
+        await userEvent.click(
             screen.getByTestId('EditableProfileCardHeader.EditButton'),
         );
-        userEvent.clear(screen.getByTestId('ProfileCard.Firstname'));
+        await userEvent.clear(screen.getByTestId('ProfileCard.Firstname'));
 
-        userEvent.click(
+        await userEvent.click(
             screen.getByTestId('EditableProfileCardHeader.SaveButton'),
         );
 
@@ -87,5 +97,22 @@ describe('features/EditableProfileCard', () => {
             screen.getByTestId('EditableProfileCard.Error.Paragraph'),
         ).toBeInTheDocument();
     });
-    // TODO: вернуть динамик модуль лоадер, без него не работает тест
+
+    test('if there are no validation errors, then a PUT request should be sent to the server.', async () => {
+        const mockPutReq = jest.spyOn($api, 'put');
+        componentRender(<EditableProfileCard id="1" />, options);
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.EditButton'),
+        );
+        await userEvent.type(
+            screen.getByTestId('ProfileCard.Firstname'),
+            'user',
+        );
+
+        await userEvent.click(
+            screen.getByTestId('EditableProfileCardHeader.SaveButton'),
+        );
+
+        expect(mockPutReq).toHaveBeenCalled();
+    });
 });

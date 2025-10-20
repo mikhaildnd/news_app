@@ -6,7 +6,7 @@ const initialState: ScrollSaveSchema = {
 };
 
 export const scrollSaveSlice = createSlice({
-    name: 'scrollSaveSlice',
+    name: 'scrollSave',
     initialState,
     reducers: {
         setScrollPosition: (
@@ -18,5 +18,6 @@ export const scrollSaveSlice = createSlice({
     },
 });
 
-export const scrollSaveSliceActions = scrollSaveSlice.actions;
-export const scrollSaveSliceReducer = scrollSaveSlice.reducer;
+// Action creators are generated for each case reducer function
+export const { actions: scrollSaveActions } = scrollSaveSlice;
+export const { reducer: scrollSaveReducer } = scrollSaveSlice;

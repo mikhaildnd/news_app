@@ -20,8 +20,9 @@ const preview: Preview = {
         RouterDecorator,
         StyleDecorator,
         ThemeDecorator(Theme.LIGHT),
+        // StoreDecorator(),
         StoreDecorator({
-            scrollSaveSlice: {
+            scrollSave: {
                 scroll: {},
             },
         }),

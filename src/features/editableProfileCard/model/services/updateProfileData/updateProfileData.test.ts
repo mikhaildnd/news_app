@@ -2,8 +2,8 @@ import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk';
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { updateProfileData } from './updateProfileData';
-import { RootState } from 'app/providers/StoreProvider/config/store';
 import { ValidateProfileError } from '../../types/editableProfileCardSchema';
+import { StateSchema } from 'app/providers/StoreProvider';
 
 const data = {
     id: '1',
@@ -23,7 +23,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        } as Partial<RootState>); //fix
+        } as Partial<StateSchema>);
 
         const spy = jest.spyOn(thunk.api, 'put').mockResolvedValue({ data });
         // thunk.api.put.mockReturnValue(Promise.resolve({ data }));
@@ -41,7 +41,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: data,
             },
-        } as Partial<RootState>); ///fix
+        } as Partial<StateSchema>);
 
         thunk.api.put.mockReturnValue(Promise.resolve({ status: 403 }));
 
@@ -56,7 +56,7 @@ describe('updateProfileData.test', () => {
             profile: {
                 form: { ...data, lastname: '' },
             },
-        } as Partial<RootState>); //fix?
+        } as Partial<StateSchema>);
 
         const result = await thunk.callThunk();
 

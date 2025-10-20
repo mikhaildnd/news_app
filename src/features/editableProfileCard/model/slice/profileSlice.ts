@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction, WithSlice } from '@reduxjs/toolkit';
-import { rootReducer } from 'app/providers/StoreProvider';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Profile } from 'entities/Profile';
 import { fetchProfileData } from '../services/fetchProfileData/fetchProfileData';
 import { updateProfileData } from '../services/updateProfileData/updateProfileData';
@@ -75,10 +74,6 @@ export const profileSlice = createSlice({
     },
 });
 
-declare module 'app/providers/StoreProvider/config/store' {
-    interface LazyLoadedSlices extends WithSlice<typeof profileSlice> {}
-}
-
-export const injectedProfileSlice = profileSlice.injectInto(rootReducer);
-export const { setReadonly, cancelEdit, updateProfile } = profileSlice.actions;
-export const profileReducer = profileSlice.reducer;
+// Action creators are generated for each case reducer function
+export const { actions: profileActions } = profileSlice;
+export const { reducer: profileReducer } = profileSlice;

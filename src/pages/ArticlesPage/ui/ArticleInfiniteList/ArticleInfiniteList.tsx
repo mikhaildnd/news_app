@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ArticleList } from 'entities/Article';
 import { useSelector } from 'react-redux';
-import { articlesPageSliceSelectors } from '../../model/slice/articlesPageSlice';
+import { getArticles } from '../../model/slice/articlesPageSlice';
 import {
     getArticlesPageError,
     getArticlesPageIsLoading,
@@ -17,7 +17,7 @@ interface ArticleInfiniteListProps {
 export const ArticleInfiniteList = memo((props: ArticleInfiniteListProps) => {
     const { className } = props;
     const { t } = useTranslation();
-    const articles = useSelector(articlesPageSliceSelectors.selectAll);
+    const articles = useSelector(getArticles.selectAll);
     const isLoading = useSelector(getArticlesPageIsLoading);
     const error = useSelector(getArticlesPageError);
     const view = useSelector(getArticlesPageView);

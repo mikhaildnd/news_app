@@ -1,25 +1,22 @@
-import {
-    scrollSaveSliceActions,
-    scrollSaveSliceReducer,
-} from './scrollSaveSlice';
+import { scrollSaveActions, scrollSaveReducer } from './scrollSaveSlice';
 import { ScrollSaveSchema } from '../types/scrollSaveSchema';
 
 describe('ScrollSaveSliceSlice', () => {
     test('should return initialState', () => {
         expect(
-            scrollSaveSliceReducer(undefined, { type: '' }),
+            scrollSaveReducer(undefined, { type: '' }),
         ).toEqual<ScrollSaveSchema>({ scroll: {} });
     });
 
     test('should set scroll position', () => {
         const state: ScrollSaveSchema = { scroll: {} };
 
-        const action = scrollSaveSliceActions.setScrollPosition({
+        const action = scrollSaveActions.setScrollPosition({
             path: '/articles',
             position: 150,
         });
 
-        const newState = scrollSaveSliceReducer(state, action);
+        const newState = scrollSaveReducer(state, action);
 
         expect(newState.scroll['/articles']).toBe(150);
     });
@@ -27,12 +24,12 @@ describe('ScrollSaveSliceSlice', () => {
     test('should rewrite position scroll position if path exists ', () => {
         const state: ScrollSaveSchema = { scroll: { '/articles': 100 } };
 
-        const action = scrollSaveSliceActions.setScrollPosition({
+        const action = scrollSaveActions.setScrollPosition({
             path: '/articles',
             position: 300,
         });
 
-        const newState = scrollSaveSliceReducer(state, action);
+        const newState = scrollSaveReducer(state, action);
 
         expect(newState.scroll['/articles']).toBe(300);
     });
@@ -40,20 +37,17 @@ describe('ScrollSaveSliceSlice', () => {
     test('should work with multiple paths', () => {
         const state: ScrollSaveSchema = { scroll: {} };
 
-        const firstAction = scrollSaveSliceActions.setScrollPosition({
+        const firstAction = scrollSaveActions.setScrollPosition({
             path: '/articles',
             position: 200,
         });
-        const stateAfterFirst = scrollSaveSliceReducer(state, firstAction);
+        const stateAfterFirst = scrollSaveReducer(state, firstAction);
 
-        const secondAction = scrollSaveSliceActions.setScrollPosition({
+        const secondAction = scrollSaveActions.setScrollPosition({
             path: '/profile',
             position: 400,
         });
-        const finalState = scrollSaveSliceReducer(
-            stateAfterFirst,
-            secondAction,
-        );
+        const finalState = scrollSaveReducer(stateAfterFirst, secondAction);
 
         expect(finalState.scroll['/articles']).toBe(200);
         expect(finalState.scroll['/profile']).toBe(400);

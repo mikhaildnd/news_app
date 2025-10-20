@@ -1,10 +1,10 @@
 import { getProfileValidateErrors } from './getProfileValidateErrors';
-import { RootState } from 'app/providers/StoreProvider/config/store';
 import { ValidateProfileError } from '../../types/editableProfileCardSchema';
+import { StateSchema } from 'app/providers/StoreProvider';
 
 describe('getProfileValidateErrors.test', () => {
     test('should return error', () => {
-        const state: DeepPartial<RootState> = {
+        const state: DeepPartial<StateSchema> = {
             profile: {
                 validateErrors: [
                     ValidateProfileError.SERVER_ERROR,
@@ -12,14 +12,16 @@ describe('getProfileValidateErrors.test', () => {
                 ],
             },
         };
-        expect(getProfileValidateErrors(state as RootState)).toEqual([
+        expect(getProfileValidateErrors(state as StateSchema)).toEqual([
             ValidateProfileError.SERVER_ERROR,
             ValidateProfileError.INCORRECT_AGE,
         ]);
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<RootState> = {};
-        expect(getProfileValidateErrors(state as RootState)).toEqual(undefined);
+        const state: DeepPartial<StateSchema> = {};
+        expect(getProfileValidateErrors(state as StateSchema)).toEqual(
+            undefined,
+        );
     });
 });

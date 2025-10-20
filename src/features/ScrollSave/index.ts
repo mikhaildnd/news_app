@@ -1,6 +1,10 @@
-export { ScrollSaveSchema } from './types/scrollSaveSchema';
-export { getScrollSaveByPath } from './selectors/scrollSaveSelector';
+export type { ScrollSaveSchema } from './model/types/scrollSaveSchema';
+export { getScrollSaveByPath } from './model/selectors/scrollSaveSelector';
+// export {
+//     scrollSaveSlice,
+//     scrollSaveSliceActions,
+// } from 'features/ScrollSave/model/slices/scrollSaveSlice';
 export {
-    scrollSaveSlice,
-    scrollSaveSliceActions,
-} from './slices/scrollSaveSlice';
+    scrollSaveActions,
+    scrollSaveReducer,
+} from './model/slices/scrollSaveSlice';

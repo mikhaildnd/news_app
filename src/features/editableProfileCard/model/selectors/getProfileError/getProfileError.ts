@@ -1,3 +1,3 @@
-import { RootState } from 'app/providers/StoreProvider/config/store';
+import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getProfileError = (state: RootState) => state?.profile?.error;
+export const getProfileError = (state: StateSchema) => state?.profile?.error;

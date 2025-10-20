@@ -1,4 +1,4 @@
-import { RootState } from 'app/providers/StoreProvider/config/store';
+import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getProfileIsLoading = (state: RootState) =>
+export const getProfileIsLoading = (state: StateSchema) =>
     state?.profile?.isLoading;

@@ -9,10 +9,19 @@ import { fetchNextArticlesPage } from '../../model/services/fetchNextArticlesPag
 import { initArticlesPage } from '../../model/services/initArticlesPage/initArticlesPage';
 import { ArticlesPageFilters } from '../ArticlesPageFilters/ArticlesPageFilters';
 import { ArticleInfiniteList } from '../../ui/ArticleInfiniteList/ArticleInfiniteList';
+import {
+    DynamicModuleLoader,
+    ReducersList,
+} from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { articlesPageReducer } from '../../model/slice/articlesPageSlice';
 
 interface ArticlesPageProps {
     className?: string;
 }
+
+const reducers: ReducersList = {
+    articlesPage: articlesPageReducer,
+};
 
 const ArticlesPage = (props: ArticlesPageProps) => {
     const { className } = props;
@@ -28,13 +37,15 @@ const ArticlesPage = (props: ArticlesPageProps) => {
     });
 
     return (
-        <Page
-            onScrollEnd={onLoadNextPart}
-            className={classNames(cls.ArticlesPage, {}, [className])}
-        >
-            <ArticlesPageFilters />
-            <ArticleInfiniteList className={cls.list} />
-        </Page>
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
+            <Page
+                onScrollEnd={onLoadNextPart}
+                className={classNames(cls.ArticlesPage, {}, [className])}
+            >
+                <ArticlesPageFilters />
+                <ArticleInfiniteList className={cls.list} />
+            </Page>
+        </DynamicModuleLoader>
     );
 };
 

@@ -1,12 +1,7 @@
 import { Currency } from 'entities/Currency';
 import { Country } from 'entities/Country';
 import { updateProfileData } from '../services/updateProfileData/updateProfileData';
-import {
-    profileReducer,
-    setReadonly,
-    cancelEdit,
-    updateProfile,
-} from './profileSlice';
+import { profileReducer, profileActions } from './profileSlice';
 import {
     ProfileSchema,
     ValidateProfileError,
@@ -27,7 +22,10 @@ describe('profileSlice.test', () => {
     test('test set readonly', () => {
         const state: DeepPartial<ProfileSchema> = { readonly: false };
         expect(
-            profileReducer(state as ProfileSchema, setReadonly(true)),
+            profileReducer(
+                state as ProfileSchema,
+                profileActions.setReadonly(true),
+            ),
         ).toEqual({ readonly: true });
     });
 
@@ -36,7 +34,9 @@ describe('profileSlice.test', () => {
             data,
             form: { username: '' },
         };
-        expect(profileReducer(state as ProfileSchema, cancelEdit())).toEqual({
+        expect(
+            profileReducer(state as ProfileSchema, profileActions.cancelEdit()),
+        ).toEqual({
             readonly: true,
             validateErrors: undefined,
             data,
@@ -49,7 +49,7 @@ describe('profileSlice.test', () => {
         expect(
             profileReducer(
                 state as ProfileSchema,
-                updateProfile({
+                profileActions.updateProfile({
                     username: 'admin',
                 }),
             ),

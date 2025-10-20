@@ -6,7 +6,7 @@ import { LoginModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import cls from './Navbar.module.scss';
-import { logout } from 'entities/User/model/slice/userSlice';
+import { userActions } from 'entities/User/model/slice/userSlice';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
 import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
@@ -32,7 +32,7 @@ export const Navbar = memo(function Navbar({ className }: NavbarProps) {
     }, []);
 
     const onLogout = useCallback(() => {
-        dispatch(logout());
+        dispatch(userActions.logout());
     }, [dispatch]);
 
     if (authData) {

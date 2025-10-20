@@ -2,7 +2,7 @@ import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk';
 import { initArticlesPage } from './initArticlesPage';
 import { ArticleType, ArticleView } from 'entities/Article';
 import { fetchArticlesList } from '../fetchArticlesList/fetchArticlesList';
-import { articlesPageSliceActions } from '../../slice/articlesPageSlice';
+import { articlesPageActions } from '../../slice/articlesPageSlice';
 import { ArticlesPageSchema } from '../../types/articlesPageSchema';
 import { ArticleSortField } from 'entities/Article/model/types/article';
 
@@ -33,7 +33,7 @@ describe('initArticlesPage.test', () => {
         await thunk.callThunk(new URLSearchParams());
 
         expect(thunk.dispatch).toHaveBeenCalledWith(
-            articlesPageSliceActions.initState(),
+            articlesPageActions.initState(),
         );
 
         expect(fetchArticlesList).toHaveBeenCalledWith({});
@@ -47,7 +47,7 @@ describe('initArticlesPage.test', () => {
         await thunk.callThunk(new URLSearchParams());
 
         expect(thunk.dispatch).not.toHaveBeenCalledWith(
-            articlesPageSliceActions.initState(),
+            articlesPageActions.initState(),
         );
         expect(fetchArticlesList).not.toHaveBeenCalled();
     });

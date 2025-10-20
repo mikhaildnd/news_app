@@ -1,18 +1,18 @@
-import { RootState } from 'app/providers/StoreProvider/config/store';
 import { getProfileError } from './getProfileError';
+import { StateSchema } from 'app/providers/StoreProvider';
 
 describe('getProfileError.test', () => {
     test('should return error', () => {
-        const state: DeepPartial<RootState> = {
+        const state: DeepPartial<StateSchema> = {
             profile: {
                 error: 'error',
             },
         };
-        expect(getProfileError(state as RootState)).toEqual('error');
+        expect(getProfileError(state as StateSchema)).toEqual('error');
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<RootState> = {};
-        expect(getProfileError(state as RootState)).toEqual(undefined);
+        const state: DeepPartial<StateSchema> = {};
+        expect(getProfileError(state as StateSchema)).toEqual(undefined);
     });
 });

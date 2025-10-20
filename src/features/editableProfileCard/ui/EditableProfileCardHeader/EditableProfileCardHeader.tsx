@@ -9,7 +9,7 @@ import { Text } from 'shared/ui/Text/Text';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getProfileData } from '../../model/selectors/getProfileData/getProfileData';
 import { getProfileReadonly } from '../../model/selectors/getProfileReadonly/getProfileReadonly';
-import { cancelEdit, setReadonly } from '../../model/slice/profileSlice';
+import { profileActions } from '../../model/slice/profileSlice';
 import { updateProfileData } from '../../model/services/updateProfileData/updateProfileData';
 
 interface EditableProfileCardHeaderProps {
@@ -28,11 +28,11 @@ export const EditableProfileCardHeader = memo(
         const dispatch = useAppDispatch();
 
         const onEdit = useCallback(() => {
-            dispatch(setReadonly(false));
+            dispatch(profileActions.setReadonly(false));
         }, [dispatch]);
 
         const onCancelEdit = useCallback(() => {
-            dispatch(cancelEdit());
+            dispatch(profileActions.cancelEdit());
         }, [dispatch]);
 
         const onSave = useCallback(() => {
