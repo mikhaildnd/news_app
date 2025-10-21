@@ -1,7 +1,6 @@
-import { RootState } from 'app/providers/StoreProvider/config/store';
-import { injectedAddCommentFormSlice } from '../slice/addCommentFormSlice';
+import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getAddCommentFormText = (state: RootState) =>
-    injectedAddCommentFormSlice.selectSlice(state)?.text ?? '';
-export const getAddCommentFormError = (state: RootState) =>
-    injectedAddCommentFormSlice.selectSlice(state)?.error;
+export const getAddCommentFormText = (state: StateSchema) =>
+    state.addCommentForm?.text ?? '';
+export const getAddCommentFormError = (state: StateSchema) =>
+    state.addCommentForm?.error;

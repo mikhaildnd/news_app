@@ -8,7 +8,7 @@ import {
     ArticleView,
     ArticleViewSelector,
 } from 'entities/Article';
-import { articlesPageSliceActions } from '../../model/slice/articlesPageSlice';
+import { articlesPageActions } from '../../model/slice/articlesPageSlice';
 import { useSelector } from 'react-redux';
 import {
     getArticlesPageOrder,
@@ -48,15 +48,15 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
 
     const onChangeView = useCallback(
         (newView: ArticleView) => {
-            dispatch(articlesPageSliceActions.setView(newView));
+            dispatch(articlesPageActions.setView(newView));
         },
         [dispatch],
     );
 
     const onChangeSort = useCallback(
         (newSort: ArticleSortField) => {
-            dispatch(articlesPageSliceActions.setSort(newSort));
-            dispatch(articlesPageSliceActions.setPage(1));
+            dispatch(articlesPageActions.setSort(newSort));
+            dispatch(articlesPageActions.setPage(1));
             fetchData();
         },
         [dispatch, fetchData],
@@ -64,8 +64,8 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
 
     const onChangeOrder = useCallback(
         (newOrder: SortOrder) => {
-            dispatch(articlesPageSliceActions.setOrder(newOrder));
-            dispatch(articlesPageSliceActions.setPage(1));
+            dispatch(articlesPageActions.setOrder(newOrder));
+            dispatch(articlesPageActions.setPage(1));
             fetchData();
         },
         [dispatch, fetchData],
@@ -73,8 +73,8 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
 
     const onChangeSearch = useCallback(
         (newSearch: string) => {
-            dispatch(articlesPageSliceActions.setSearch(newSearch));
-            dispatch(articlesPageSliceActions.setPage(1));
+            dispatch(articlesPageActions.setSearch(newSearch));
+            dispatch(articlesPageActions.setPage(1));
             debouncedFetchData();
         },
         [dispatch, debouncedFetchData],
@@ -82,8 +82,8 @@ export const ArticlesPageFilters = memo((props: ArticlesPageFiltersProps) => {
 
     const onChangeType = useCallback(
         (value: ArticleType) => {
-            dispatch(articlesPageSliceActions.setType(value));
-            dispatch(articlesPageSliceActions.setPage(1));
+            dispatch(articlesPageActions.setType(value));
+            dispatch(articlesPageActions.setPage(1));
             fetchData();
         },
         [dispatch, fetchData],

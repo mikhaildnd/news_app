@@ -1,6 +1,6 @@
-import { RootState } from 'app/providers/StoreProvider/config/store';
+import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getArticleCommentsIsLoading = (state: RootState) =>
-    state.articleDetailsComments?.isLoading || false;
-export const getArticleCommentsError = (state: RootState) =>
-    state.articleDetailsComments?.error;
+export const getArticleCommentsIsLoading = (state: StateSchema) =>
+    state.articleDetailsPage?.comments?.isLoading || false;
+export const getArticleCommentsError = (state: StateSchema) =>
+    state.articleDetailsPage?.comments?.error;

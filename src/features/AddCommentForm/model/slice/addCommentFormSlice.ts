@@ -1,6 +1,5 @@
-import { createSlice, PayloadAction, WithSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddCommentFormSchema } from '../types/addCommentFormTypes';
-import { rootReducer } from 'app/providers/StoreProvider';
 
 const initialState: AddCommentFormSchema = {};
 
@@ -28,12 +27,6 @@ export const addCommentFormSlice = createSlice({
     // },
 });
 
-declare module 'app/providers/StoreProvider/config/store' {
-    interface LazyLoadedSlices extends WithSlice<typeof addCommentFormSlice> {}
-}
-
-export const injectedAddCommentFormSlice =
-    addCommentFormSlice.injectInto(rootReducer);
-
-export const { setText } = addCommentFormSlice.actions;
-export const addCommentFormReducer = addCommentFormSlice.reducer;
+// Action creators are generated for each case reducer function
+export const { actions: addCommentFormActions } = addCommentFormSlice;
+export const { reducer: addCommentFormReducer } = addCommentFormSlice;

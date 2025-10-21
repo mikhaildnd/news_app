@@ -1,20 +1,19 @@
 import {
     createEntityAdapter,
     createSlice,
+    EntityId,
     PayloadAction,
-    WithSlice,
 } from '@reduxjs/toolkit';
-import { rootReducer } from 'app/providers/StoreProvider';
 import { ArticleDetailsRecommendationsSchema } from '../../model/types/ArticleDetailsRecommendationsSchema';
 import { Article } from 'entities/Article';
 import { fetchArticlesRecommendations } from '../services/fetchArticleRecommendations/fetchArticleRecommendations';
+import { StateSchema } from 'app/providers/StoreProvider';
 
 // createEntityAdapter<T>() сам по себе уже умеет выводить selectId (оно по умолчанию ищет id).
 // А если хочешь передать кастомный selectId, нужно явно указать generic для ключа EntityId
-const recommendationsAdapter = createEntityAdapter<Article>();
-//     {
-//     selectId: (article: Article) => article.id
-// }
+const recommendationsAdapter = createEntityAdapter<Article, EntityId>({
+    selectId: (article) => article.id,
+});
 
 const articleDetailsPageRecommendationsSlice = createSlice({
     name: 'articleDetailsPageRecommendations',
@@ -49,17 +48,11 @@ const articleDetailsPageRecommendationsSlice = createSlice({
     },
 });
 
-export const injectedArticleDetailsPageRecommendationsSlice =
-    articleDetailsPageRecommendationsSlice.injectInto(rootReducer);
-export const getArticleRecommendations = recommendationsAdapter.getSelectors(
-    (state: ReturnType<typeof rootReducer>) =>
-        injectedArticleDetailsPageRecommendationsSlice.selectSlice(state) ??
-        recommendationsAdapter.getInitialState(),
-);
-export const articleDetailsPageRecommendationsReducer =
-    articleDetailsPageRecommendationsSlice.reducer;
-
-declare module 'app/providers/StoreProvider/config/store' {
-    interface LazyLoadedSlices
-        extends WithSlice<typeof articleDetailsPageRecommendationsSlice> {}
-}
+export const getArticleRecommendations =
+    recommendationsAdapter.getSelectors<StateSchema>(
+        (state) =>
+            state.articleDetailsPage?.recommendations ||
+            recommendationsAdapter.getInitialState(),
+    );
+export const { reducer: articleDetailsPageRecommendationsReducer } =
+    articleDetailsPageRecommendationsSlice;

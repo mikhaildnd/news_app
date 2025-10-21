@@ -6,7 +6,6 @@ import {
     ArticleBlockType,
     ArticleType,
 } from '../../model/types/article';
-import { injectArticleDetailsSlice } from '../../model/slice/articleDetailsSlice';
 
 const article: Article = {
     id: '1',
@@ -56,9 +55,6 @@ const meta: Meta<typeof ArticleDetails> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
-
-// инжект lazy-слайса
-injectArticleDetailsSlice;
 
 export const Normal: Story = {
     args: {},

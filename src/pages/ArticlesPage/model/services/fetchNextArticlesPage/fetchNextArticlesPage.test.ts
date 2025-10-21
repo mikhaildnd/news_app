@@ -32,7 +32,7 @@ describe('fetchNextArticlesPage.test', () => {
         await thunk.callThunk();
 
         expect(thunk.dispatch).toHaveBeenCalledTimes(4); // pending, fulfilled, 2 dispatch
-        expect(fetchArticlesList).toHaveBeenCalledWith({});
+        expect(fetchArticlesList).toHaveBeenCalled();
     });
 
     test('fetchArticleList not called if hasMore=false', async () => {

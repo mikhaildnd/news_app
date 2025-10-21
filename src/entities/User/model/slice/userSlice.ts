@@ -16,8 +16,7 @@ export const userSlice = createSlice({
         initAuthData: (state) => {
             const user = localStorage.getItem(USER_LOCALSTORAGE_KEY);
             if (user) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                state.authData = JSON.parse(user);
+                state.authData = JSON.parse(user) as User; //as User?
             }
             state._isMounted = true;
         },
@@ -28,5 +27,6 @@ export const userSlice = createSlice({
     },
 });
 
-export const { setAuthData, initAuthData, logout } = userSlice.actions;
-export const userReducer = userSlice.reducer;
+// Action creators are generated for each case reducer function
+export const { actions: userActions } = userSlice;
+export const { reducer: userReducer } = userSlice;

@@ -6,7 +6,7 @@ import { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMounted } from 'entities/User';
 import { useTheme } from 'app/providers/ThemeProvider';
-import { initAuthData } from 'entities/User/model/slice/userSlice';
+import { userActions } from 'entities/User/model/slice/userSlice';
 
 function App() {
     const { theme } = useTheme();
@@ -14,7 +14,7 @@ function App() {
     const isMounted = useSelector(getUserMounted);
 
     useEffect(() => {
-        dispatch(initAuthData());
+        dispatch(userActions.initAuthData());
     }, [dispatch]);
 
     return (

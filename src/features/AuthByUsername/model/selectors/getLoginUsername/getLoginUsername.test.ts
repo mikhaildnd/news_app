@@ -1,18 +1,18 @@
 import { getLoginUsername } from './getLoginUsername';
-import { RootState } from 'app/providers/StoreProvider/config/store';
+import { StateSchema } from 'app/providers/StoreProvider';
 
 describe('getLoginUsername.test', () => {
     test('should return value', () => {
-        const state: DeepPartial<RootState> = {
-            login: {
+        const state: DeepPartial<StateSchema> = {
+            loginForm: {
                 username: 'Admin',
             },
         };
-        expect(getLoginUsername(state as RootState)).toEqual('Admin');
+        expect(getLoginUsername(state as StateSchema)).toEqual('Admin');
     });
 
     test('should work with empty state', () => {
-        const state: DeepPartial<RootState> = {};
-        expect(getLoginUsername(state as RootState)).toEqual('');
+        const state: DeepPartial<StateSchema> = {};
+        expect(getLoginUsername(state as StateSchema)).toEqual('');
     });
 });

@@ -2,7 +2,7 @@ import { Button } from 'shared/ui/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getCounterValue } from '../model/selectors/getCounterValue/getCounterValue';
-import { increment, decrement } from '../model/slice/CounterSlice';
+import { counterActions } from '../model/slice/CounterSlice';
 
 export const Counter = () => {
     const dispatch = useDispatch();
@@ -11,10 +11,10 @@ export const Counter = () => {
     const { t } = useTranslation();
 
     const incrementFn = () => {
-        dispatch(increment());
+        dispatch(counterActions.increment());
     };
     const decrementFn = () => {
-        dispatch(decrement());
+        dispatch(counterActions.decrement());
     };
 
     return (

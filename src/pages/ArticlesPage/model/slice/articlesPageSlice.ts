@@ -1,8 +1,8 @@
 import {
     createEntityAdapter,
     createSlice,
+    EntityId,
     PayloadAction,
-    type WithSlice,
 } from '@reduxjs/toolkit';
 import type { ArticlesPageSchema } from '../types/articlesPageSchema';
 import {
@@ -11,12 +11,14 @@ import {
     ArticleView,
     ArticleSortField,
 } from 'entities/Article';
-import { rootReducer } from 'app/providers/StoreProvider';
 import { fetchArticlesList } from '../services/fetchArticlesList/fetchArticlesList';
 import { ARTICLE_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
 import { SortOrder } from 'shared/types';
+import { StateSchema } from 'app/providers/StoreProvider';
 
-const articlesAdapter = createEntityAdapter<Article>();
+const articlesAdapter = createEntityAdapter<Article, EntityId>({
+    selectId: (article) => article.id,
+});
 
 export const articlesPageSlice = createSlice({
     name: 'articlesPage',
@@ -92,16 +94,9 @@ export const articlesPageSlice = createSlice({
     },
 });
 
-export const injectArticlesPageSlice =
-    articlesPageSlice.injectInto(rootReducer);
-export const articlesPageSliceSelectors = articlesAdapter.getSelectors(
-    (state: ReturnType<typeof rootReducer>) =>
-        injectArticlesPageSlice.selectSlice(state) ??
-        articlesAdapter.getInitialState(),
+export const getArticles = articlesAdapter.getSelectors<StateSchema>(
+    (state) => state.articlesPage || articlesAdapter.getInitialState(),
 );
-export const articlesPageSliceReducer = articlesPageSlice.reducer;
-export const articlesPageSliceActions = articlesPageSlice.actions;
 
-declare module 'app/providers/StoreProvider/config/store' {
-    interface LazyLoadedSlices extends WithSlice<typeof articlesPageSlice> {}
-}
+export const { reducer: articlesPageReducer, actions: articlesPageActions } =
+    articlesPageSlice;

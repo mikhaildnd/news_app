@@ -1,6 +1,6 @@
 import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk';
 import { loginByUsername } from './loginByUsername';
-import { setAuthData } from 'entities/User/model/slice/userSlice'; //fix?
+import { userActions } from 'entities/User';
 
 describe('loginByUsername.test', () => {
     test('success login', async () => {
@@ -17,7 +17,9 @@ describe('loginByUsername.test', () => {
             password: '123',
         });
 
-        expect(thunk.dispatch).toHaveBeenCalledWith(setAuthData(userValue));
+        expect(thunk.dispatch).toHaveBeenCalledWith(
+            userActions.setAuthData(userValue),
+        );
         expect(thunk.dispatch).toHaveBeenCalledTimes(3);
         expect(postSpy).toHaveBeenCalled();
         // expect(thunk.api.post).toHaveBeenCalled();

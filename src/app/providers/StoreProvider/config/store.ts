@@ -1,34 +1,53 @@
-import { configureStore, combineSlices } from '@reduxjs/toolkit';
-import { userSlice } from 'entities/User/model/slice/userSlice';
+import { configureStore, ReducersMapObject, Reducer } from '@reduxjs/toolkit';
+// import { userSlice } from 'entities/User/model/slice/userSlice';
 import { $api } from 'shared/api/api';
-import { counterSlice } from 'entities/Counter/model/slice/CounterSlice';
-import { scrollSaveSlice } from 'features/ScrollSave';
+import { rtkApi } from 'shared/api/rtkApi';
+import {
+    StateSchema,
+    ThunkExtraArg,
+} from 'app/providers/StoreProvider/config/StateSchema';
+import { createReducerManager } from 'app/providers/StoreProvider/config/reducerManager';
+import { counterReducer } from 'entities/Counter/model/slice/CounterSlice';
+import { userReducer } from 'entities/User';
+import { scrollSaveReducer } from 'features/ScrollSave';
+// import { CombinedState } from '@reduxjs/toolkit/query';
 
-export interface LazyLoadedSlices {}
+export function createReduxStore(
+    initialState?: StateSchema,
+    asyncReducers?: ReducersMapObject<StateSchema>,
+) {
+    const rootReducers: ReducersMapObject<StateSchema> = {
+        ...asyncReducers,
+        counter: counterReducer,
+        user: userReducer,
+        scrollSave: scrollSaveReducer,
+        [rtkApi.reducerPath]: rtkApi.reducer,
+    };
 
-export const rootReducer = combineSlices(
-    userSlice,
-    scrollSaveSlice,
-    counterSlice,
-).withLazyLoadedSlices<LazyLoadedSlices>();
+    const reducerManager = createReducerManager(rootReducers);
 
-export function createReduxStore(initialState?: Partial<RootState>) {
+    const extraArg: ThunkExtraArg = {
+        api: $api,
+    };
+
     const store = configureStore({
-        reducer: rootReducer,
+        // reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
+        reducer: reducerManager.reduce as Reducer<StateSchema>,
         devTools: __IS_DEV__,
         preloadedState: initialState,
         middleware: (getDefaultMiddleware) =>
             getDefaultMiddleware({
                 thunk: {
-                    extraArgument: {
-                        api: $api,
-                    },
+                    extraArgument: extraArg,
                 },
-            }),
+            }).concat(rtkApi.middleware),
     });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    store.reducerManager = reducerManager;
 
     return store;
 }
 
-export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch'];

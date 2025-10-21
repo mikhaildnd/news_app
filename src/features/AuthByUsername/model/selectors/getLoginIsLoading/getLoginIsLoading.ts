@@ -1,4 +1,4 @@
-import { RootState } from 'app/providers/StoreProvider/config/store'; //fix?
+import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getLoginIsLoading = (state: RootState) =>
-    state?.login?.isLoading || false;
+export const getLoginIsLoading = (state: StateSchema) =>
+    state?.loginForm?.isLoading || false;

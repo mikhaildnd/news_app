@@ -1,9 +1,7 @@
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import {
-    AppDispatch,
-    RootState,
-} from 'app/providers/StoreProvider/config/store';
+import { AppDispatch } from 'app/providers/StoreProvider/config/store';
+import { StateSchema } from 'app/providers/StoreProvider';
 import { ThunkExtraArg } from 'app/providers/StoreProvider/config/StateSchema';
 
 // Универсальный тип для async thunk creator
@@ -11,14 +9,20 @@ type ActionCreatorType<Return, Arg, RejectedValue> = Arg extends void
     ? () => AsyncThunkAction<
           Return,
           void,
-          { rejectValue: RejectedValue; state: RootState; extra: ThunkExtraArg }
+          {
+              rejectValue: RejectedValue;
+              state: StateSchema;
+              extra: ThunkExtraArg;
+          }
       >
-    : (
-          arg: Arg,
-      ) => AsyncThunkAction<
+    : (arg: Arg) => AsyncThunkAction<
           Return,
           Arg,
-          { rejectValue: RejectedValue; state: RootState; extra: ThunkExtraArg }
+          {
+              rejectValue: RejectedValue;
+              state: StateSchema;
+              extra: ThunkExtraArg;
+          }
       >;
 
 // ======================
@@ -45,7 +49,7 @@ const mockedAxios = jest.mocked(axios, { shallow: false });
 // ======================
 export class TestAsyncThunk<Return, Arg, RejectedValue> {
     dispatch: AppDispatch;
-    getState: () => RootState;
+    getState: () => StateSchema;
     actionCreator: ActionCreatorType<Return, Arg, RejectedValue>;
 
     // ✅ Ключевая правка — указываем что это мок axios-инстанса
@@ -53,11 +57,11 @@ export class TestAsyncThunk<Return, Arg, RejectedValue> {
 
     constructor(
         actionCreator: ActionCreatorType<Return, Arg, RejectedValue>,
-        state?: Partial<RootState>,
+        state?: Partial<StateSchema>,
     ) {
         this.actionCreator = actionCreator;
         this.dispatch = jest.fn() as unknown as AppDispatch;
-        this.getState = jest.fn(() => state as RootState);
+        this.getState = jest.fn(() => state as StateSchema);
 
         // Используем мокнутый экземпляр axios
         this.api = mockedAxios.create() as jest.Mocked<

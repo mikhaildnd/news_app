@@ -5,6 +5,9 @@ import { Theme } from '../../src/app/providers/ThemeProvider';
 import { RouterDecorator } from '../../src/shared/config/storybook/RouterDecorator/RouterDecorator';
 import '../../src/app/styles/index.scss';
 import { StoreDecorator } from '../../src/shared/config/storybook/StoreDecorator/StoreDecorator';
+import { initialize, mswLoader } from 'msw-storybook-addon';
+
+initialize();
 
 const preview: Preview = {
     parameters: {
@@ -16,12 +19,15 @@ const preview: Preview = {
             },
         },
     },
+    // Provide the MSW addon loader globally
+    loaders: [mswLoader],
     decorators: [
         RouterDecorator,
         StyleDecorator,
         ThemeDecorator(Theme.LIGHT),
+        // StoreDecorator(),
         StoreDecorator({
-            scrollSaveSlice: {
+            scrollSave: {
                 scroll: {},
             },
         }),

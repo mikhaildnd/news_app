@@ -41,3 +41,7 @@ type RootStateDeepPartial = {
         ? RootStateDeepPartial<RootState[K]>
         : RootState[K];
 };
+
+type OptionalRecord<K extends string, T> = {
+    [P in K]?: T;
+};

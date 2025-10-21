@@ -1,16 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ArticlesPage from './ArticlesPage';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
-import { Article, ArticleView } from 'entities/Article';
+import { Article } from 'entities/Article';
 import {
     ArticleBlockType,
-    ArticleSortField,
     ArticleType,
 } from 'entities/Article/model/types/article';
-import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
+import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof ArticlesPage> = {
-    title: 'pages/ArticlesPage',
+    title: 'pages/ArticlesPage/ArticlesPage',
     component: ArticlesPage,
 };
 export default meta;
@@ -58,34 +56,19 @@ const article: Article = {
     ],
 };
 
-const baseState: ArticlesPageSchema = {
-    isLoading: false,
-    error: undefined,
-    ids: [],
-    entities: {},
-    view: ArticleView.SMALL,
-    page: 1,
-    hasMore: false,
-    _inited: false,
-    limit: 4,
-    sort: ArticleSortField.CREATED,
-    search: '',
-    order: 'asc',
-    type: ArticleType.ALL,
-};
-
-export const Normal: Story = {
+export const Primary: Story = {
     args: {},
-    decorators: [
-        StoreDecorator({
-            articlesPage: {
-                ...baseState,
-                ids: ['1', '2'],
-                entities: {
-                    '1': article,
-                    '2': { ...article, id: '2', title: 'React news' },
-                },
-            },
-        }),
-    ],
+    parameters: {
+        msw: {
+            handlers: [
+                http.get(`${__API__}/articles?_limit=3`, () => {
+                    return HttpResponse.json([
+                        { ...article, id: '1' },
+                        { ...article, id: '2' },
+                        { ...article, id: '3' },
+                    ]);
+                }),
+            ],
+        },
+    },
 };

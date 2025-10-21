@@ -1,18 +1,20 @@
 import {
     createEntityAdapter,
     createSlice,
+    EntityId,
     PayloadAction,
-    WithSlice,
 } from '@reduxjs/toolkit';
 
 import { Comment } from 'entities/Comment';
 import { fetchCommentsByArticleId } from '../services/fetchCommentsByArticleId/fetchCommentsByArticleId';
 import { ArticleDetailsCommentsSchema } from '../types/ArticleDetailsCommentsSchema';
-import { rootReducer } from 'app/providers/StoreProvider';
+import { StateSchema } from 'app/providers/StoreProvider';
 
 // createEntityAdapter<T>() сам по себе уже умеет выводить selectId (оно по умолчанию ищет id).
 // А если хочешь передать кастомный selectId, нужно явно указать generic для ключа EntityId
-const commentsAdapter = createEntityAdapter<Comment>();
+const commentsAdapter = createEntityAdapter<Comment, EntityId>({
+    selectId: (comment) => comment.id,
+});
 
 const articleDetailsCommentsSlice = createSlice({
     name: 'articleDetailsComments',
@@ -46,17 +48,9 @@ const articleDetailsCommentsSlice = createSlice({
     },
 });
 
-export const injectedArticleDetailsCommentsSlice =
-    articleDetailsCommentsSlice.injectInto(rootReducer);
-export const getArticleDetailsComments = commentsAdapter.getSelectors(
-    (state: ReturnType<typeof rootReducer>) =>
-        injectedArticleDetailsCommentsSlice.selectSlice(state) ??
-        commentsAdapter.getInitialState(),
+export const getArticleComments = commentsAdapter.getSelectors<StateSchema>(
+    (state) =>
+        state.articleDetailsPage?.comments || commentsAdapter.getInitialState(),
 );
-export const articleDetailsCommentsReducer =
-    articleDetailsCommentsSlice.reducer;
-
-declare module 'app/providers/StoreProvider/config/store' {
-    interface LazyLoadedSlices
-        extends WithSlice<typeof articleDetailsCommentsSlice> {}
-}
+export const { reducer: articleDetailsCommentsReducer } =
+    articleDetailsCommentsSlice;
