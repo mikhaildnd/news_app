@@ -7,6 +7,7 @@ import {
     ArticleSortSelector,
     ArticleView,
     ArticleViewSelector,
+    ArticleType,
 } from 'entities/Article';
 import { articlesPageActions } from '../../model/slice/articlesPageSlice';
 import { useSelector } from 'react-redux';
@@ -23,7 +24,6 @@ import { Input } from 'shared/ui/Input/Input';
 import { SortOrder } from 'shared/types';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
-import { ArticleType } from 'entities/Article/model/types/article';
 import { ArticleTypeTabs } from 'features';
 
 interface ArticlesPageFiltersProps {

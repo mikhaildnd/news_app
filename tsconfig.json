@@ -21,7 +21,8 @@
     },
     "esModuleInterop": true, // Позволяет безопасно импортировать CommonJS модули через import.
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true // Пропускает проверку типов в сторонних библиотеках (node_modules).
+    "skipLibCheck": true, // Пропускает проверку типов в сторонних библиотеках (node_modules).
+    "isolatedModules": true,
   },
   "ts-node": {
     "compilerOptions": {

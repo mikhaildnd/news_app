@@ -17,7 +17,7 @@ import {
     getArticleDetailsError,
     getArticleDetailsIsLoading,
 } from '../../model/selectors/getArticleDetails';
-import { ArticleBlock, ArticleBlockType } from '../../model/types/article';
+import { ArticleBlock } from '../../model/types/article';
 import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent';
 import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent';
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent';
@@ -27,6 +27,7 @@ import {
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { articleDetailsReducer } from '../../model/slice/articleDetailsSlice';
+import { ArticleBlockType } from '../../model/consts/consts';
 
 interface ArticleDetailsProps {
     className?: string;

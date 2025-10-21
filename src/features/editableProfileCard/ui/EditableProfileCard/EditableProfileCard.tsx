@@ -16,12 +16,12 @@ import { getProfileReadonly } from '../../model/selectors/getProfileReadonly/get
 import { getProfileValidateErrors } from '../../model/selectors/getProfileValidateErrors/getProfileValidateErrors';
 import { fetchProfileData } from '../../model/services/fetchProfileData/fetchProfileData';
 import { profileActions, profileReducer } from '../../model/slice/profileSlice';
-import { ValidateProfileError } from '../../model/types/editableProfileCardSchema';
 import { EditableProfileCardHeader } from '../EditableProfileCardHeader/EditableProfileCardHeader';
 import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { ValidateProfileError } from '../../model/consts/consts';
 
 interface EditableProfileCardProps {
     className?: string;

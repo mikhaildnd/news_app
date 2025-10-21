@@ -1,13 +1,13 @@
 import { ArticleInfiniteList } from './ArticleInfiniteList';
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-    Article,
+    type Article,
     ArticleSortField,
     ArticleType,
     ArticleView,
+    ArticleBlockType,
 } from 'entities/Article';
-import { ArticleBlockType } from 'entities/Article/model/types/article';
-import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
+import type { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 import { articlesPageReducer } from '../../model/slice/articlesPageSlice';
 
