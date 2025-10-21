@@ -6,6 +6,7 @@ import {
 } from 'entities/Article/model/types/article';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
 import ArticleDetailsPage from './ArticleDetailsPage';
+import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof ArticleDetailsPage> = {
     title: 'pages/ArticleDetailsPage/ArticleDetailsPage',
@@ -64,6 +65,19 @@ const article: Article = {
 
 export const Normal: Story = {
     args: {},
+    parameters: {
+        msw: {
+            handlers: [
+                http.get(`${__API__}/articles?_limit=3`, () => {
+                    return HttpResponse.json([
+                        { ...article, id: '1' },
+                        { ...article, id: '2' },
+                        { ...article, id: '3' },
+                    ]);
+                }),
+            ],
+        },
+    },
     decorators: [
         StoreDecorator({
             articleDetails: {

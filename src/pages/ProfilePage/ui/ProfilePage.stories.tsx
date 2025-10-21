@@ -6,20 +6,6 @@ import { Currency } from 'entities/Currency/model/types/currency';
 import { Country } from 'entities/Country/model/types/country';
 import ProfilePage from './ProfilePage';
 
-const meta: Meta<typeof ProfilePage> = {
-    title: 'pages/ProfilePage/ProfilePage',
-    component: ProfilePage,
-    parameters: {
-        router: {
-            path: '/profile/:id',
-            initialEntries: ['/profile/1'],
-        },
-    },
-};
-export default meta;
-
-type Story = StoryObj<typeof meta>;
-
 const initialData = {
     profile: {
         data: {
@@ -45,12 +31,26 @@ const initialData = {
     },
 };
 
+const meta: Meta<typeof ProfilePage> = {
+    title: 'pages/ProfilePage/ProfilePage',
+    component: ProfilePage,
+    parameters: {
+        router: {
+            path: '/profile/:id',
+            initialEntries: ['/profile/1'],
+        },
+    },
+    decorators: [StoreDecorator(initialData)],
+};
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
 export const Normal: Story = {
     args: {},
-    decorators: [StoreDecorator(initialData)],
 };
 
 export const Dark: Story = {
     args: {},
-    decorators: [ThemeDecorator(Theme.DARK), StoreDecorator(initialData)],
+    decorators: [ThemeDecorator(Theme.DARK)],
 };

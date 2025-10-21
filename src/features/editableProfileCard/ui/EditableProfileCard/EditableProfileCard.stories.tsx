@@ -1,17 +1,32 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { EditableProfileCard } from './EditableProfileCard';
+import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
+import { Country } from 'entities/Country';
+import { Currency } from 'entities/Currency';
 
 const meta: Meta<typeof EditableProfileCard> = {
     title: 'features/editableProfileCard/EditableProfileCard',
     component: EditableProfileCard,
     args: {},
-    // decorators: [
-    //     (Story) => (
-    //         <div style={{ padding: 100 }}>
-    //             <Story />
-    //         </div>
-    //     ),
-    // ],
+    decorators: [
+        StoreDecorator({
+            profile: {
+                form: {
+                    id: '1',
+                    firstname: 'Mikhail',
+                    lastname: 'Dundukov',
+                    username: 'mikhaildnd',
+                    age: 33,
+                    country: Country.Russia,
+                    avatar: '',
+                    city: 'Togliatty',
+                    currency: Currency.RUB,
+                },
+                isLoading: false,
+                readonly: false,
+            },
+        }),
+    ],
     // parameters: {
     //     router: {
     //         path: '/example/:id',

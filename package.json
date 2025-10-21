@@ -81,6 +81,8 @@
     "json-server": "^0.17.4",
     "loki": "^0.35.1",
     "mini-css-extract-plugin": "^2.9.4",
+    "msw": "^2.11.6",
+    "msw-storybook-addon": "^2.0.6",
     "prettier": "^3.3.3",
     "react-refresh": "^0.17.0",
     "reg-cli": "^0.18.10",
@@ -117,5 +119,10 @@
     "ink": {
       "react": "^17.0.2"
     }
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

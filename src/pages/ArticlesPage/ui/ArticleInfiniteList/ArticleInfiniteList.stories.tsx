@@ -9,6 +9,7 @@ import {
 import { ArticleBlockType } from 'entities/Article/model/types/article';
 import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
 import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
+import { articlesPageReducer } from '../../model/slice/articlesPageSlice';
 
 const meta: Meta<typeof ArticleInfiniteList> = {
     title: 'pages/ArticlesPage/ArticleInfiniteList',
@@ -78,15 +79,18 @@ const baseState: ArticlesPageSchema = {
 export const Primary: Story = {
     args: {},
     decorators: [
-        StoreDecorator({
-            articlesPage: {
-                ...baseState,
-                ids: ['1', '2'],
-                entities: {
-                    '1': article,
-                    '2': { ...article, id: '2', title: 'React news' },
+        StoreDecorator(
+            {
+                articlesPage: {
+                    ...baseState,
+                    ids: ['1', '2'],
+                    entities: {
+                        '1': { ...article, id: '1' },
+                        '2': { ...article, id: '2', title: 'React news' },
+                    },
                 },
             },
-        }),
+            { articlesPage: articlesPageReducer },
+        ),
     ],
 };
