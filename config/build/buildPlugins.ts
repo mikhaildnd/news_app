@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import CircularDependencyPlugin from 'circular-dependency-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import { BuildOptions } from './types/config';
 
@@ -25,6 +26,19 @@ export function buildPlugins({
         new CopyPlugin({
             patterns: [{ from: paths.locales, to: paths.buildLocales }],
         }),
+        new CircularDependencyPlugin({
+            exclude: /node_modules/,
+            include: /src/,
+            failOnError: true,
+            allowAsyncCycles: false,
+            cwd: process.cwd(),
+            onDetected({ paths: cyclePaths, compilation }) {
+                const message = `Circular dependency detected:\n${cyclePaths.join(' -> ')}`;
+                console.error(message);
+                compilation.errors.push(new Error(message));
+                throw new Error(message);
+            },
+        }),
     ];
 
     if (!isDev) {
@@ -45,6 +59,5 @@ export function buildPlugins({
             }),
         );
     }
-
     return plugins;
 }
