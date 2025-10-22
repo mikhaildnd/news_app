@@ -8,10 +8,12 @@ import {
 } from '@headlessui/react';
 import { Fragment, ReactNode } from 'react';
 import cls from './ListBox.module.scss';
+import popupCls from '../../styles/popup.module.scss';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Button } from '../Button/Button';
-import { HStack } from '../Stack';
-import { DropdownDirection } from '../../types/ui';
+import { Button } from '../../../Button/Button';
+import { HStack } from '../../../Stack';
+import { DropdownDirection } from '../../../../types/ui';
+import { mapDirectionClass } from '../../styles/consts';
 
 export interface ListBoxItem {
     value: string;
@@ -29,13 +31,6 @@ interface ListBoxProps {
     label?: string;
     direction?: DropdownDirection;
 }
-
-const mapDirectionClass: Record<DropdownDirection, string> = {
-    'bottom left': cls.optionsBottomLeft,
-    'bottom right': cls.optionsBottomRight,
-    'top right': cls.optionsTopRight,
-    'top left': cls.optionsTopLeft,
-};
 
 export const ListBox = (props: ListBoxProps) => {
     const {
@@ -57,7 +52,7 @@ export const ListBox = (props: ListBoxProps) => {
                 {label && <Label>{`${label}>`}</Label>}
                 <Listbox
                     as="div"
-                    className={classNames(cls.ListBox, {}, [className])}
+                    className={classNames('', {}, [className, popupCls.popup])}
                     value={value}
                     onChange={onChange}
                     disabled={readonly}
@@ -78,8 +73,8 @@ export const ListBox = (props: ListBoxProps) => {
                                 {({ focus, selected }) => (
                                     <li
                                         className={classNames(cls.item, {
-                                            [cls.focus]: focus,
-                                            [cls.disabled]: item.disabled,
+                                            [popupCls.focus]: focus,
+                                            [popupCls.disabled]: item.disabled,
                                         })}
                                     >
                                         {selected && '>'}
