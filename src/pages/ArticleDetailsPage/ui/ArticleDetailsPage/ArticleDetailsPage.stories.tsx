@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { type Article, ArticleBlockType, ArticleType } from 'entities/Article';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
+import {
+    type Article,
+    ArticleBlockType,
+    ArticleType,
+} from '@/entities/Article';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import ArticleDetailsPage from './ArticleDetailsPage';
 import { http, HttpResponse } from 'msw';
 

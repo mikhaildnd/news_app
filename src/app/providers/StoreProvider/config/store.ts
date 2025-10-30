@@ -1,15 +1,15 @@
 import { configureStore, ReducersMapObject, Reducer } from '@reduxjs/toolkit';
 // import { userSlice } from 'entities/User/model/slice/userSlice';
-import { $api } from 'shared/api/api';
-import { rtkApi } from 'shared/api/rtkApi';
+import { $api } from '@/shared/api/api';
+import { rtkApi } from '@/shared/api/rtkApi';
 import {
     StateSchema,
     ThunkExtraArg,
-} from 'app/providers/StoreProvider/config/StateSchema';
-import { createReducerManager } from 'app/providers/StoreProvider/config/reducerManager';
-import { counterReducer } from 'entities/Counter/model/slice/CounterSlice';
-import { userReducer } from 'entities/User';
-import { scrollSaveReducer } from 'features/ScrollSave';
+} from '@/app/providers/StoreProvider/config/StateSchema';
+import { createReducerManager } from '@/app/providers/StoreProvider/config/reducerManager';
+import { counterReducer } from '@/entities/Counter/model/slice/CounterSlice';
+import { userReducer } from '@/entities/User';
+import { scrollSaveReducer } from '@/features/ScrollSave';
 // import { CombinedState } from '@reduxjs/toolkit/query';
 
 export function createReduxStore(

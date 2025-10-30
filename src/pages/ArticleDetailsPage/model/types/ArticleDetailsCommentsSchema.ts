@@ -1,4 +1,4 @@
-import { Comment } from 'entities/Comment';
+import { Comment } from '@/entities/Comment';
 import { EntityId, EntityState } from '@reduxjs/toolkit';
 
 // EntityState добавляет ids и entities для нормализации данных

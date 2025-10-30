@@ -6,9 +6,9 @@ import {
     ArticleType,
     ArticleView,
     ArticleBlockType,
-} from 'entities/Article';
+} from '@/entities/Article';
 import type { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { articlesPageReducer } from '../../model/slice/articlesPageSlice';
 
 const meta: Meta<typeof ArticleInfiniteList> = {

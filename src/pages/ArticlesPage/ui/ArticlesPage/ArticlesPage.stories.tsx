@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import ArticlesPage from './ArticlesPage';
-import { type Article, ArticleType, ArticleBlockType } from 'entities/Article';
+import {
+    type Article,
+    ArticleType,
+    ArticleBlockType,
+} from '@/entities/Article';
 import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof ArticlesPage> = {

@@ -1,15 +1,15 @@
 import { AxiosInstance } from 'axios';
 // import { RootState } from 'app/providers/StoreProvider/config/store';
-import { CounterSchema } from 'entities/Counter';
-import { UserSchema } from 'entities/User';
-import { ScrollSaveSchema } from 'features/ScrollSave';
-import { rtkApi } from 'shared/api/rtkApi';
-import { LoginSchema } from 'features/AuthByUsername';
-import { ProfileSchema } from 'features/editableProfileCard';
-import { ArticleDetailsSchema } from 'entities/Article';
-import { AddCommentFormSchema } from 'features/AddCommentForm';
-import { ArticlesPageSchema } from 'pages/ArticlesPage';
-import { ArticleDetailsPageSchema } from 'pages/ArticleDetailsPage';
+import { CounterSchema } from '@/entities/Counter';
+import { UserSchema } from '@/entities/User';
+import { ScrollSaveSchema } from '@/features/ScrollSave';
+import { rtkApi } from '@/shared/api/rtkApi';
+import { LoginSchema } from '@/features/AuthByUsername';
+import { ProfileSchema } from '@/features/editableProfileCard';
+import { ArticleDetailsSchema } from '@/entities/Article';
+import { AddCommentFormSchema } from '@/features/AddCommentForm';
+import { ArticlesPageSchema } from '@/pages/ArticlesPage';
+import { ArticleDetailsPageSchema } from '@/pages/ArticleDetailsPage';
 import {
     EnhancedStore,
     Reducer,

@@ -1,6 +1,6 @@
 import { ArticleTypeTabs } from './ArticleTypeTabs';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ArticleType } from 'entities/Article';
+import { ArticleType } from '@/entities/Article';
 import { useState } from 'react';
 
 const meta: Meta<typeof ArticleTypeTabs> = {

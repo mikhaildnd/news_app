@@ -1,8 +1,8 @@
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AppDispatch } from 'app/providers/StoreProvider/config/store';
-import { StateSchema } from 'app/providers/StoreProvider';
-import { ThunkExtraArg } from 'app/providers/StoreProvider/config/StateSchema';
+import { AppDispatch } from '@/app/providers/StoreProvider/config/store';
+import { StateSchema } from '@/app/providers/StoreProvider';
+import { ThunkExtraArg } from '@/app/providers/StoreProvider/config/StateSchema';
 
 // Универсальный тип для async thunk creator
 type ActionCreatorType<Return, Arg, RejectedValue> = Arg extends void

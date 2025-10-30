@@ -10,11 +10,11 @@ import {
     ArticleType,
     ArticleView,
     ArticleSortField,
-} from 'entities/Article';
+} from '@/entities/Article';
 import { fetchArticlesList } from '../services/fetchArticlesList/fetchArticlesList';
-import { ARTICLE_VIEW_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
-import { SortOrder } from 'shared/types';
-import { StateSchema } from 'app/providers/StoreProvider';
+import { ARTICLE_VIEW_LOCALSTORAGE_KEY } from '@/shared/const/localstorage';
+import { SortOrder } from '@/shared/types';
+import { StateSchema } from '@/app/providers/StoreProvider';
 
 const articlesAdapter = createEntityAdapter<Article, EntityId>({
     selectId: (article) => article.id,

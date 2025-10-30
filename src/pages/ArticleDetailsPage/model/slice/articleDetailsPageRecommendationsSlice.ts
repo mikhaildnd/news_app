@@ -5,9 +5,9 @@ import {
     PayloadAction,
 } from '@reduxjs/toolkit';
 import { ArticleDetailsRecommendationsSchema } from '../../model/types/ArticleDetailsRecommendationsSchema';
-import { Article } from 'entities/Article';
+import { Article } from '@/entities/Article';
 import { fetchArticlesRecommendations } from '../services/fetchArticleRecommendations/fetchArticleRecommendations';
-import { StateSchema } from 'app/providers/StoreProvider';
+import { StateSchema } from '@/app/providers/StoreProvider';
 
 // createEntityAdapter<T>() сам по себе уже умеет выводить selectId (оно по умолчанию ищет id).
 // А если хочешь передать кастомный selectId, нужно явно указать generic для ключа EntityId
