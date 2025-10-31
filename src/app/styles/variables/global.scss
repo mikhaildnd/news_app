@@ -1,8 +1,11 @@
 @font-face {
     font-family: MyConsolas;
-    src: url('shared/assets/fonts/consolas.ttf') format('truetype');
+    src:
+        url('@/shared/assets/fonts/consolas.woff2') format('woff2'),
+        url('@/shared/assets/fonts/consolas.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 :root {

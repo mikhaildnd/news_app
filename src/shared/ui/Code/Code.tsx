@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { Button, ButtonTheme } from '../Button/Button';
 import { Icon } from '../Icon/Icon';
-import CopyIcon from '@/shared/assets/icons/copy-20-20.svg';
+import CopyIcon from '@/shared/assets/icons/copy-20-20.svg?react';
 import cls from './Code.module.scss';
 
 interface CodeProps {
