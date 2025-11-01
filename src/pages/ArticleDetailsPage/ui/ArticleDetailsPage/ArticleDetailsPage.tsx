@@ -14,6 +14,7 @@ import {
     ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { articleDetailsPageReducer } from '../../model/slice';
+import { ArticleRating } from '@/features/articleRating';
 
 interface ArticleDetailsPageProps {
     className?: string;
@@ -39,6 +40,10 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
         );
     }
 
+    if (!id) {
+        return null; // или ошибку
+    }
+
     return (
         <DynamicModuleLoader reducers={reducers}>
             <Page
@@ -47,6 +52,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                 <VStack gap="16" max>
                     <ArticleDetailsPageHeader />
                     <ArticleDetails id={id} />
+                    <ArticleRating articleId={id} />
                     <ArticleRecommendationsList />
                     <ArticleDetailsComments id={id} />
                 </VStack>

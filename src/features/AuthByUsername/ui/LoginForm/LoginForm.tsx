@@ -27,10 +27,7 @@ const initialReducers: ReducersList = {
     loginForm: loginReducer,
 };
 
-const LoginForm = memo(function LoginForm({
-    className,
-    onSuccess,
-}: LoginFormProps) {
+const LoginForm = memo(({ className, onSuccess }: LoginFormProps) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
@@ -99,3 +96,5 @@ const LoginForm = memo(function LoginForm({
 });
 
 export default LoginForm;
+
+LoginForm.displayName = 'LoginForm';
