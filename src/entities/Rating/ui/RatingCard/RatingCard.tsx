@@ -25,7 +25,7 @@ export const RatingCard = memo((props: RatingCardProps) => {
         className,
         onAccept,
         onCancel,
-        hasFeedback,
+        hasFeedback = false,
         feedbackTitle,
         title,
         rate = 0,
