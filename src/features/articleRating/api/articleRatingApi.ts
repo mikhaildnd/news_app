@@ -6,7 +6,7 @@ interface GetArticleRatingArg {
     articleId: string;
 }
 
-interface RateArticleRatingArg {
+export interface RateArticleRatingArg {
     userId: string;
     articleId: string;
     rate: number;
