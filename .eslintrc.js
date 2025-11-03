@@ -37,6 +37,7 @@ module.exports = {
     rules: {
         //custom plugins
         'mikhaildnd/path-checker': ['error', { alias: '@' }],
+        'mikhaildnd/public-api-imports': ['error', { alias: '@' }],
         // ----- форматирование -----
         // доверяем форматирование Prettier
         indent: 'off',

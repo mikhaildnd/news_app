@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import AddCommentForm from '@/features/AddCommentForm/ui/addCommentForm/addCommentForm';
+import { AddCommentForm } from '@/features/AddCommentForm';
 import { Text, TextSize } from '@/shared/ui/Text/Text';
 import { CommentList } from '@/entities/Comment';
 import { addCommentForArticle } from '../../model/services/addCommentForArticle/addCommentForArticle';

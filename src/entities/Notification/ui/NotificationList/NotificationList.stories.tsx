@@ -1,6 +1,6 @@
-import { NotificationList } from './NotificationList';
 import type { Meta, StoryObj } from '@storybook/react';
 import { http, HttpResponse } from 'msw';
+import { NotificationList } from './NotificationList';
 import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 
 const meta: Meta<typeof NotificationList> = {
