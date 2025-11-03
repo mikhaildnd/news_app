@@ -1,9 +1,9 @@
-import { NotificationButton } from './NotificationButton';
+import { Page } from './Page';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const meta: Meta<typeof NotificationButton> = {
-    title: 'features/NotificationButton',
-    component: NotificationButton,
+const meta: Meta<typeof Page> = {
+    title: 'widgets/Page',
+    component: Page,
 };
 export default meta;
 
