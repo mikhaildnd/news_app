@@ -30,13 +30,13 @@ module.exports = {
         'plugin:react/recommended',
         'plugin:i18next/recommended',
         'plugin:storybook/recommended',
-        'plugin:prettier/recommended',
         'plugin:import/recommended',
         'plugin:import/typescript',
+        'plugin:prettier/recommended',
     ],
     rules: {
         //custom plugins
-        'mikhaildnd/path-checker': 'error',
+        'mikhaildnd/path-checker': ['error', { alias: '@' }],
         // ----- форматирование -----
         // доверяем форматирование Prettier
         indent: 'off',
@@ -131,9 +131,9 @@ module.exports = {
                 '**/config/storybook/**/*.{ts,tsx}',
             ],
             rules: {
+                '@typescript-eslint/no-unsafe-call': 'off',
                 'i18next/no-literal-string': 'off',
                 'max-len': 'off',
-                '@typescript-eslint/no-unsafe-call': 'off',
                 'react/display-name': 'off',
                 'import/no-extraneous-dependencies': 'off',
             },
@@ -146,23 +146,27 @@ module.exports = {
                 'scripts/**/*.ts',
                 'json-server/**/*.ts',
                 'webpack.config.ts',
+                'vite.config.ts',
                 'build/**/*.ts',
             ],
             parserOptions: {
-                // project: null, // отключаем type-aware линтинг
-                project: './tsconfig.node.json',
-                tsconfigRootDir: __dirname,
+                project: null, // отключаем type-aware линтинг
+                //     project: './tsconfig.node.json',
+                //     tsconfigRootDir: __dirname,
             },
             env: {
                 node: true,
             },
-            //     rules: {
-            //         '@typescript-eslint/await-thenable': 'off',
-            //         '@typescript-eslint/no-floating-promises': 'off',
-            //         '@typescript-eslint/no-unsafe-assignment': 'off',
-            //         '@typescript-eslint/no-unsafe-member-access': 'off',
-            //         '@typescript-eslint/no-unsafe-call': 'off',
-            //     },
+            extends: ['plugin:@typescript-eslint/disable-type-checked'],
+            rules: {
+                // '@typescript-eslint/no-unsafe-assignment': 'off',
+                // '@typescript-eslint/no-unsafe-call': 'off',
+                // '@typescript-eslint/no-unsafe-member-access': 'off',
+                // '@typescript-eslint/no-unsafe-return': 'off',
+                // '@typescript-eslint/await-thenable': 'off',
+                // '@typescript-eslint/no-floating-promises': 'off',
+                // '@typescript-eslint/no-unsafe-argument': 'off',
+            },
         },
         // --- JS-конфиги ---
         {
@@ -188,6 +192,10 @@ module.exports = {
         'import/resolver': {
             typescript: {
                 project: './tsconfig.json',
+            },
+            node: {
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+                moduleDirectory: ['node_modules', 'src'],
             },
         },
     },
