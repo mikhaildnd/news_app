@@ -7,7 +7,7 @@ import {
     ThunkExtraArg,
 } from '@/app/providers/StoreProvider/config/StateSchema';
 import { createReducerManager } from '@/app/providers/StoreProvider/config/reducerManager';
-import { counterReducer } from '@/entities/Counter/model/slice/CounterSlice';
+import { counterReducer } from '@/entities/Counter';
 import { userReducer } from '@/entities/User';
 import { scrollSaveReducer } from '@/features/ScrollSave';
 // import { CombinedState } from '@reduxjs/toolkit/query';

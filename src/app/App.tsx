@@ -4,9 +4,8 @@ import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
 import { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserMounted } from '@/entities/User';
+import { getUserMounted, userActions } from '@/entities/User';
 import { useTheme } from '@/app/providers/ThemeProvider';
-import { userActions } from '@/entities/User/model/slice/userSlice';
 
 function App() {
     const { theme } = useTheme();

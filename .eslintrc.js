@@ -37,7 +37,17 @@ module.exports = {
     rules: {
         //custom plugins
         'mikhaildnd/path-checker': ['error', { alias: '@' }],
-        'mikhaildnd/public-api-imports': ['error', { alias: '@' }],
+        'mikhaildnd/public-api-imports': [
+            'error',
+            {
+                alias: '@',
+                testFilesPatterns: [
+                    '**/*.test.*',
+                    '**/*.stories.*',
+                    '**/StoreDecorator.tsx',
+                ],
+            },
+        ],
         // ----- форматирование -----
         // доверяем форматирование Prettier
         indent: 'off',
