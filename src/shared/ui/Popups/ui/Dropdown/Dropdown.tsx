@@ -1,10 +1,10 @@
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Dropdown.module.scss';
 import popupCls from '../../styles/popup.module.scss';
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { Fragment, ReactNode } from 'react';
+import { Fragment, type ReactNode } from 'react';
 // import type { AnchorProps } from '@headlessui/react/dist/internal/floating'; // TODO: dev: тут типы
-import { DropdownDirection } from '@/shared/types/ui'; //TODO: не ругается на путь
+import type { DropdownDirection } from '@/shared/types/ui';
 import { AppLink } from '../../../AppLink/AppLink';
 import { mapDirectionClass } from '../../styles/consts';
 

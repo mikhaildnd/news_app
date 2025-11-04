@@ -2,7 +2,7 @@ import { TestAsyncThunk } from '@/shared/lib/tests/TestAsyncThunk/TestAsyncThunk
 import { Currency } from '@/entities/Currency';
 import { Country } from '@/entities/Country';
 import { updateProfileData } from './updateProfileData';
-import { StateSchema } from '@/app/providers/StoreProvider';
+import type { StateSchema } from '@/app/providers/StoreProvider';
 import { ValidateProfileError } from '../../consts/consts';
 
 const data = {

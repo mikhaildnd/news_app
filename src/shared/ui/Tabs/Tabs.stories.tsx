@@ -1,6 +1,6 @@
-import { TabItem, Tabs } from './Tabs';
-import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { type TabItem, Tabs } from './Tabs';
 
 const meta: Meta<typeof Tabs> = {
     title: 'shared/Tabs',

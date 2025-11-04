@@ -1,7 +1,7 @@
 import { AvatarDropdown } from './AvatarDropdown';
 import type { Meta, StoryObj } from '@storybook/react';
 import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
-import { UserRole, UserSchema } from '@/entities/User';
+import { UserRole, type UserSchema } from '@/entities/User';
 import Avatar from '@/shared/assets/tests/storybook.png';
 
 const meta: Meta<typeof AvatarDropdown> = {

@@ -1,11 +1,11 @@
-import { EntityState } from '@reduxjs/toolkit';
-import {
+import type { EntityState } from '@reduxjs/toolkit';
+import type {
     Article,
     ArticleView,
     ArticleSortField,
     ArticleType,
 } from '@/entities/Article';
-import { SortOrder } from '@/shared/types';
+import type { SortOrder } from '@/shared/types';
 
 // EntityState добавляет ids и entities для нормализации данных
 export interface ArticlesPageSchema extends EntityState<Article, string> {

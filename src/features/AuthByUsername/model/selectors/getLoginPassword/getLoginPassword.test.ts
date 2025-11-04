@@ -1,5 +1,5 @@
 import { getLoginPassword } from './getLoginPassword';
-import { StateSchema } from '@/app/providers/StoreProvider';
+import type { StateSchema } from '@/app/providers/StoreProvider';
 
 describe('getLoginPassword.test', () => {
     test('should return value', () => {

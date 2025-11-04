@@ -1,5 +1,5 @@
-import { classNames, Mods } from '@/shared/lib/classNames/classNames';
-import { CSSProperties, useMemo } from 'react';
+import { classNames, type Mods } from '@/shared/lib/classNames/classNames';
+import { type CSSProperties, useMemo } from 'react';
 import cls from './Avatar.module.scss';
 
 interface AvatarProps {

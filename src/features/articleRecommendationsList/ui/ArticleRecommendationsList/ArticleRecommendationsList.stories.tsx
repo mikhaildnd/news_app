@@ -1,6 +1,10 @@
-import { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { ArticleRecommendationsList } from './ArticleRecommendationsList';
-import { Article, ArticleType, ArticleBlockType } from '@/entities/Article';
+import {
+    type Article,
+    ArticleType,
+    ArticleBlockType,
+} from '@/entities/Article';
 import { http, HttpResponse } from 'msw';
 
 const meta: Meta<typeof ArticleRecommendationsList> = {

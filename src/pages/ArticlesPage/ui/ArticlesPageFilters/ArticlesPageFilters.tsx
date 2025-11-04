@@ -3,11 +3,11 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './ArticlesPageFilters.module.scss';
 import {
-    ArticleSortField,
+    type ArticleSortField,
     ArticleSortSelector,
-    ArticleView,
+    type ArticleView,
     ArticleViewSelector,
-    ArticleType,
+    type ArticleType,
 } from '@/entities/Article';
 import { articlesPageActions } from '../../model/slice/articlesPageSlice';
 import { useSelector } from 'react-redux';
@@ -21,10 +21,10 @@ import {
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Card } from '@/shared/ui/Card/Card';
 import { Input } from '@/shared/ui/Input/Input';
-import { SortOrder } from '@/shared/types';
+import type { SortOrder } from '@/shared/types';
 import { fetchArticlesList } from '../../model/services/fetchArticlesList/fetchArticlesList';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
-import { ArticleTypeTabs } from '@/features';
+import { ArticleTypeTabs } from '@/features/ArticleTypeTabs';
 
 interface ArticlesPageFiltersProps {
     className?: string;

@@ -17,7 +17,7 @@ import {
 import { HStack } from '@/shared/ui/Stack';
 import {
     DynamicModuleLoader,
-    ReducersList,
+    type ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 
 export interface AddCommentFormProps {

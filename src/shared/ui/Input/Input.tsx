@@ -1,12 +1,12 @@
-import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import React, {
-    InputHTMLAttributes,
+    type InputHTMLAttributes,
     memo,
-    SyntheticEvent,
+    type SyntheticEvent,
     useEffect,
     useRef,
     useState,
 } from 'react';
+import { classNames, type Mods } from '@/shared/lib/classNames/classNames';
 import cls from './Input.module.scss';
 
 // Omit. Первый аргумент - то, что хотим забрать, второй - исключить

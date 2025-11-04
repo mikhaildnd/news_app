@@ -2,7 +2,7 @@ import { Currency } from '@/entities/Currency';
 import { Country } from '@/entities/Country';
 import avatar from '@/shared/assets/tests/storybook.png';
 import { getProfileData } from './getProfileData';
-import { StateSchema } from '@/app/providers/StoreProvider';
+import type { StateSchema } from '@/app/providers/StoreProvider';
 
 describe('getProfileData.test', () => {
     test('should return data', () => {

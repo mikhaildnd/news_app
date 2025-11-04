@@ -2,7 +2,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { Text } from '@/shared/ui/Text/Text';
 import cls from './ArticleTextBlockComponent.module.scss';
-import { ArticleTextBlock } from '../../model/types/article';
+import type { ArticleTextBlock } from '../../model/types/article';
 
 interface ArticleTextBlockComponentProps {
     className?: string;

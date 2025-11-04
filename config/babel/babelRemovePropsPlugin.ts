@@ -1,4 +1,4 @@
-import { PluginObj, PluginPass } from '@babel/core';
+import type { PluginObj, PluginPass } from '@babel/core';
 
 interface RemoveJSXPropsPluginOptions {
     props?: string[];

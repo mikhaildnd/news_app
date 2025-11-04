@@ -1,5 +1,5 @@
 import { scrollSaveActions, scrollSaveReducer } from './scrollSaveSlice';
-import { ScrollSaveSchema } from '../types/scrollSaveSchema';
+import type { ScrollSaveSchema } from '../types/scrollSaveSchema';
 
 describe('ScrollSaveSliceSlice', () => {
     test('should return initialState', () => {

@@ -48,6 +48,13 @@ module.exports = {
                 ],
             },
         ],
+        'mikhaildnd/layer-imports': [
+            'error',
+            {
+                alias: '@',
+                ignoreImportPatterns: ['**/StoreProvider', '**/testing'],
+            },
+        ],
         // ----- форматирование -----
         // доверяем форматирование Prettier
         indent: 'off',
@@ -68,6 +75,15 @@ module.exports = {
         ],
 
         // ----- TypeScript -----
+        '@typescript-eslint/consistent-type-imports': [
+            'error',
+            {
+                prefer: 'type-imports',
+                disallowTypeAnnotations: false, // для таких импортов -> type SpringType = typeof import('@react-spring/web');
+                // fixStyle: 'separate-type-imports',
+                fixStyle: 'inline-type-imports',
+            },
+        ],
         '@typescript-eslint/no-unused-vars': [
             'warn',
             { argsIgnorePattern: '^_' },

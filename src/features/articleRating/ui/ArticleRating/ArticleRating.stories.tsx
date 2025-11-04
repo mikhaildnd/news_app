@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { UserRole } from '@/entities/User';
 import { http, HttpResponse } from 'msw';
-import { RateArticleRatingArg } from '../../api/articleRatingApi';
+import type { RateArticleRatingArg } from '../../api/articleRatingApi';
 
 const meta: Meta<typeof ArticleRating> = {
     title: 'features/ArticleRating',

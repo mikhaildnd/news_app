@@ -11,7 +11,7 @@ import { ArticleRecommendationsList } from '@/features/articleRecommendationsLis
 import { ArticleDetailsComments } from '../../ui/ArticleDetailsComments/ArticleDetailsComments';
 import {
     DynamicModuleLoader,
-    ReducersList,
+    type ReducersList,
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { articleDetailsPageReducer } from '../../model/slice';
 import { ArticleRating } from '@/features/articleRating';
