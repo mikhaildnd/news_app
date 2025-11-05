@@ -75,6 +75,18 @@ export const Normal: Story = {
                         { ...article, id: '3' },
                     ]);
                 }),
+                http.get(`${__API__}/article-ratings`, ({ request }) => {
+                    const url = new URL(request.url);
+                    const articleId = url.searchParams.get('articleId');
+
+                    return HttpResponse.json([
+                        {
+                            articleId,
+                            userId: '1',
+                            rate: 5,
+                        },
+                    ]);
+                }),
             ],
         },
     },

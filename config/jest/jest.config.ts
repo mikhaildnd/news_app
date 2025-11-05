@@ -53,6 +53,7 @@ const config: Config.InitialOptions = {
             __dirname,
             '__mocks__/fileMock.ts',
         ),
+        '^@/(.*)$': '<rootDir>/src/$1',
     },
 
     // The glob patterns Jest uses to detect test files
