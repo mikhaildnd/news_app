@@ -22,6 +22,7 @@ module.exports = {
         'react-hooks',
         'import',
         'mikhaildnd',
+        'unused-imports',
     ],
     extends: [
         'eslint:recommended',
@@ -84,10 +85,12 @@ module.exports = {
                 fixStyle: 'inline-type-imports',
             },
         ],
-        '@typescript-eslint/no-unused-vars': [
-            'warn',
-            { argsIgnorePattern: '^_' },
-        ],
+        // --> можно отключить и передать управление unused-imports, чтобы удалять неиспользуемые переменные в коде
+        '@typescript-eslint/no-unused-vars': 'off',
+        // '@typescript-eslint/no-unused-vars': [
+        //     'warn',
+        //     { argsIgnorePattern: '^_' },
+        // ],
         '@typescript-eslint/no-shadow': 'error',
         'no-shadow': 'off',
         'no-undef': 'off',
@@ -102,6 +105,18 @@ module.exports = {
         'import/extensions': 'off',
         'import/prefer-default-export': 'off',
         'import/no-extraneous-dependencies': 'warn',
+
+        // ----- Импорты (eslint-plugin-unused-imports) -----
+        'unused-imports/no-unused-imports': 'error',
+        'unused-imports/no-unused-vars': [
+            'warn',
+            {
+                vars: 'all',
+                varsIgnorePattern: '^_',
+                args: 'after-used',
+                argsIgnorePattern: '^_',
+            },
+        ],
 
         // ----- Логика -----
         'no-param-reassign': 'off', // redux toolkit допускает
