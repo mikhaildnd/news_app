@@ -27,7 +27,8 @@
     "storybook": "storybook dev -p 6006 --config-dir ./config/storybook",
     "storybook:build": "storybook build --config-dir ./config/storybook",
     "chromatic": "npx chromatic --project-token=chpt_004d946d6420827 --build-script-name=storybook:build",
-    "generate:slice": "node ./scripts/createSlice/index.js"
+    "generate:slice": "node ./scripts/createSlice/index.js",
+    "postinstall": "rimraf node_modules/.cache"
   },
   "keywords": [],
   "author": "",
@@ -97,6 +98,7 @@
     "react-refresh": "^0.17.0",
     "reg-cli": "^0.18.10",
     "regenerator-runtime": "^0.14.1",
+    "rimraf": "^6.1.0",
     "sass": "^1.92.1",
     "sass-loader": "^16.0.5",
     "storybook": "^8.6.14",
