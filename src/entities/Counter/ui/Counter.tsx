@@ -6,6 +6,7 @@ import { useCounterActions } from '../model/slice/CounterSlice';
 export const Counter = () => {
     const counterValue = useCounterValue();
     const { t } = useTranslation();
+    // TODO: сделать так для остальных компонентов
     const { increment, decrement, add } = useCounterActions();
 
     const incrementFn = () => {
