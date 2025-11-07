@@ -1,3 +1,8 @@
+// Больше не используется, т.к. я замокал i18 в config/jest/setupTests.ts
+// i18nForTests работает нестабильно
+// Пример с проверкой в bash: for i in {1..20}; do npm run test:unit AppRouter.test.tsx & done
+// Может быть в каких-то случаях будет нужен, остается для примера
+
 import i18n, { type InitOptions } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 

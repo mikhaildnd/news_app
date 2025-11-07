@@ -13,7 +13,7 @@ import {
 } from '@/entities/Article';
 import { fetchArticlesList } from '../services/fetchArticlesList/fetchArticlesList';
 import { ARTICLE_VIEW_LOCALSTORAGE_KEY } from '@/shared/const/localstorage';
-import type { SortOrder } from '@/shared/types';
+import type { SortOrder } from '@/shared/types/sort';
 import type { StateSchema } from '@/app/providers/StoreProvider';
 
 const articlesAdapter = createEntityAdapter<Article, EntityId>({

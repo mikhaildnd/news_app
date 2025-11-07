@@ -1,3 +1,5 @@
+// TODO: удалить, если нигде не используется
+
 import type { ReactNode } from 'react';
 import { render } from '@testing-library/react';
 import { I18nextProvider } from 'react-i18next';
