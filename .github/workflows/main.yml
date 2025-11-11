@@ -12,7 +12,9 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   # -------------------- LINT --------------------
@@ -93,6 +95,9 @@ jobs:
       - name: Run screenshot tests
         run: npm run test:ui:ci
 
+      - name: Generate HTML report
+        run: npm run test:ui:report
+
       # Если тесты упали — собираем все debug-артефакты
       - name: Collect debug artifacts
         if: failure()
@@ -104,14 +109,39 @@ jobs:
           # Пока дампим главную страницу Storybook, чтобы видеть статику
           node ./scripts/dump-story-dom.js "http://localhost:6006" ./artifacts/storybook-root
 
-      - name: Upload Loki + debug artifacts
-        if: failure()
+      - name: Upload Loki + debug artifacts + HTML report
         uses: actions/upload-artifact@v4
         with:
-          name: loki-debug-${{ matrix.node-version }}
+          name: ui-report-${{ matrix.node-version }}
           path: |
-            .loki/difference
-            .loki/current
-            .loki/reference
+            .loki/report
             artifacts/**
             /tmp/storybook.log
+
+  # -------------------- PUBLISH HTML REPORT --------------------
+  publish-report:
+    runs-on: ubuntu-latest
+    needs: screenshot-tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download UI report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ui-report-${{ matrix.node-version }}  # совпадает с uploaded artifact
+          path: ./ui-report
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+
+      - name: Upload report to GitHub Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./ui-report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
+      - name: Show deployed URL
+        run: echo "Report published at ${{ steps.deployment.outputs.page_url }}"

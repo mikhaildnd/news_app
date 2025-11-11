@@ -25,11 +25,12 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
 
     const cssLoader = buildCssLoader(isDev);
 
-    const typescriptLoader = {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-    };
+    // сейчас используется babel-loader
+    // const typescriptLoader = {
+    //     test: /\.tsx?$/,
+    //     use: 'ts-loader',
+    //     exclude: /node_modules/,
+    // };
 
     return [
         fileLoader,
