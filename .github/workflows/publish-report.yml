@@ -1,0 +1,53 @@
+name: publish-ui-report
+on:
+  pull_request_target:
+    branches: [ main, develop ]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  # -------------------- PUBLISH HTML REPORT --------------------
+  publish-report:
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download UI report artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ui-report  # совпадает с uploaded artifact в main.yaml
+          path: ./ui-report
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload report to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./ui-report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Show deployed URL
+        run: echo "Report published at ${{ steps.deployment.outputs.page_url }}"
+
+      - name: Comment report URL in PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            🧾 **UI Report ready!**
+            👉 [View it here](${{ steps.deployment.outputs.page_url }})
+          edit-mode: replace
