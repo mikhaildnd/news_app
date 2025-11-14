@@ -115,25 +115,6 @@ jobs:
             .loki/
             /tmp/storybook.log
 
-#      - name: Move screenshot report and .loki into reports
-#        if: always()
-#        run: mv .loki reports/
-#
-#      - name: Setup Pages
-#        uses: actions/configure-pages@v5
-#
-#      - name: Upload report to GitHub Pages
-#        uses: actions/upload-pages-artifact@v3
-#        with:
-#          path: reports/
-#
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v4
-#
-#      - name: Show deployed URL
-#        run: echo "Report published at ${{ steps.deployment.outputs.page_url }}"
-
   # -------------------- GENERATE REPORTS --------------------
   generate-reports:
     runs-on: ubuntu-latest
@@ -172,23 +153,22 @@ jobs:
             echo "Unit test results not found"
           fi
           
-          # Копируем screenshot тесты
+          # Пробуем найти .loki в разных местах
           if [ -d "artifacts/screenshot-test-results/.loki" ]; then
-            echo "Copying screenshot test results..."
-            cp -r artifacts/screenshot-test-results/.loki reports/loki
+          echo "Copying screenshot test results from screenshot-test-results/.loki..."
+          cp -r artifacts/screenshot-test-results/.loki reports/loki
+          elif [ -d ".loki" ]; then
+          echo "Copying screenshot test results from root .loki..."
+          cp -r .loki reports/loki
           else
-            echo "Screenshot test results not found"
-            # Проверим что есть в screenshot-test-results
-            echo "Looking for .loki in screenshot-test-results:"
-            find artifacts/screenshot-test-results -name ".loki" -type d 2>/dev/null || echo ".loki not found"
+          echo "Loki folder not found anywhere"
+          echo "Searching for .loki in entire workspace:"
+          find . -name ".loki" -type d 2>/dev/null | head -10
           fi
-          
+    
           # Проверяем что получилось
           echo "Final reports structure:"
           ls -la reports/
-          echo ""
-          echo "Contents of reports:"
-          find reports -type f -name "*.html" | head -20
 
 
       - name: Upload reports artifact
