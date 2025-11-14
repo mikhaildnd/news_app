@@ -185,7 +185,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: reports
-          path: .  # Скачиваем в корень
+          path: downloaded-reports/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -193,7 +193,7 @@ jobs:
       - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .  # Все что скачали - загружаем на Pages
+          path: downloaded-reports/
 
       - name: Deploy to GitHub Pages
         id: deployment
