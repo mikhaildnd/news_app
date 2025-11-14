@@ -147,35 +147,48 @@ jobs:
         with:
           path: artifacts/
 
+      - name: Debug artifact structure
+        run: |
+          echo "Checking artifacts structure:"
+          find artifacts -type f -name "*.html" | head -20
+          echo ""
+          echo "Contents of unit-test-results:"
+          ls -la artifacts/unit-test-results/ || echo "unit-test-results folder not found"
+          echo ""
+          echo "Contents of screenshot-test-results:"
+          ls -la artifacts/screenshot-test-results/ || echo "screenshot-test-results folder not found"
+
       - name: Prepare reports structure
         run: |
           mkdir -p reports
           
-           # Копируем unit тесты (из папки unit-test-results)
+          # Копируем unit тесты (сохраняем структуру папки unit)
           if [ -d "artifacts/unit-test-results" ]; then
             echo "Copying unit test results..."
-            cp -r artifacts/unit-test-results/* reports/
+            # Создаем папку unit и копируем в нее
+            mkdir -p reports/unit
+            cp -r artifacts/unit-test-results/* reports/unit/
           else
             echo "Unit test results not found"
           fi
           
-          # Копируем screenshot тесты (из папки screenshot-test-results)
+          # Копируем screenshot тесты
           if [ -d "artifacts/screenshot-test-results/.loki" ]; then
             echo "Copying screenshot test results..."
             cp -r artifacts/screenshot-test-results/.loki reports/loki
           else
             echo "Screenshot test results not found"
-            # Покажем что есть в screenshot-test-results
-            echo "Contents of screenshot-test-results:"
-            ls -la artifacts/screenshot-test-results/ || echo "Folder not found"
+            # Проверим что есть в screenshot-test-results
+            echo "Looking for .loki in screenshot-test-results:"
+            find artifacts/screenshot-test-results -name ".loki" -type d 2>/dev/null || echo ".loki not found"
           fi
           
           # Проверяем что получилось
           echo "Final reports structure:"
-          find reports -type f -name "*.html" | head -10 || echo "No HTML files found"
-          echo ""
-          echo "Full reports directory:"
           ls -la reports/
+          echo ""
+          echo "Contents of reports:"
+          find reports -type f -name "*.html" | head -20
 
 
       - name: Upload reports artifact
