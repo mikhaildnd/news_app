@@ -103,51 +103,13 @@ jobs:
         if: always()
         run: mv .loki reports/
 
-      # Если тесты упали — собираем все debug-артефакты
-      - name: Collect debug artifacts
-        if: failure()
-        run: |
-          mkdir -p artifacts
-          # ставим только puppeteer, без всего проекта
-          npm install puppeteer --no-save --ignore-scripts
-          # Скрипт можно доработать, чтобы он сам проходил по списку упавших сторисов.
-          # Пока дампим главную страницу Storybook, чтобы видеть статику
-          node ./scripts/dump-story-dom.js "http://localhost:6006" ./artifacts/storybook-root
-
-      - name: Upload Loki + debug artifacts + HTML report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ui-report
-          path: |
-            reports/
-            artifacts/**
-            /tmp/storybook.log
-
-  # -------------------- PUBLISH HTML REPORT --------------------
-  publish-report:
-    if: always()
-    runs-on: ubuntu-latest
-    needs: screenshot-tests
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Download UI report artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ui-report  # совпадает с uploaded artifact
-          path: reports
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload report to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: reports
+          path: reports/
 
       - name: Deploy to GitHub Pages
         id: deployment
