@@ -151,20 +151,32 @@ jobs:
         run: |
           mkdir -p reports
           
-          # Копируем unit тесты
+           # Копируем unit тесты (из папки unit-test-results)
           if [ -d "artifacts/unit-test-results" ]; then
+            echo "Copying unit test results..."
             cp -r artifacts/unit-test-results/* reports/
+          else
+            echo "Unit test results not found"
           fi
           
-          # Копируем screenshot тесты (переименовываем .loki)
+          # Копируем screenshot тесты (из папки screenshot-test-results)
           if [ -d "artifacts/screenshot-test-results/.loki" ]; then
+            echo "Copying screenshot test results..."
             cp -r artifacts/screenshot-test-results/.loki reports/loki
+          else
+            echo "Screenshot test results not found"
+            # Покажем что есть в screenshot-test-results
+            echo "Contents of screenshot-test-results:"
+            ls -la artifacts/screenshot-test-results/ || echo "Folder not found"
           fi
           
-          # Копируем логи если есть
-          if [ -f "artifacts/screenshot-test-results/storybook.log" ]; then
-            cp artifacts/screenshot-test-results/storybook.log reports/
-          fi
+          # Проверяем что получилось
+          echo "Final reports structure:"
+          find reports -type f -name "*.html" | head -10 || echo "No HTML files found"
+          echo ""
+          echo "Full reports directory:"
+          ls -la reports/
+
 
       - name: Upload reports artifact
         uses: actions/upload-artifact@v4
@@ -186,6 +198,20 @@ jobs:
         with:
           name: reports
           path: downloaded-reports/
+
+      - name: Debug final structure
+        run: |
+          echo "Checking downloaded-reports structure:"
+          find downloaded-reports -type f -name "*.html" | head -20
+          echo ""
+          echo "Checking index.html:"
+          ls -la downloaded-reports/index.html || echo "index.html not found"
+          echo ""
+          echo "Checking unit folder:"
+          ls -la downloaded-reports/unit/ || echo "unit folder not found"
+          echo ""
+          echo "Checking loki folder:"
+          ls -la downloaded-reports/loki/ || echo "loki folder not found"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
