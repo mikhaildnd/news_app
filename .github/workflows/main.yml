@@ -166,6 +166,12 @@ jobs:
             cp artifacts/screenshot-test-results/storybook.log reports/
           fi
 
+      - name: Upload reports artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports/
+
   # -------------------- DEPLOY REPORTS --------------------
   deploy-reports:
     runs-on: ubuntu-latest
