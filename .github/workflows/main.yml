@@ -149,6 +149,7 @@ jobs:
           fi
           
           if [ -d "artifacts/screenshot-test-results" ]; then
+            mkdir -p reports/loki
             cp -r artifacts/screenshot-test-results/* reports/loki/
           fi
 
