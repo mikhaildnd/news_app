@@ -106,12 +106,33 @@ jobs:
         if: always()
         run: npm run test:ui:report
 
+      - name: Find Loki folder location
+        run: |
+          echo "Searching for .loki folder..."
+          find . -name ".loki" -type d 2>/dev/null | head -10
+          echo ""
+          echo "Current directory structure:"
+          ls -la
+          echo ""
+          echo "Contents after tests:"
+          ls -la | grep -E "(loki|report)" || echo "No loki/report folders found"
+
+      - name: Check if .loki exists
+        run: |
+          if [ -d ".loki" ]; then
+            echo ".loki folder exists"
+            echo "Contents of .loki:"
+            ls -la .loki/
+          else
+            echo ".loki folder does not exist"
+          fi
+
       - name: Upload screenshot test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: screenshot-test-results
-          path: .loki
+          path: reports/.loki
 
   # -------------------- GENERATE REPORTS --------------------
   generate-reports:
