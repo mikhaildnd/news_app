@@ -1,6 +1,8 @@
 name: linting, testing, building
 
 on:
+  push:
+    branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
 
@@ -126,7 +128,7 @@ jobs:
 
   # -------------------- PUBLISH HTML REPORT --------------------
   publish-report:
-    if: always()
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     needs: screenshot-tests
     environment:
@@ -139,7 +141,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ui-report  # совпадает с uploaded artifact
-          path: 'reports'
+          path: reports
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -147,7 +149,7 @@ jobs:
       - name: Upload report to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'reports'
+          path: reports
 
       - name: Deploy to GitHub Pages
         id: deployment
