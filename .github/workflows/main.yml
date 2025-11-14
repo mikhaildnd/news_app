@@ -3,8 +3,6 @@ name: linting, testing, building
 on:
   push:
     branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
 
 env:
   HUSKY: 0 # отключаем husky внутри CI
@@ -128,7 +126,7 @@ jobs:
 
   # -------------------- PUBLISH HTML REPORT --------------------
   publish-report:
-    if: github.event_name == 'push'
+    if: always()
     runs-on: ubuntu-latest
     needs: screenshot-tests
     environment:
