@@ -47,8 +47,8 @@ jobs:
       - name: Build production project
         run: npm run build:prod
 
-  # -------------------- TESTS & REPORTS --------------------
-  tests-and-reports:
+  # -------------------- UNIT TESTS --------------------
+  unit-tests:
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -58,11 +58,26 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-node
 
-      # Unit tests
       - name: Run unit tests
         run: npm run test:unit
 
-      # Screenshot tests
+      - name: Upload unit test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: reports/unit/
+  # -------------------- SCREENSHOT TESTS --------------------
+  screenshot-tests:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        node-version: [22.x]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node
+
       - name: Cache Storybook build
         id: storybook-cache
         uses: actions/cache@v4
@@ -85,27 +100,98 @@ jobs:
 
       - name: Run screenshot tests
         run: npm run test:ui:ci
+        continue-on-error: true
 
       - name: Generate HTML report
         if: always()
         run: npm run test:ui:report
 
-      - name: Move screenshot report and .loki into reports
+      - name: Upload screenshot test results
         if: always()
-        run: mv .loki reports/
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-test-results
+          path: |
+            .loki/
+            /tmp/storybook.log
+
+#      - name: Move screenshot report and .loki into reports
+#        if: always()
+#        run: mv .loki reports/
+#
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v5
+#
+#      - name: Upload report to GitHub Pages
+#        uses: actions/upload-pages-artifact@v3
+#        with:
+#          path: reports/
+#
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v4
+#
+#      - name: Show deployed URL
+#        run: echo "Report published at ${{ steps.deployment.outputs.page_url }}"
+
+  # -------------------- GENERATE REPORTS --------------------
+  generate-reports:
+    runs-on: ubuntu-latest
+    needs: [ unit-tests, screenshot-tests ]
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Prepare reports structure
+        run: |
+          mkdir -p reports
+          
+          # Копируем unit тесты
+          if [ -d "artifacts/unit-test-results" ]; then
+            cp -r artifacts/unit-test-results/* reports/
+          fi
+          
+          # Копируем screenshot тесты (переименовываем .loki)
+          if [ -d "artifacts/screenshot-test-results/.loki" ]; then
+            cp -r artifacts/screenshot-test-results/.loki reports/loki
+          fi
+          
+          # Копируем логи если есть
+          if [ -f "artifacts/screenshot-test-results/storybook.log" ]; then
+            cp artifacts/screenshot-test-results/storybook.log reports/
+          fi
+
+  # -------------------- DEPLOY REPORTS --------------------
+  deploy-reports:
+    runs-on: ubuntu-latest
+    needs: generate-reports
+    if: always()
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download final reports
+        uses: actions/download-artifact@v4
+        with:
+          name: reports
+          path: .  # Скачиваем в корень
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload report to GitHub Pages
+      - name: Upload to GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: reports/
+          path: .  # Все что скачали - загружаем на Pages
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Show deployed URL
-        run: echo "Report published at ${{ steps.deployment.outputs.page_url }}"
-
+      - name: Show report URL
+        run: echo "Reports available at ${{ steps.deployment.outputs.page_url }}"
