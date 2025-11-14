@@ -106,25 +106,17 @@ jobs:
         if: always()
         run: npm run test:ui:report
 
-      - name: Find Loki folder location
+      - name: Move Loki to reports folder
+        if: always()
         run: |
-          echo "Searching for .loki folder..."
-          find . -name ".loki" -type d 2>/dev/null | head -10
-          echo ""
-          echo "Current directory structure:"
-          ls -la
-          echo ""
-          echo "Contents after tests:"
-          ls -la | grep -E "(loki|report)" || echo "No loki/report folders found"
-
-      - name: Check if .loki exists
-        run: |
+          mkdir -p reports
           if [ -d ".loki" ]; then
-            echo ".loki folder exists"
-            echo "Contents of .loki:"
-            ls -la .loki/
+            mv .loki reports/loki
+            echo "Moved .loki to reports/loki"
+            echo "Contents of reports/loki:"
+            ls -la reports/loki/
           else
-            echo ".loki folder does not exist"
+            echo ".loki folder not found"
           fi
 
       - name: Upload screenshot test results
@@ -132,7 +124,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: screenshot-test-results
-          path: .loki/**
+          path: reports/loki/
 
   # -------------------- GENERATE REPORTS --------------------
   generate-reports:
@@ -147,47 +139,18 @@ jobs:
         with:
           path: artifacts/
 
-      - name: Debug artifact structure
-        run: |
-          echo "Checking artifacts structure:"
-          find artifacts -type f -name "*.html" | head -20
-          echo ""
-          echo "Contents of unit-test-results:"
-          ls -la artifacts/unit-test-results/ || echo "unit-test-results folder not found"
-          echo ""
-          echo "Contents of screenshot-test-results:"
-          ls -la artifacts/screenshot-test-results/ || echo "screenshot-test-results folder not found"
-
       - name: Prepare reports structure
         run: |
           mkdir -p reports
           
-          # Копируем unit тесты (сохраняем структуру папки unit)
           if [ -d "artifacts/unit-test-results" ]; then
-            echo "Copying unit test results..."
-            # Создаем папку unit и копируем в нее
             mkdir -p reports/unit
             cp -r artifacts/unit-test-results/* reports/unit/
-          else
-            echo "Unit test results not found"
           fi
           
-          # Пробуем найти .loki в разных местах
-          if [ -d "artifacts/screenshot-test-results/.loki" ]; then
-          echo "Copying screenshot test results from screenshot-test-results/.loki..."
-          cp -r artifacts/screenshot-test-results/.loki reports/loki
-          elif [ -d ".loki" ]; then
-          echo "Copying screenshot test results from root .loki..."
-          cp -r .loki reports/loki
-          else
-          echo "Loki folder not found anywhere"
-          echo "Searching for .loki in entire workspace:"
-          find . -name ".loki" -type d 2>/dev/null | head -10
+          if [ -d "artifacts/screenshot-test-results" ]; then
+            cp -r artifacts/screenshot-test-results/* reports/loki/
           fi
-    
-          # Проверяем что получилось
-          echo "Final reports structure:"
-          ls -la reports/
 
 
       - name: Upload reports artifact
@@ -210,20 +173,6 @@ jobs:
         with:
           name: reports
           path: downloaded-reports/
-
-      - name: Debug final structure
-        run: |
-          echo "Checking downloaded-reports structure:"
-          find downloaded-reports -type f -name "*.html" | head -20
-          echo ""
-          echo "Checking index.html:"
-          ls -la downloaded-reports/index.html || echo "index.html not found"
-          echo ""
-          echo "Checking unit folder:"
-          ls -la downloaded-reports/unit/ || echo "unit folder not found"
-          echo ""
-          echo "Checking loki folder:"
-          ls -la downloaded-reports/loki/ || echo "loki folder not found"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
