@@ -226,6 +226,63 @@ module.exports = {
                 node: true,
             },
         },
+        // --- Cypress ---
+        {
+            files: ['cypress/**/*', 'cypress.config.ts'],
+            // parser: '@typescript-eslint/parser',
+            parserOptions: {
+                project: null,
+                // tsconfigRootDir: __dirname,
+                // ecmaVersion: 'latest',
+                // sourceType: 'module',
+                // ecmaFeatures: {
+                //     jsx: true,
+                // },
+            },
+            env: {
+                node: true,
+            },
+            globals: {
+                cy: 'readonly',
+                Cypress: 'readonly',
+                describe: 'readonly',
+                it: 'readonly',
+                before: 'readonly',
+                after: 'readonly',
+                beforeEach: 'readonly',
+                afterEach: 'readonly',
+            },
+            extends: ['plugin:@typescript-eslint/disable-type-checked'],
+            rules: {
+                // Отключаем ВСЕ type-aware правила
+                '@typescript-eslint/await-thenable': 'off',
+                '@typescript-eslint/no-base-to-string': 'off',
+                '@typescript-eslint/no-duplicate-type-constituents': 'off',
+                '@typescript-eslint/no-floating-promises': 'off',
+                '@typescript-eslint/no-for-in-array': 'off',
+                '@typescript-eslint/no-implied-eval': 'off',
+                '@typescript-eslint/no-misused-promises': 'off',
+                '@typescript-eslint/no-redundant-type-constituents': 'off',
+                '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+                '@typescript-eslint/no-unsafe-argument': 'off',
+                '@typescript-eslint/no-unsafe-assignment': 'off',
+                '@typescript-eslint/no-unsafe-call': 'off',
+                '@typescript-eslint/no-unsafe-member-access': 'off',
+                '@typescript-eslint/no-unsafe-return': 'off',
+                '@typescript-eslint/prefer-regexp-exec': 'off',
+                '@typescript-eslint/require-await': 'off',
+                '@typescript-eslint/restrict-plus-operands': 'off',
+                '@typescript-eslint/restrict-template-expressions': 'off',
+                '@typescript-eslint/unbound-method': 'off',
+                '@typescript-eslint/no-namespace': 'off',
+
+                // Отключаем кастомные правила
+                'i18next/no-literal-string': 'off',
+                'mikhaildnd/path-checker': 'off',
+                'mikhaildnd/public-api-imports': 'off',
+                'mikhaildnd/layer-imports': 'off',
+            },
+        },
     ],
     settings: {
         react: {

@@ -616,6 +616,15 @@
         "MANAGER"
       ],
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
+    },
+    {
+      "id": "4",
+      "username": "testuser",
+      "password": "123",
+      "roles": [
+        "ADMIN"
+      ],
+      "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     }
   ],
   "profile": [
