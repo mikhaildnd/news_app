@@ -515,7 +515,7 @@
       ]
     },
     {
-      "id": "18",
+      "id": "19",
       "title": "Научная статья - Биология",
       "subtitle": "БиологиЯ",
       "img": "https://avatars.mds.yandex.net/get-zen_doc/2746556/pub_5f50dd7e1a1ddf4776aa5569_5f50decd2506f211d1de6284/scale_1200",
@@ -537,6 +537,19 @@
           ]
         }
       ]
+    },
+    {
+      "title": "TESTING ARTICLE",
+      "subtitle": "Что нового в JS за 2025 год?",
+      "img": "https://teknotower.com/wp-content/uploads/2020/11/js.png",
+      "views": 1022,
+      "createdAt": "26.04.2025",
+      "userId": "1",
+      "type": [
+        "IT"
+      ],
+      "blocks": [],
+      "id": "E-G3SZs"
     }
   ],
   "comments": [
@@ -571,22 +584,10 @@
       "id": "JYJfEEe"
     },
     {
-      "articleId": "1",
-      "userId": "2",
-      "text": "мда",
-      "id": "YXHWwwc"
-    },
-    {
       "articleId": "3",
       "userId": "1",
       "text": "comment kotlin",
       "id": "G9ghmk-"
-    },
-    {
-      "articleId": "8",
-      "userId": "1",
-      "text": "Коммент ",
-      "id": "P-srqu6"
     }
   ],
   "users": [
@@ -649,6 +650,17 @@
       "city": "Almaty",
       "username": "user",
       "avatar": "https://hsto.org/r/w1560/getpro/habr/post_images/d56/a02/ffc/d56a02ffc62949b42904ca00c63d8cc1.png"
+    },
+    {
+      "id": "4",
+      "firstname": "test",
+      "lastname": "user",
+      "age": 55,
+      "currency": "EUR",
+      "country": "Kazakhstan",
+      "city": "Almaty",
+      "username": "testuser",
+      "avatar": "https://hsto.org/r/w1560/getpro/habr/post_images/d56/a02/ffc/d56a02ffc62949b42904ca00c63d8cc1.png"
     }
   ],
   "article-ratings": [
@@ -679,6 +691,20 @@
       "rate": 5,
       "feedback": "WOW",
       "id": "6zwyCsg"
+    },
+    {
+      "userId": "1",
+      "articleId": "7",
+      "rate": 4,
+      "feedback": "qqq",
+      "id": "8tjS7oF"
+    },
+    {
+      "userId": "4",
+      "articleId": "1",
+      "rate": 5,
+      "feedback": "feedback",
+      "id": "wNmgl2V"
     }
   ],
   "profile-ratings": [

@@ -105,7 +105,7 @@ export const ArticleDetails = memo(function ArticleDetails(
                         src={article?.img}
                     />
                 </HStack>
-                <VStack gap="4">
+                <VStack data-testid="ArticleDetails.Info" gap="4">
                     <Text
                         title={article?.title}
                         text={article?.subtitle}

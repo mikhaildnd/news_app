@@ -193,8 +193,6 @@ module.exports = {
             ],
             parserOptions: {
                 project: null, // отключаем type-aware линтинг
-                //     project: './tsconfig.node.json',
-                //     tsconfigRootDir: __dirname,
             },
             env: {
                 node: true,
@@ -228,16 +226,9 @@ module.exports = {
         },
         // --- Cypress ---
         {
-            files: ['cypress/**/*', 'cypress.config.ts'],
-            // parser: '@typescript-eslint/parser',
+            files: ['cypress/**/*.ts', 'cypress/**/*.tsx', 'cypress.config.ts'],
             parserOptions: {
                 project: null,
-                // tsconfigRootDir: __dirname,
-                // ecmaVersion: 'latest',
-                // sourceType: 'module',
-                // ecmaFeatures: {
-                //     jsx: true,
-                // },
             },
             env: {
                 node: true,
