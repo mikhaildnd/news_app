@@ -33,7 +33,7 @@
     "postinstall": "rimraf node_modules/.cache"
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": "eslint"
+    "**/*.{ts,tsx}": ["format:fix", "eslint"]
   },
   "keywords": [],
   "author": "",

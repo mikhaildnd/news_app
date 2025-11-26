@@ -1,4 +1,3 @@
-// @ts-check
 module.exports = {
     root: true, // останавливаем поиск конфигов выше по дереву
     env: {
@@ -185,6 +184,7 @@ module.exports = {
         // --- TS-конфиги, скрипты, dev-серверы ---
         {
             files: [
+                'cypress.config.ts',
                 'config/**/*.ts',
                 'config/**/*.tsx',
                 'scripts/**/*.ts',
@@ -219,7 +219,7 @@ module.exports = {
         },
         // --- Cypress ---
         {
-            files: ['cypress/**/*.ts', 'cypress/**/*.tsx', 'cypress.config.ts'],
+            files: ['cypress/**/*.ts', 'cypress/**/*.tsx'],
             parserOptions: {
                 project: './cypress/tsconfig.json',
                 tsconfigRootDir: __dirname,
