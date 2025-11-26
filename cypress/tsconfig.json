@@ -5,10 +5,6 @@
     "**/*.tsx",
     "**/*.d.ts",
     "../cypress.d.ts",
-    "../cypress.config.ts"
-  ],
-  "files": [
-    "support/component.d.ts"
   ],
   "compilerOptions": {
     "target": "es6",

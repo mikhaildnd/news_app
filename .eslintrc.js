@@ -185,7 +185,6 @@ module.exports = {
         // --- TS-конфиги, скрипты, dev-серверы ---
         {
             files: [
-                'cypress.config.ts',
                 'config/**/*.ts',
                 'config/**/*.tsx',
                 'scripts/**/*.ts',
