@@ -1,4 +1,15 @@
 {
+  "extends": "../tsconfig.json",
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts",
+    "../cypress.d.ts",
+    "../cypress.config.ts"
+  ],
+  "files": [
+    "support/component.d.ts"
+  ],
   "compilerOptions": {
     "target": "es6",
     "lib": ["es6", "dom"],
@@ -6,7 +17,5 @@
     "types": ["cypress", "node"],
     "allowJs": true,
     "isolatedModules": false
-  },
-  "extends": "../tsconfig.json",
-  "include": ["**/*.ts"]
+  }
 }

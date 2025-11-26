@@ -1,3 +1,4 @@
+// @ts-check
 module.exports = {
     root: true, // останавливаем поиск конфигов выше по дереву
     env: {
@@ -169,7 +170,8 @@ module.exports = {
         {
             // --- тесты и сторибуки ---
             files: [
-                '**/src/**/*.{test,stories}.{ts,tsx}',
+                '**/*.test.{ts,tsx}',
+                '**/*.stories.{ts,tsx}',
                 '**/config/storybook/**/*.{ts,tsx}',
             ],
             rules: {
@@ -183,6 +185,7 @@ module.exports = {
         // --- TS-конфиги, скрипты, dev-серверы ---
         {
             files: [
+                'cypress.config.ts',
                 'config/**/*.ts',
                 'config/**/*.tsx',
                 'scripts/**/*.ts',
@@ -198,15 +201,6 @@ module.exports = {
                 node: true,
             },
             extends: ['plugin:@typescript-eslint/disable-type-checked'],
-            rules: {
-                // '@typescript-eslint/no-unsafe-assignment': 'off',
-                // '@typescript-eslint/no-unsafe-call': 'off',
-                // '@typescript-eslint/no-unsafe-member-access': 'off',
-                // '@typescript-eslint/no-unsafe-return': 'off',
-                // '@typescript-eslint/await-thenable': 'off',
-                // '@typescript-eslint/no-floating-promises': 'off',
-                // '@typescript-eslint/no-unsafe-argument': 'off',
-            },
         },
         // --- JS-конфиги ---
         {
@@ -218,7 +212,7 @@ module.exports = {
                 'build/**/*.js',
             ],
             parserOptions: {
-                project: null, // без type-aware линтинга
+                project: null,
             },
             env: {
                 node: true,
@@ -228,7 +222,8 @@ module.exports = {
         {
             files: ['cypress/**/*.ts', 'cypress/**/*.tsx', 'cypress.config.ts'],
             parserOptions: {
-                project: null,
+                project: './cypress/tsconfig.json',
+                tsconfigRootDir: __dirname,
             },
             env: {
                 node: true,
@@ -245,28 +240,7 @@ module.exports = {
             },
             extends: ['plugin:@typescript-eslint/disable-type-checked'],
             rules: {
-                // Отключаем ВСЕ type-aware правила
-                '@typescript-eslint/await-thenable': 'off',
-                '@typescript-eslint/no-base-to-string': 'off',
-                '@typescript-eslint/no-duplicate-type-constituents': 'off',
-                '@typescript-eslint/no-floating-promises': 'off',
-                '@typescript-eslint/no-for-in-array': 'off',
-                '@typescript-eslint/no-implied-eval': 'off',
-                '@typescript-eslint/no-misused-promises': 'off',
-                '@typescript-eslint/no-redundant-type-constituents': 'off',
-                '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-                '@typescript-eslint/no-unsafe-argument': 'off',
-                '@typescript-eslint/no-unsafe-assignment': 'off',
-                '@typescript-eslint/no-unsafe-call': 'off',
-                '@typescript-eslint/no-unsafe-member-access': 'off',
-                '@typescript-eslint/no-unsafe-return': 'off',
-                '@typescript-eslint/prefer-regexp-exec': 'off',
-                '@typescript-eslint/require-await': 'off',
-                '@typescript-eslint/restrict-plus-operands': 'off',
-                '@typescript-eslint/restrict-template-expressions': 'off',
-                '@typescript-eslint/unbound-method': 'off',
                 '@typescript-eslint/no-namespace': 'off',
-
                 // Отключаем кастомные правила
                 'i18next/no-literal-string': 'off',
                 'mikhaildnd/path-checker': 'off',
@@ -281,7 +255,7 @@ module.exports = {
         },
         'import/resolver': {
             typescript: {
-                project: './tsconfig.json',
+                project: './tsconfig.eslint.json',
             },
             node: {
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],

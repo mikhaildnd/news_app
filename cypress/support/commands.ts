@@ -48,6 +48,8 @@ Cypress.Commands.addAll(articleCommands);
 Cypress.Commands.addAll(commentsCommands);
 Cypress.Commands.addAll(ratingCommands);
 
+export {};
+
 // Концепция
 // Cypress.Commands.overwrite('intercept', () => {
 //     const FIXTURE_MODE = process.env.FIXTURE_MODE;
