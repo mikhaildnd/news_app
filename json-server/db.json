@@ -598,6 +598,10 @@
       "roles": [
         "ADMIN"
       ],
+      "features": {
+        "isArticleRatingEnabled": true,
+        "isCounterEnabled": true
+      },
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     },
     {
@@ -607,6 +611,10 @@
       "roles": [
         "USER"
       ],
+      "features": {
+        "isArticleRatingEnabled": false,
+        "isCounterEnabled": false
+      },
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     },
     {
@@ -616,6 +624,10 @@
       "roles": [
         "MANAGER"
       ],
+      "features": {
+        "isArticleRatingEnabled": false,
+        "isCounterEnabled": true
+      },
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     },
     {
@@ -625,6 +637,10 @@
       "roles": [
         "ADMIN"
       ],
+      "features": {
+        "isArticleRatingEnabled": true,
+        "isCounterEnabled": true
+      },
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     }
   ],
