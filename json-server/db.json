@@ -605,7 +605,8 @@
       "jsonSettings": {
         "theme": "app_orange_theme",
         "isFirstVisit": true,
-        "settingsPageHasBeenOpen": false
+        "settingsPageHasBeenOpen": false,
+        "isArticlesPageWasOpen": true
       },
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     },
@@ -623,7 +624,8 @@
       "jsonSettings": {
         "theme": "app_dark_theme",
         "isFirstVisit": true,
-        "settingsPageHasBeenOpen": false
+        "settingsPageHasBeenOpen": false,
+        "isArticlesPageWasOpen": true
       },
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     },
@@ -641,7 +643,8 @@
       "jsonSettings": {
         "theme": "app_dark_theme",
         "isFirstVisit": true,
-        "settingsPageHasBeenOpen": false
+        "settingsPageHasBeenOpen": false,
+        "isArticlesPageWasOpen": true
       },
       "avatar": "https://avatars.githubusercontent.com/u/58606474?v=4"
     },
