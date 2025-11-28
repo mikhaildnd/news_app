@@ -29,6 +29,7 @@ export const ArticlePageGreeting = memo(() => {
         />
     );
 
+    // TODO Дравер закрывается автоматически, исправить
     if (isMobile) {
         return (
             <Drawer lazy isOpen={isOpen} onClose={onClose}>

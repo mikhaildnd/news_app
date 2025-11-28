@@ -15,7 +15,7 @@ import {
 } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { articleDetailsPageReducer } from '../../model/slice';
 import { ArticleRating } from '@/features/articleRating';
-import { toggleFeatures } from '@/shared/lib/features';
+import { ToggleComponentFeatures } from '@/shared/lib/features';
 import { Card } from '@/shared/ui/Card';
 
 interface ArticleDetailsPageProps {
@@ -46,11 +46,11 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     }
 
     // ** example: Фича флаг с переключателем
-    const articleRatingCard = toggleFeatures({
-        name: 'isArticleRatingEnabled',
-        on: () => <ArticleRating articleId={id} />,
-        off: () => <Card>{t('Оценка статей временно недоступна')}</Card>,
-    });
+    // const articleRatingCard = toggleFeatures({
+    //     name: 'isArticleRatingEnabled',
+    //     on: () => <ArticleRating articleId={id} />,
+    //     off: () => <Card>{t('Оценка статей временно недоступна')}</Card>,
+    // });
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -60,7 +60,16 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                 <VStack gap="16" max>
                     <ArticleDetailsPageHeader />
                     <ArticleDetails id={id} />
-                    {articleRatingCard}
+                    <ToggleComponentFeatures
+                        feature="isArticleRatingEnabled"
+                        on={<ArticleRating articleId={id} />}
+                        off={
+                            <Card>
+                                {t('Оценка статей временно недоступна')}
+                            </Card>
+                        }
+                    />
+                    {/*{articleRatingCard}*/}
                     {/** example: Фича флаг*/}
                     {/*{isArticleRatingEnabled && <ArticleRating articleId={id} />}*/}
                     <ArticleRecommendationsList />

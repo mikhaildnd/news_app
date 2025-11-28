@@ -30,7 +30,8 @@
     "chromatic": "npx chromatic --project-token=chpt_004d946d6420827 --build-script-name=storybook:build",
     "generate:slice": "node ./scripts/createSlice/index.js",
     "prepare": "husky",
-    "postinstall": "rimraf node_modules/.cache"
+    "postinstall": "rimraf node_modules/.cache",
+    "remove-feature": "ts-node ./scripts/remove-feature.ts"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
