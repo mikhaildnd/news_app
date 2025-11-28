@@ -1,20 +1,26 @@
 import { Suspense, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
-import { getUserMounted, userActions } from '@/entities/User';
+import { getUserMounted, initAuthData } from '@/entities/User';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { AppRouter } from './providers/router';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { PageLoader } from '@/widgets/PageLoader';
 
 function App() {
     const { theme } = useTheme();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const isMounted = useSelector(getUserMounted);
 
     useEffect(() => {
-        dispatch(userActions.initAuthData());
+        void dispatch(initAuthData());
     }, [dispatch]);
+
+    if (!isMounted) {
+        return <PageLoader />; // TODO: не работает компонент почему-то
+    }
 
     return (
         <div className={classNames('app', {}, [theme])}>
