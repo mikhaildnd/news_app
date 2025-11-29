@@ -8,6 +8,8 @@ import { AppRouter } from './providers/router';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { PageLoader } from '@/widgets/PageLoader';
 import { useSelector } from 'react-redux';
+import { ToggleComponentFeatures } from '@/shared/lib/features';
+import { MainLayout } from '@/shared/layouts/MainLayout';
 
 function App() {
     const { theme } = useTheme();
@@ -24,16 +26,44 @@ function App() {
     }
 
     return (
-        <div className={classNames('app', {}, [theme])}>
-            <Suspense fallback="">
-                <Navbar />
-                <div className="content-page">
-                    <Sidebar />
-                    {isMounted && <AppRouter />}
+        <ToggleComponentFeatures
+            feature="isAppRedesigned"
+            on={
+                <div className={classNames('app_redesigned', {}, [theme])}>
+                    <Suspense fallback="">
+                        <MainLayout
+                            header={<Navbar />}
+                            content={<AppRouter />}
+                            sidebar={<Sidebar />}
+                        />
+                    </Suspense>
                 </div>
-            </Suspense>
-        </div>
+            }
+            off={
+                <div className={classNames('app', {}, [theme])}>
+                    <Suspense fallback="">
+                        <Navbar />
+                        <div className="content-page">
+                            <Sidebar />
+                            <AppRouter />
+                        </div>
+                    </Suspense>
+                </div>
+            }
+        />
     );
+
+    // return (
+    //     <div className={classNames('app', {}, [theme])}>
+    //         <Suspense fallback="">
+    //             <Navbar />
+    //             <div className="content-page">
+    //                 <Sidebar />
+    //                 {isMounted && <AppRouter />}
+    //             </div>
+    //         </Suspense>
+    //     </div>
+    // );
 }
 
 export default App;
