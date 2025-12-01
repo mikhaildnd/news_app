@@ -1,5 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
-import ThemeIcon from '@/shared/assets/icons/theme-light.svg?react';
+import ThemeIconDeprecated from '@/shared/assets/icons/theme-light.svg?react';
+import ThemeIcon from '@/shared/assets/icons/theme.svg';
 // import DarkIcon from '@/shared/assets/icons/theme-dark.svg?react'; //TODO: delete?
 import { Button, ButtonTheme } from '@/shared/ui/deprecated/Button';
 import { memo, useCallback } from 'react';
@@ -7,15 +8,15 @@ import { memo, useCallback } from 'react';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { saveJsonSettings } from '@/entities/User';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { Icon } from '@/shared/ui/deprecated/Icon';
+import { Icon as IconDeprecated } from '@/shared/ui/deprecated/Icon';
+import { ToggleComponentFeatures } from '@/shared/lib/features';
+import { Icon } from '@/shared/ui/redesigned/Icon';
 
 interface ThemeSwitcherProps {
     className?: string;
 }
 
-export const ThemeSwitcher = memo(function ThemeSwitcher({
-    className,
-}: ThemeSwitcherProps) {
+export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
     const { theme, toggleTheme } = useTheme();
     const dispatch = useAppDispatch();
 
@@ -30,12 +31,25 @@ export const ThemeSwitcher = memo(function ThemeSwitcher({
     }, [dispatch, toggleTheme]);
 
     return (
-        <Button
-            theme={ButtonTheme.CLEAR}
-            className={classNames('', {}, [className])}
-            onClick={onToggleHandler}
-        >
-            <Icon Svg={ThemeIcon} width={40} height={40} inverted />
-        </Button>
+        <ToggleComponentFeatures
+            feature="isAppRedesigned"
+            on={<Icon Svg={ThemeIcon} clickable onClick={onToggleHandler} />}
+            off={
+                <Button
+                    theme={ButtonTheme.CLEAR}
+                    className={classNames('', {}, [className])}
+                    onClick={onToggleHandler}
+                >
+                    <IconDeprecated
+                        Svg={ThemeIconDeprecated}
+                        width={40}
+                        height={40}
+                        inverted
+                    />
+                </Button>
+            }
+        />
     );
 });
+
+ThemeSwitcher.displayName = 'ThemeSwitcher';
