@@ -2,8 +2,8 @@ import { memo, useCallback } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import cls from './AddCommentForm.module.scss';
-import { Input } from '@/shared/ui/Input';
-import { Button, ButtonTheme } from '@/shared/ui/Button';
+import { Input } from '@/shared/ui/deprecated/Input';
+import { Button, ButtonTheme } from '@/shared/ui/deprecated/Button';
 import { useSelector } from 'react-redux';
 import {
     // getAddCommentFormError,
@@ -14,7 +14,7 @@ import {
     addCommentFormActions,
     addCommentFormReducer,
 } from '../../model/slice/addCommentFormSlice';
-import { HStack } from '@/shared/ui/Stack';
+import { HStack } from '@/shared/ui/deprecated/Stack';
 import {
     DynamicModuleLoader,
     type ReducersList,
