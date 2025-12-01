@@ -8,6 +8,10 @@ interface AppLogoProps {
     className?: string;
 }
 
+/**
+ * Устарел, используем новые компоненты из папки redesigned
+ * @deprecated
+ */
 export const AppLogo = memo(({ className }: AppLogoProps) => {
     return (
         <HStack

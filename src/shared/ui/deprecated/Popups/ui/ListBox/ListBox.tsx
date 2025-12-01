@@ -32,6 +32,10 @@ interface ListBoxProps {
     direction?: DropdownDirection;
 }
 
+/**
+ * Устарел, используем новые компоненты из папки redesigned
+ * @deprecated
+ */
 export const ListBox = (props: ListBoxProps) => {
     const {
         items,

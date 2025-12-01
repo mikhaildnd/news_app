@@ -14,6 +14,10 @@ interface AvatarProps {
     fallbackInverted?: boolean;
 }
 
+/**
+ * Устарел, используем новые компоненты из папки redesigned
+ * @deprecated
+ */
 export const Avatar = ({
     className,
     src,

@@ -27,6 +27,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     fullWidth?: boolean;
 }
 
+/**
+ * Устарел, используем новые компоненты из папки redesigned
+ * @deprecated
+ */
 // В комп. с children лучше не исп. memo, но в кнопке, как правило, children - это строка. Как исключение можно оберн. в memo
 export const Button = memo(function Button(props: ButtonProps) {
     const {

@@ -10,6 +10,10 @@ interface CodeProps {
     text: string;
 }
 
+/**
+ * Устарел, используем новые компоненты из папки redesigned
+ * @deprecated
+ */
 export const Code = memo(function Code(props: CodeProps) {
     const { className, text } = props;
 

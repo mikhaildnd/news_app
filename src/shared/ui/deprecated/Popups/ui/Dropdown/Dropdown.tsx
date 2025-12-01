@@ -23,6 +23,10 @@ interface DropdownProps {
     direction?: DropdownDirection;
 }
 
+/**
+ * Устарел, используем новые компоненты из папки redesigned
+ * @deprecated
+ */
 export const Dropdown = (props: DropdownProps) => {
     const { className, trigger, items, direction = 'bottom right' } = props;
 

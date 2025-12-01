@@ -14,6 +14,10 @@ interface AppLinkProps extends LinkProps {
     children?: ReactNode;
 }
 
+/**
+ * Устарел, используем новые компоненты из папки redesigned
+ * @deprecated
+ */
 export const AppLink = memo(function AppLink(props: AppLinkProps) {
     const {
         to,
