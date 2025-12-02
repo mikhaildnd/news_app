@@ -29,7 +29,7 @@ export const LangSwitcher = memo((props: LangSwitcherProps) => {
         <ToggleComponentFeatures
             feature="isAppRedesigned"
             on={
-                <Button variant="clear">
+                <Button onClick={() => void toggle()} variant="clear">
                     {t(short ? 'Короткий язык' : 'Язык')}
                 </Button>
             }
