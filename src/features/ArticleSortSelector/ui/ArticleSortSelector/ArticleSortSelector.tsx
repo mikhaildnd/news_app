@@ -5,6 +5,10 @@ import cls from './ArticleSortSelector.module.scss';
 import { Select, type SelectOption } from '@/shared/ui/deprecated/Select';
 import type { SortOrder } from '@/shared/types/sort';
 import { ArticleSortField } from '@/entities/Article';
+import { ToggleComponentFeatures } from '@/shared/lib/features';
+import { ListBox } from '@/shared/ui/redesigned/Popups';
+import { VStack } from '@/shared/ui/redesigned/Stack';
+import { Text } from '@/shared/ui/redesigned/Text';
 
 interface ArticleSortSelectorProps {
     className?: string;
@@ -67,20 +71,52 @@ export const ArticleSortSelector = memo((props: ArticleSortSelectorProps) => {
     // );
 
     return (
-        <div className={classNames(cls.ArticleSortSelector, {}, [className])}>
-            <Select<ArticleSortField> // Пример. Можно явно указывать
-                onChange={onChangeSort}
-                value={sort}
-                options={sortFieldOptions}
-                label={t('Сортировать по')}
-            />
-            <Select
-                onChange={onChangeOrder}
-                value={order}
-                options={orderOptions}
-                label={t('по')}
-            />
-        </div>
+        <ToggleComponentFeatures
+            feature="isAppRedesigned"
+            on={
+                <div
+                    className={classNames(
+                        cls.ArticleSortSelectorRedesigned,
+                        {},
+                        [className],
+                    )}
+                >
+                    <VStack gap="8">
+                        <Text text={t('Сортировать по:')} />
+                        <ListBox // Пример. Можно явно указывать
+                            onChange={onChangeSort}
+                            value={sort}
+                            items={sortFieldOptions}
+                        />
+                        <ListBox
+                            onChange={onChangeOrder}
+                            value={order}
+                            items={orderOptions}
+                        />
+                    </VStack>
+                </div>
+            }
+            off={
+                <div
+                    className={classNames(cls.ArticleSortSelector, {}, [
+                        className,
+                    ])}
+                >
+                    <Select<ArticleSortField> // Пример. Можно явно указывать
+                        onChange={onChangeSort}
+                        value={sort}
+                        options={sortFieldOptions}
+                        label={t('Сортировать по')}
+                    />
+                    <Select
+                        onChange={onChangeOrder}
+                        value={order}
+                        options={orderOptions}
+                        label={t('по')}
+                    />
+                </div>
+            }
+        />
     );
 });
 
