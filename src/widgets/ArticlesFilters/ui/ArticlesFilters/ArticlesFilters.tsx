@@ -46,6 +46,7 @@ export const ArticlesFilters = memo((props: ArticleFiltersProps) => {
             {/*Можно сделать функцию-хелпер getVStack, getHStack, чтобы не создавать лишние ноды*/}
             <VStack gap="32">
                 <Input
+                    size="s"
                     value={search}
                     onChange={onChangeSearch}
                     placeholder={t('Поиск')}

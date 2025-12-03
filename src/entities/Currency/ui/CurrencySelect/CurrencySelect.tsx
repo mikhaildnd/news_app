@@ -1,8 +1,9 @@
-import { classNames } from '@/shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback } from 'react';
 import { Currency } from '../../model/types/currency';
-import { ListBox } from '@/shared/ui/deprecated/Popups';
+import { ListBox as ListBoxDeprecated } from '@/shared/ui/deprecated/Popups';
+import { ToggleComponentFeatures } from '@/shared/lib/features';
+import { ListBox } from '@/shared/ui/redesigned/Popups';
 
 interface CurrencySelectProps {
     className?: string;
@@ -18,30 +19,35 @@ const options = [
     { value: Currency.USD, content: Currency.USD },
 ];
 
-export const CurrencySelect = memo(function CurrencySelect({
-    className,
-    value,
-    onChange,
-    readonly,
-}: CurrencySelectProps) {
-    const { t } = useTranslation();
+export const CurrencySelect = memo(
+    ({ className, value, onChange, readonly }: CurrencySelectProps) => {
+        const { t } = useTranslation();
 
-    const onChangeHandler = useCallback(
-        (newValue: string) => {
-            onChange?.(newValue as Currency);
-        },
-        [onChange],
-    );
+        const onChangeHandler = useCallback(
+            (newValue: string) => {
+                onChange?.(newValue as Currency);
+            },
+            [onChange],
+        );
 
-    return (
-        <ListBox
-            className={classNames('', {}, [className])}
-            defaultValue={Currency.RUB}
-            items={options}
-            value={value}
-            onChange={onChangeHandler}
-            readonly={readonly}
-            label={t('Укажите валюту')}
-        />
-    );
-});
+        const props = {
+            className,
+            defaultValue: Currency.RUB,
+            items: options,
+            value: value,
+            onChange: onChangeHandler,
+            readonly: readonly,
+            label: t('Укажите валюту'),
+        };
+
+        return (
+            <ToggleComponentFeatures
+                feature="isAppRedesigned"
+                on={<ListBox {...props} />}
+                off={<ListBoxDeprecated {...props} />}
+            />
+        );
+    },
+);
+
+CurrencySelect.displayName = 'CurrencySelect';
