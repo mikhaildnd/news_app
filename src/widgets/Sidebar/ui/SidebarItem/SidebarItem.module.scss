@@ -11,7 +11,7 @@
     white-space: nowrap;
     margin-left: 10px;
 
-     // max-width: 100%;
+    // max-width: 100%;
     opacity: 1;
     transition:
         //max-width 0.3s ease,
@@ -19,7 +19,7 @@
 }
 
 .collapsed {
-     // width: var(--sidebar-width-collapsed);
+    // width: var(--sidebar-width-collapsed);
 
     .link {
         opacity: 0;
@@ -47,11 +47,15 @@
 }
 
 .active {
-    background: linear-gradient(89.97deg, rgb(29 89 255 / 30%) 1.15%, rgb(94 211 243 / 0%) 99.97%);
+    background: linear-gradient(
+        89.97deg,
+        rgb(94 211 243 / 30%) 1.15%,
+        rgb(94 211 243 / 0%) 99.97%
+    );
     position: relative;
 
     &::before {
-        content: "";
+        content: '';
         position: absolute;
         width: 2px;
         left: 0;
