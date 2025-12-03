@@ -14,6 +14,8 @@ import { Button } from '../../../Button/Button';
 import { HStack } from '../../../../redesigned/Stack';
 import type { DropdownDirection } from '@/shared/types/ui';
 import { mapDirectionClass } from '../../styles/consts';
+import ArrowIcon from '@/shared/assets/icons/arrow-bottom.svg';
+import { Icon } from '../../../Icon';
 
 export interface ListBoxItem<T extends string> {
     value: string;
@@ -62,7 +64,10 @@ export const ListBox = <T extends string>(props: ListBoxProps<T>) => {
                     disabled={readonly}
                 >
                     <ListboxButton as={Fragment}>
-                        <Button variant="filled">
+                        <Button
+                            variant="filled"
+                            addonRight={<Icon Svg={ArrowIcon} />}
+                        >
                             {selectedItem?.content ?? defaultValue}
                         </Button>
                     </ListboxButton>
