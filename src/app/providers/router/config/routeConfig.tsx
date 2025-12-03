@@ -6,6 +6,7 @@ import { ArticleDetailsPage } from '@/pages/ArticleDetailsPage';
 import { ArticleEditPage } from '@/pages/ArticleEditPage';
 import { AdminPanelPage } from '@/pages/AdminPanelPage';
 import { ForbiddenPage } from '@/pages/ForbiddenPage';
+import { SettingsPage } from '@/pages/SettingsPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
 import { UserRole } from '@/entities/User';
 import {
@@ -19,6 +20,7 @@ import {
     getRouteArticles,
     getRouteMain,
     getRouteProfile,
+    getRouteSettings,
 } from '@/shared/const/router';
 import type { AppRoutesProps } from '@/shared/types/router';
 
@@ -26,6 +28,10 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MAIN]: {
         path: getRouteMain(),
         element: <MainPage />,
+    },
+    [AppRoutes.SETTINGS]: {
+        path: getRouteSettings(),
+        element: <SettingsPage />,
     },
     [AppRoutes.ABOUT]: {
         path: getRouteAbout(),
