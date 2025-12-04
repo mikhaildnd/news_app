@@ -17,7 +17,8 @@ export enum ButtonSize {
     XL = 'size_xl',
 }
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps
+    extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
     className?: string;
     theme?: ButtonTheme;
     square?: boolean;
@@ -25,6 +26,10 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     disabled?: boolean;
     children?: ReactNode;
     fullWidth?: boolean;
+
+    onClick?: (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => void | Promise<void>;
 }
 
 /**
