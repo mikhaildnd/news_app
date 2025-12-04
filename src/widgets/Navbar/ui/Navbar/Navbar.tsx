@@ -80,11 +80,7 @@ export const Navbar = memo(function Navbar({ className }: NavbarProps) {
                 {t('Войти')}
             </Button>
             {isAuthModal && (
-                <LoginModal
-                    // element={document.querySelector('.app')}
-                    isOpen={isAuthModal}
-                    onClose={onCloseModal}
-                />
+                <LoginModal isOpen={isAuthModal} onClose={onCloseModal} />
             )}
         </header>
     );
