@@ -15,7 +15,9 @@ interface NoneClickableIconProps extends IconBaseProps {
 
 interface ClickableIconProps extends IconBaseProps {
     clickable: true;
-    onClick: () => void | Promise<void>;
+    onClick: (
+        event: React.MouseEvent<HTMLButtonElement>,
+    ) => void | Promise<void>;
 }
 
 type IconProps = ClickableIconProps | NoneClickableIconProps;
@@ -45,7 +47,9 @@ export const Icon = memo(function Icon(props: IconProps) {
             <button
                 className={cls.button}
                 type="button"
-                onClick={props.onClick}
+                onClick={(e) => {
+                    void props.onClick(e);
+                }}
                 style={{ height, width }}
             >
                 {icon}
