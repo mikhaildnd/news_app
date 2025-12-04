@@ -40,6 +40,8 @@
   "Айти": "IT",
   "Наука":  "Science",
   "Экономика": "Economics",
-  "Создание новой статьи": "Creating a new article"
-
+  "Создание новой статьи": "Creating a new article",
+  "{{count}} просмотров_zero": "{{count}} views",
+  "{{count}} просмотров_one": "{{count}} view",
+  "{{count}} просмотров_other": "{{count}} views"
 }
