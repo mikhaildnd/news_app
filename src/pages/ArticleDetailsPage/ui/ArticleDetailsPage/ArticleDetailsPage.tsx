@@ -71,9 +71,7 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
                             >
                                 <VStack gap="16" max>
                                     <DetailsContainer />
-                                    {/*{articleRatingCard}*/}
-                                    {/** example: Фича флаг*/}
-                                    {/*{isArticleRatingEnabled && <ArticleRating articleId={id} />}*/}
+                                    <ArticleRating articleId={id} />
                                     <ArticleRecommendationsList />
                                     <ArticleDetailsComments id={id} />
                                 </VStack>
