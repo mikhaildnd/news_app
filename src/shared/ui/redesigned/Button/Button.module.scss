@@ -41,15 +41,46 @@
     border: none;
     outline: none;
     border-radius: 34px;
+
+    &.normal {
+        // TODO задать цвета
+    }
+
+    &.success {
+        // TODO задать цвета
+    }
+
+    &.error {
+        // TODO задать цвета
+    }
 }
 
 .outline {
     background: none;
-    border: 2px solid var(--icon-redesigned);
     border-radius: 34px;
 
-    &:hover {
-        border: 2px solid var(--accent-redesigned);
+    &.normal {
+        border: 2px solid var(--icon-redesigned);
+
+        &:hover {
+            color: var(--accent-redesigned);
+        }
+    }
+
+    &.success {
+        border: 2px solid var(--save-redesigned);
+
+        &:hover {
+            color: var(--save-redesigned);
+        }
+    }
+
+    &.error {
+        border: 2px solid var(--cancel-redesigned);
+
+        &:hover {
+            color: var(--cancel-redesigned);
+        }
     }
 }
 
