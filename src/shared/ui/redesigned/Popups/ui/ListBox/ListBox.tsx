@@ -28,7 +28,7 @@ interface ListBoxProps<T extends string> {
     className?: string;
     value?: T;
     defaultValue?: string;
-    onChange?: (value: T) => void;
+    onChange?: (value: T) => void | Promise<void>;
     readonly?: boolean;
     label?: string;
     direction?: DropdownDirection;
@@ -46,6 +46,14 @@ export const ListBox = <T extends string>(props: ListBoxProps<T>) => {
         direction = 'bottom right',
     } = props;
 
+    const handleChange = (newValue: T) => {
+        const result = onChange?.(newValue);
+
+        if (result instanceof Promise) {
+            void result;
+        }
+    };
+
     const optionsClasses = [mapDirectionClass[direction], popupCls.menu];
 
     const selectedItem = useMemo(() => {
@@ -60,7 +68,7 @@ export const ListBox = <T extends string>(props: ListBoxProps<T>) => {
                     as="div"
                     className={classNames('', {}, [className, popupCls.popup])}
                     value={value}
-                    onChange={onChange}
+                    onChange={handleChange}
                     disabled={readonly}
                 >
                     <ListboxButton as={Fragment}>
