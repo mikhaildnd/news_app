@@ -15,11 +15,12 @@ function App() {
     const { theme } = useTheme();
     const dispatch = useAppDispatch();
     const isMounted = useSelector(getUserMounted);
-    // const isMounted = false;
 
     useEffect(() => {
-        void dispatch(initAuthData());
-    }, [dispatch]);
+        if (!isMounted) {
+            void dispatch(initAuthData());
+        }
+    }, [dispatch, isMounted]);
 
     if (!isMounted) {
         return <PageLoader />; // TODO: не работает компонент почему-то
