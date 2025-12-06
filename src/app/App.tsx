@@ -11,11 +11,13 @@ import { useSelector } from 'react-redux';
 import { ToggleComponentFeatures } from '@/shared/lib/features';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
+import { useAppToolbar } from './lib/useAppToolbar';
 
 function App() {
     const { theme } = useTheme();
     const dispatch = useAppDispatch();
     const isMounted = useSelector(getUserMounted);
+    const toolbar = useAppToolbar(); // dynamic toolbar
 
     useEffect(() => {
         if (!isMounted) {
@@ -55,6 +57,7 @@ function App() {
                             header={<Navbar />}
                             content={<AppRouter />}
                             sidebar={<Sidebar />}
+                            toolbar={toolbar}
                         />
                     </Suspense>
                 </div>
@@ -72,18 +75,6 @@ function App() {
             }
         />
     );
-
-    // return (
-    //     <div className={classNames('app', {}, [theme])}>
-    //         <Suspense fallback="">
-    //             <Navbar />
-    //             <div className="content-page">
-    //                 <Sidebar />
-    //                 {isMounted && <AppRouter />}
-    //             </div>
-    //         </Suspense>
-    //     </div>
-    // );
 }
 
 export default App;
