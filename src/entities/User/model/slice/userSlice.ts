@@ -1,5 +1,8 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { USER_LOCALSTORAGE_KEY } from '@/shared/const/localstorage';
+import {
+    LOCAL_STORAGE_LAST_DESIGN_KEY,
+    USER_LOCALSTORAGE_KEY,
+} from '@/shared/const/localstorage';
 import type { User, UserSchema } from '../types/user';
 import { setFeatureFlags } from '@/shared/lib/features';
 import { saveJsonSettings } from '../services/saveJsonSettings';
@@ -19,7 +22,12 @@ export const userSlice = createSlice({
             setFeatureFlags(action.payload.features);
 
             // не очень хорошо в редюсере работать с локал сторадж, не делать так в реальном проекте
+            // upd. сохранять в asyncThunk мб
             localStorage.setItem(USER_LOCALSTORAGE_KEY, action.payload.id);
+            localStorage.setItem(
+                LOCAL_STORAGE_LAST_DESIGN_KEY,
+                action.payload.features?.isAppRedesigned ? 'new' : 'old',
+            );
         },
         logout: (state) => {
             state.authData = undefined;

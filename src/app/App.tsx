@@ -10,6 +10,7 @@ import { PageLoader } from '@/widgets/PageLoader';
 import { useSelector } from 'react-redux';
 import { ToggleComponentFeatures } from '@/shared/lib/features';
 import { MainLayout } from '@/shared/layouts/MainLayout';
+import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
 
 function App() {
     const { theme } = useTheme();
@@ -23,7 +24,22 @@ function App() {
     }, [dispatch, isMounted]);
 
     if (!isMounted) {
-        return <PageLoader />; // TODO: не работает компонент почему-то
+        return (
+            <ToggleComponentFeatures
+                feature="isAppRedesigned"
+                on={
+                    <div
+                        id="app"
+                        className={classNames('app_redesigned', {}, [theme])}
+                    >
+                        <AppLoaderLayout />
+                    </div>
+                }
+                off={
+                    <PageLoader /> // TODO: не работает компонент почему-то
+                }
+            />
+        );
     }
 
     return (
