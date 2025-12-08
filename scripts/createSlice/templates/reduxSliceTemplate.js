@@ -1,12 +1,10 @@
 const firstCharUpperCase = require('../firstCharUpperCase');
-const interfaceConst = 'interface';
 
 module.exports = (sliceName) => {
     const typeName = `${firstCharUpperCase(sliceName)}Schema`;
 
-    return `import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ${typeName} } from '../types/${sliceName}Schema';
-import { WithSlice } from '@reduxjs/toolkit';
+    return `import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { $type {typeName} } from '../types/${sliceName}Schema';
 
 const initialState: ${typeName} = {
     
@@ -17,7 +15,7 @@ export const ${sliceName}Slice = createSlice({
     initialState,
     reducers: {
         template: (state, action: PayloadAction<string>) => {
-           reset: () => initialState,
+           
         },
     },
     // extraReducers: (builder) => {
@@ -36,15 +34,6 @@ export const ${sliceName}Slice = createSlice({
     // },
 });
 
-// export const { actions: ${sliceName}Actions } = ${sliceName}Slice;
-// export const { reducer: ${sliceName}Reducer } = ${sliceName}Slice;
-
-export const injected${firstCharUpperCase(sliceName)}Slice =
-    ${sliceName}Slice.injectInto(rootReducer);
-export const ${sliceName}Reducer = ${sliceName}Slice.reducer;
-export const ${sliceName}Actions = ${sliceName}Slice.actions;
-
-declare module 'app/providers/StoreProvider/config/store' {
-    ${interfaceConst} LazyLoadedSlices extends WithSlice<typeof ${sliceName}Slice> {}
-}`;
+export const { actions: ${sliceName}Actions } = ${sliceName}Slice;
+export const { reducer: ${sliceName}Reducer } = ${sliceName}Slice;`;
 };

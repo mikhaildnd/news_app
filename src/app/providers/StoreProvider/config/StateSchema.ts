@@ -1,16 +1,15 @@
-import { AxiosInstance } from 'axios';
-// import { RootState } from 'app/providers/StoreProvider/config/store';
-import { CounterSchema } from 'entities/Counter';
-import { UserSchema } from 'entities/User';
-import { ScrollSaveSchema } from 'features/ScrollSave';
-import { rtkApi } from 'shared/api/rtkApi';
-import { LoginSchema } from 'features/AuthByUsername';
-import { ProfileSchema } from 'features/editableProfileCard';
-import { ArticleDetailsSchema } from 'entities/Article';
-import { AddCommentFormSchema } from 'features/AddCommentForm';
-import { ArticlesPageSchema } from 'pages/ArticlesPage';
-import { ArticleDetailsPageSchema } from 'pages/ArticleDetailsPage';
-import {
+import type { AxiosInstance } from 'axios';
+import type { CounterSchema } from '@/entities/Counter';
+import type { UserSchema } from '@/entities/User';
+import type { ScrollSaveSchema } from '@/features/ScrollSave';
+import type { rtkApi } from '@/shared/api/rtkApi';
+import type { LoginSchema } from '@/features/AuthByUsername';
+import type { ProfileSchema } from '@/features/editableProfileCard';
+import type { ArticleDetailsSchema } from '@/entities/Article';
+import type { AddCommentFormSchema } from '@/features/AddCommentForm';
+import type { ArticlesPageSchema } from '@/pages/ArticlesPage';
+import type { ArticleDetailsPageSchema } from '@/pages/ArticleDetailsPage';
+import type {
     EnhancedStore,
     Reducer,
     ReducersMapObject,

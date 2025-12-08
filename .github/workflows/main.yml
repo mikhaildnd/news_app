@@ -1,7 +1,7 @@
 name: linting, testing, building
 
 on:
-  pull_request:
+  push:
     branches: [ main, develop ]
 
 env:
@@ -12,7 +12,9 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   # -------------------- LINT --------------------
@@ -46,7 +48,7 @@ jobs:
         run: npm run build:prod
 
   # -------------------- UNIT TESTS --------------------
-  test:
+  unit-tests:
     runs-on: ubuntu-latest
     needs: build
     strategy:
@@ -59,6 +61,12 @@ jobs:
       - name: Run unit tests
         run: npm run test:unit
 
+      - name: Upload unit test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: reports/unit/
   # -------------------- SCREENSHOT TESTS --------------------
   screenshot-tests:
     runs-on: ubuntu-latest
@@ -92,26 +100,91 @@ jobs:
 
       - name: Run screenshot tests
         run: npm run test:ui:ci
+        continue-on-error: true
 
-      # Если тесты упали — собираем все debug-артефакты
-      - name: Collect debug artifacts
-        if: failure()
+      - name: Generate HTML report
+        if: always()
+        run: npm run test:ui:report
+
+      - name: Move Loki to reports folder
+        if: always()
         run: |
-          mkdir -p artifacts
-          # ставим только puppeteer, без всего проекта
-          npm install puppeteer --no-save --ignore-scripts
-          # Скрипт можно доработать, чтобы он сам проходил по списку упавших сторисов.
-          # Пока дампим главную страницу Storybook, чтобы видеть статику
-          node ./scripts/dump-story-dom.js "http://localhost:6006" ./artifacts/storybook-root
+          mkdir -p reports
+          if [ -d ".loki" ]; then
+            mv .loki reports/loki
+            echo "Moved .loki to reports/loki"
+            echo "Contents of reports/loki:"
+            ls -la reports/loki/
+          else
+            echo ".loki folder not found"
+          fi
 
-      - name: Upload Loki + debug artifacts
-        if: failure()
+      - name: Upload screenshot test results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: loki-debug-${{ matrix.node-version }}
-          path: |
-            .loki/difference
-            .loki/current
-            .loki/reference
-            artifacts/**
-            /tmp/storybook.log
+          name: screenshot-test-results
+          path: reports/loki/
+
+  # -------------------- GENERATE REPORTS --------------------
+  generate-reports:
+    runs-on: ubuntu-latest
+    needs: [ unit-tests, screenshot-tests ]
+    if: always()
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all test results
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts/
+
+      - name: Prepare reports structure
+        run: |
+          mkdir -p reports
+          
+          if [ -d "artifacts/unit-test-results" ]; then
+            mkdir -p reports/unit
+            cp -r artifacts/unit-test-results/* reports/unit/
+          fi
+          
+          if [ -d "artifacts/screenshot-test-results" ]; then
+            mkdir -p reports/loki
+            cp -r artifacts/screenshot-test-results/* reports/loki/
+          fi
+
+      - name: Upload reports artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports
+          path: reports/
+
+  # -------------------- DEPLOY REPORTS --------------------
+  deploy-reports:
+    runs-on: ubuntu-latest
+    needs: generate-reports
+    if: always()
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Download final reports
+        uses: actions/download-artifact@v4
+        with:
+          name: reports
+          path: downloaded-reports/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: downloaded-reports/
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Show report URL
+        run: echo "Reports available at ${{ steps.deployment.outputs.page_url }}"

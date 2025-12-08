@@ -1,7 +1,7 @@
-import { RuleSetRule, DefinePlugin, type Configuration } from 'webpack';
+import { type RuleSetRule, DefinePlugin, type Configuration } from 'webpack';
 import path from 'path';
 import { buildCssLoader } from '../build/loaders/buildCssLoader';
-import { BuildPaths } from '../build/types/config';
+import type { BuildPaths } from '../build/types/config';
 
 export default ({ config }: { config: Configuration }) => {
     const paths: BuildPaths = {
@@ -16,6 +16,10 @@ export default ({ config }: { config: Configuration }) => {
     // config!.resolve!.modules!.push(paths.src);
     config.resolve!.modules = [paths.src, 'node_modules'];
     config.resolve!.extensions!.push('.ts', '.tsx');
+    config.resolve!.alias = {
+        ...config.resolve!.alias,
+        '@': paths.src,
+    };
 
     // убираем обработку svg из дефолтных правил
     config.module!.rules = (config.module!.rules as RuleSetRule[]).map(

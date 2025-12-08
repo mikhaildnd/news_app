@@ -1,10 +1,6 @@
 declare module '*.scss' {
-    interface IClassNames {
-        [className: string]: string;
-    }
-
-    const classNames: IClassNames;
-    export = classNames;
+    const classNames: { [className: string]: string };
+    export default classNames;
 }
 
 declare module '*.png' {
@@ -20,7 +16,7 @@ declare module '*.jpeg' {
     export default value;
 }
 declare module '*.svg' {
-    import React from 'react';
+    import type React from 'react';
 
     const SVG: React.FC<React.SVGProps<SVGSVGElement>>;
     export default SVG;
@@ -28,7 +24,7 @@ declare module '*.svg' {
 
 declare const __IS_DEV__: boolean;
 declare const __API__: string;
-declare const __PROJECT__: 'storybook' | 'frontend' | 'jest';
+declare const __PROJECT__: 'storybook' | 'frontend' | 'jest' | 'cypress';
 
 type DeepPartial<T> = T extends object
     ? {

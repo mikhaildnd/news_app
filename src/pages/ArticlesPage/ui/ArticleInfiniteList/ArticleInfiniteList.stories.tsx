@@ -1,14 +1,14 @@
 import { ArticleInfiniteList } from './ArticleInfiniteList';
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-    Article,
+    type Article,
     ArticleSortField,
     ArticleType,
     ArticleView,
-} from 'entities/Article';
-import { ArticleBlockType } from 'entities/Article/model/types/article';
-import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
+    ArticleBlockType,
+} from '@/entities/Article';
+import type { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { articlesPageReducer } from '../../model/slice/articlesPageSlice';
 
 const meta: Meta<typeof ArticleInfiniteList> = {

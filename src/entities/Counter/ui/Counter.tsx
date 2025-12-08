@@ -1,20 +1,22 @@
-import { Button } from 'shared/ui/Button/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@/shared/ui/deprecated/Button';
 import { useTranslation } from 'react-i18next';
-import { getCounterValue } from '../model/selectors/getCounterValue/getCounterValue';
-import { counterActions } from '../model/slice/CounterSlice';
+import { useCounterValue } from '../model/selectors/getCounterValue/getCounterValue';
+import { useCounterActions } from '../model/slice/CounterSlice';
 
 export const Counter = () => {
-    const dispatch = useDispatch();
-    const counterValue = useSelector(getCounterValue);
-
+    const counterValue = useCounterValue();
     const { t } = useTranslation();
+    // TODO: сделать так для остальных компонентов
+    const { increment, decrement, add } = useCounterActions();
 
     const incrementFn = () => {
-        dispatch(counterActions.increment());
+        increment();
     };
     const decrementFn = () => {
-        dispatch(counterActions.decrement());
+        decrement();
+    };
+    const addFn = () => {
+        add(5);
     };
 
     return (
@@ -25,6 +27,9 @@ export const Counter = () => {
             </Button>
             <Button onClick={decrementFn} data-testid="decrement-btn">
                 {t('decrement')}
+            </Button>
+            <Button onClick={addFn} data-testid="add5-btn">
+                {t('add5')}
             </Button>
         </div>
     );

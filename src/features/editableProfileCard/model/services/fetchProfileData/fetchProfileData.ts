@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThunkConfig } from 'app/providers/StoreProvider';
-import { Profile } from 'entities/Profile';
+import type { ThunkConfig } from '@/app/providers/StoreProvider';
+import type { Profile } from '@/entities/Profile';
 
 export const fetchProfileData = createAsyncThunk<
     Profile,
@@ -18,7 +18,7 @@ export const fetchProfileData = createAsyncThunk<
 
         return response.data;
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return rejectWithValue('error');
     }
 });

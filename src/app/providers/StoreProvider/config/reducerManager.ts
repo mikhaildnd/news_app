@@ -1,10 +1,10 @@
 import {
-    Action,
+    type Action,
     combineReducers,
-    Reducer,
-    ReducersMapObject,
+    type Reducer,
+    type ReducersMapObject,
 } from '@reduxjs/toolkit';
-import {
+import type {
     MountedReducers,
     ReducerManager,
     StateSchema,

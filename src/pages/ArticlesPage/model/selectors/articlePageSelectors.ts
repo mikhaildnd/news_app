@@ -1,5 +1,5 @@
-import { ArticleSortField, ArticleType, ArticleView } from 'entities/Article';
-import { StateSchema } from 'app/providers/StoreProvider';
+import { ArticleSortField, ArticleType, ArticleView } from '@/entities/Article';
+import type { StateSchema } from '@/app/providers/StoreProvider';
 
 export const getArticlesPageIsLoading = (state: StateSchema) =>
     state.articlesPage?.isLoading || false;
@@ -23,3 +23,8 @@ export const getArticlesPageSearch = (state: StateSchema) =>
     state.articlesPage?.search ?? '';
 export const getArticlesPageType = (state: StateSchema) =>
     state.articlesPage?.type ?? ArticleType.ALL;
+
+// Пример использования buildSelector
+// export const [useArticleItemById] = buildSelector(
+//     (state, id: string) => state.articlesPage?.entities[id],
+// );

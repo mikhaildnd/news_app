@@ -23,6 +23,6 @@ module.exports = {
         await page.evaluate(() => document.fonts.ready.then(() => true));
 
         // Дополнительно ждём хотя бы 300мс на отрисовку
-        await page.waitForTimeout(300);
+        // await page.waitForTimeout(300);
     },
 };

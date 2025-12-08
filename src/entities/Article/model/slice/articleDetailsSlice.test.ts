@@ -1,6 +1,6 @@
-import { Article } from '../types/article';
+import type { Article } from '../types/article';
 import { fetchArticleById } from '../services/fetchArticleById/fetchArticleById';
-import { ArticleDetailsSchema } from '../types/articleDetailsSchema';
+import type { ArticleDetailsSchema } from '../types/articleDetailsSchema';
 import { articleDetailsReducer } from './articleDetailsSlice';
 
 describe('articleDetailsSlice (явные тесты)', () => {

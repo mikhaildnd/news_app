@@ -1,8 +1,8 @@
 import { ArticlesPageFilters } from './ArticlesPageFilters';
 import type { Meta, StoryObj } from '@storybook/react';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
-import { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
-import { ArticleSortField, ArticleType, ArticleView } from 'entities/Article';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
+import type { ArticlesPageSchema } from '../../model/types/articlesPageSchema';
+import { ArticleSortField, ArticleType, ArticleView } from '@/entities/Article';
 
 const meta: Meta<typeof ArticlesPageFilters> = {
     title: 'pages/ArticlesPage/ArticlesPageFilters',

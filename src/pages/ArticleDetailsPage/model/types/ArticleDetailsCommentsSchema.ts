@@ -1,5 +1,5 @@
-import { Comment } from 'entities/Comment';
-import { EntityId, EntityState } from '@reduxjs/toolkit';
+import type { Comment } from '@/entities/Comment';
+import type { EntityId, EntityState } from '@reduxjs/toolkit';
 
 // EntityState добавляет ids и entities для нормализации данных
 export interface ArticleDetailsCommentsSchema

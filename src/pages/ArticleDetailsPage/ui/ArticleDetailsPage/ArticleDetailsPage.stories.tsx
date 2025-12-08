@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Article } from 'entities/Article';
 import {
+    type Article,
     ArticleBlockType,
     ArticleType,
-} from 'entities/Article/model/types/article';
-import { StoreDecorator } from 'shared/config/storybook/StoreDecorator/StoreDecorator';
+} from '@/entities/Article';
+import { StoreDecorator } from '@/shared/config/storybook/StoreDecorator/StoreDecorator';
 import ArticleDetailsPage from './ArticleDetailsPage';
 import { http, HttpResponse } from 'msw';
 
@@ -73,6 +73,18 @@ export const Normal: Story = {
                         { ...article, id: '1' },
                         { ...article, id: '2' },
                         { ...article, id: '3' },
+                    ]);
+                }),
+                http.get(`${__API__}/article-ratings`, ({ request }) => {
+                    const url = new URL(request.url);
+                    const articleId = url.searchParams.get('articleId');
+
+                    return HttpResponse.json([
+                        {
+                            articleId,
+                            userId: '1',
+                            rate: 5,
+                        },
                     ]);
                 }),
             ],

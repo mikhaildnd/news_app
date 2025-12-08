@@ -1,5 +1,5 @@
 import type { Configuration } from 'webpack';
-import { BuildOptions } from './types/config';
+import type { BuildOptions } from './types/config';
 import { buildPlugins } from './buildPlugins';
 import { buildLoaders } from './buildLoaders';
 import { buildResolvers } from './buildResolvers';
@@ -21,7 +21,7 @@ export function buildWebpackConfig(options: BuildOptions): Configuration {
             rules: buildLoaders(options),
         },
         resolve: buildResolvers(options),
-        devtool: isDev ? 'inline-source-map' : undefined,
+        devtool: isDev ? 'eval-cheap-module-source-map' : undefined,
         devServer: isDev ? buildDevServer(options) : undefined,
     };
 }

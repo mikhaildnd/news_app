@@ -1,5 +1,7 @@
-import { StoryFn, StoryContext } from '@storybook/react';
-import { Theme, ThemeProvider } from 'app/providers/ThemeProvider';
+import type { StoryFn, StoryContext } from '@storybook/react';
+// eslint-disable-next-line mikhaildnd/layer-imports
+import { ThemeProvider } from '@/app/providers/ThemeProvider';
+import type { Theme } from '@/shared/const/theme';
 
 export function ThemeDecorator(theme: Theme) {
     function decorator(Story: StoryFn, context: StoryContext) {
@@ -14,15 +16,3 @@ export function ThemeDecorator(theme: Theme) {
 
     return decorator;
 }
-
-// import React from 'react';
-// import { StoryFn } from '@storybook/react';
-// import { Theme, ThemeProvider } from 'app/providers/ThemeProvider';
-//
-// export const ThemeDecorator = (theme: Theme) => (StoryComponent: StoryFn) => (
-//     <ThemeProvider initialTheme={theme}>
-//         <div className={`app ${theme}`}>
-//             <StoryComponent />
-//         </div>
-//     </ThemeProvider>
-// );
