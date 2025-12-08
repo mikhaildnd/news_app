@@ -6,6 +6,7 @@ import { RouterDecorator } from '../../src/shared/config/storybook/RouterDecorat
 import '../../src/app/styles/index.scss';
 import { StoreDecorator } from '../../src/shared/config/storybook/StoreDecorator/StoreDecorator';
 import { Theme } from '../../src/shared/const/theme';
+import { FeatureFlagsDecorator } from '../../src/shared/config/storybook/FeatureFlagsDecorator/FeatureFlagsDecorator';
 
 initialize();
 
@@ -32,6 +33,7 @@ const preview: Preview = {
                 scroll: {},
             },
         }),
+        FeatureFlagsDecorator({}),
     ],
 };
 

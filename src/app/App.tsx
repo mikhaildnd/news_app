@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react';
+import { memo, Suspense, useEffect } from 'react';
 import { Navbar } from '@/widgets/Navbar';
 import { Sidebar } from '@/widgets/Sidebar';
 import { getUserMounted, initAuthData } from '@/entities/User';
@@ -12,8 +12,9 @@ import { ToggleComponentFeatures } from '@/shared/lib/features';
 import { MainLayout } from '@/shared/layouts/MainLayout';
 import { AppLoaderLayout } from '@/shared/layouts/AppLoaderLayout';
 import { useAppToolbar } from './lib/useAppToolbar';
+import { withTheme } from './providers/ThemeProvider/ui/withTheme';
 
-function App() {
+const App = memo(() => {
     const { theme } = useTheme();
     const dispatch = useAppDispatch();
     const isMounted = useSelector(getUserMounted);
@@ -75,6 +76,8 @@ function App() {
             }
         />
     );
-}
+});
 
-export default App;
+App.displayName = 'App';
+
+export default withTheme(App);
