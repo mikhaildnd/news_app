@@ -10,12 +10,12 @@ import {
 import cls from './ListBox.module.scss';
 import popupCls from '../../styles/popup.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { Button } from '../../../Button/Button';
 import { HStack } from '../../../../redesigned/Stack';
 import type { DropdownDirection } from '@/shared/types/ui';
 import { mapDirectionClass } from '../../styles/consts';
 import ArrowIcon from '@/shared/assets/icons/arrow-bottom.svg';
 import { Icon } from '../../../Icon';
+import { Button } from '../../../Button';
 
 export interface ListBoxItem<T extends string> {
     value: string;
@@ -69,15 +69,14 @@ export const ListBox = <T extends string>(props: ListBoxProps<T>) => {
                     className={classNames('', {}, [className, popupCls.popup])}
                     value={value}
                     onChange={handleChange}
-                    disabled={readonly}
                 >
-                    <ListboxButton as={Fragment}>
-                        <Button
-                            variant="filled"
-                            addonRight={<Icon Svg={ArrowIcon} />}
-                        >
-                            {selectedItem?.content ?? defaultValue}
-                        </Button>
+                    <ListboxButton
+                        as={Button}
+                        variant="filled"
+                        disabled={readonly}
+                        addonRight={<Icon Svg={ArrowIcon} />}
+                    >
+                        {selectedItem?.content ?? defaultValue}
                     </ListboxButton>
                     <ListboxOptions
                         className={classNames(cls.options, {}, optionsClasses)}

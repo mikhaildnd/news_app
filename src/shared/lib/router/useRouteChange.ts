@@ -9,7 +9,6 @@ export function useRouteChange() {
     useEffect(() => {
         Object.entries(AppRouteByPathPattern).forEach(([pattern, route]) => {
             if (matchPath(pattern, location.pathname)) {
-                console.log(route);
                 setAppRoute(route);
             }
         });
